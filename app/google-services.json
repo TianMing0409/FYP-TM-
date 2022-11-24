@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "149544792737",
+    "project_id": "mood-monitoring-app-7220b",
+    "storage_bucket": "mood-monitoring-app-7220b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149544792737:android:27126cfc9d4262c70276e0",
+        "android_client_info": {
+          "package_name": "com.example.moodmonitoringapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149544792737-coo1iffuqi6svd2b0i0i7p9sho24m7n2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm1xiurxyIt28NyPR2WvJkYd3UtzHTrgM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149544792737-coo1iffuqi6svd2b0i0i7p9sho24m7n2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

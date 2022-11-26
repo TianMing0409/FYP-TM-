@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.goals.GoalsDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/background"
+            android:layout_width="409dp"
+            android:layout_height="105dp"
+            android:background="#ECECEC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/schedule_title"
+            android:layout_width="111dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Schedule For:"
+            android:textColor="#494949"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/schedule_date"
+            android:layout_width="183dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Date"
+            android:textColor="#000000"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="@+id/schedule_title"
+            app:layout_constraintHorizontal_bias="0.181"
+            app:layout_constraintStart_toStartOf="@+id/schedule_title"
+            app:layout_constraintTop_toBottomOf="@+id/schedule_title" />
+
+        <TextView
+            android:id="@+id/goal"
+            android:layout_width="354dp"
+            android:layout_height="212dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/box"
+            android:gravity="center"
+            android:text="Goals"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleGoal" />
+
+        <TextView
+            android:id="@+id/titleGoal"
+            android:layout_width="64dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Goal"
+            android:textColor="#303030"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/goal"
+            app:layout_constraintStart_toStartOf="@+id/goal"
+            app:layout_constraintTop_toBottomOf="@+id/background" />
+
+        <Button
+            android:id="@+id/completeBtn"
+            android:layout_width="219dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="52dp"
+            android:text="Complete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goal" />
+
+        <Button
+            android:id="@+id/editBtn"
+            android:layout_width="69dp"
+            android:layout_height="43dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="13dp"
+            android:text="Edit"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/goal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/background"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moodmonitoringapp.R
-import com.example.moodmonitoringapp.adapter.RecyclerAdapter
+import com.example.moodmonitoringapp.adapter.GoalRecyclerAdapter
 import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
+import com.example.moodmonitoringapp.fragments.communityPlatform.CommunityFragment
 
 
 class ActiveGoalsFragment : Fragment(R.layout.fragment_active_goals) {
@@ -16,13 +17,14 @@ class ActiveGoalsFragment : Fragment(R.layout.fragment_active_goals) {
     private lateinit var binding : FragmentActiveGoalsBinding
     //private val binding by viewBinding(FragmentActiveGoalsBinding::bind)
 
+    //Testing purpose variables (Need to modify)
     private var titleList = mutableListOf<String>()
     private var dateList = mutableListOf<String>()
     private var imageList = mutableListOf<Int>()
 
 
     companion object {
-        fun newInstance() = ActiveGoalsFragment()
+        fun newInstance() = CommunityFragment()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,8 +40,7 @@ class ActiveGoalsFragment : Fragment(R.layout.fragment_active_goals) {
         postToList()
 
         binding.goalRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.goalRecyclerView.adapter = RecyclerAdapter(titleList,dateList,imageList)
-
+        binding.goalRecyclerView.adapter = GoalRecyclerAdapter(titleList,dateList,imageList)
 
 
 

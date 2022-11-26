@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.fragments.goals.GoalsDetailsFragment
 
-class RecyclerAdapter (private var titles: List<String>, private var scheduleDate: List<String>, private var images:List<Int>) :
-RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+class GoalRecyclerAdapter (private var titles: List<String>, private var scheduleDate: List<String>, private var images:List<Int>) :
+RecyclerView.Adapter<GoalRecyclerAdapter.ViewHolder>(){
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 

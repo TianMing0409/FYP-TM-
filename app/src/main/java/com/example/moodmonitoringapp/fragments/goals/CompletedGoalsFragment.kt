@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moodmonitoringapp.R
-import com.example.moodmonitoringapp.adapter.RecyclerAdapter
+import com.example.moodmonitoringapp.adapter.GoalRecyclerAdapter
 import com.example.moodmonitoringapp.databinding.FragmentCompletedGoalsBinding
 
 class CompletedGoalsFragment : Fragment(R.layout.fragment_completed_goals) {
@@ -44,7 +44,7 @@ class CompletedGoalsFragment : Fragment(R.layout.fragment_completed_goals) {
         postToList()
 
         binding.goalRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.goalRecyclerView.adapter = RecyclerAdapter(titleList,dateList,imageList)
+        binding.goalRecyclerView.adapter = GoalRecyclerAdapter(titleList,dateList,imageList)
 
 
 

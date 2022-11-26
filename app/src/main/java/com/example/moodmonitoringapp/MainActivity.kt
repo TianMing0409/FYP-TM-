@@ -4,19 +4,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.moodmonitoringapp.databinding.ActivityMainBinding
-import com.example.moodmonitoringapp.fragments.*
+import com.example.moodmonitoringapp.fragments.communityPlatform.CommunityFragment
+import com.example.moodmonitoringapp.fragments.goals.ActiveGoalsFragment
+import com.example.moodmonitoringapp.fragments.goals.CompletedGoalsFragment
+import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
+import com.example.moodmonitoringapp.fragments.home.HomeFragment
+import com.example.moodmonitoringapp.fragments.profile.ProfileFragment
+import com.example.moodmonitoringapp.fragments.stats.StatsFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
+
     private val homeFragment = HomeFragment()
     private val statsFragment = StatsFragment()
-    private val goalsFragment = GoalsFragment()
+    private val dashBoardFragment = DashBoardFragment()    //Currently not working, pending future works
+    //private val activeGoalsFragment = ActiveGoalsFragment()         //Testing purpose, need to remove
+    //private val completedGoalsFragment = CompletedGoalsFragment()   //Testing purpose, need to remove
     private val profileFragment = ProfileFragment()
     private val communityFragment = CommunityFragment()
 
@@ -41,7 +49,9 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home -> replaceFragment(homeFragment)
                 R.id.stats ->replaceFragment(statsFragment)
-                R.id.goals -> replaceFragment(goalsFragment)
+                R.id.goals -> replaceFragment(dashBoardFragment)   //Currently not working completely, pending future works (Original needed)
+                //R.id.goals -> replaceFragment(activeGoalsFragment)   //Testing purpose, need to remove
+                //R.id.goals -> replaceFragment(completedGoalsFragment)   //Testing purpose, need to remove
                 R.id.profile -> replaceFragment(profileFragment)
             }
             true

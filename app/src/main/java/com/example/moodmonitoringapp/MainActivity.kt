@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.moodmonitoringapp.databinding.ActivityMainBinding
 import com.example.moodmonitoringapp.fragments.communityPlatform.CommunityFragment
+import com.example.moodmonitoringapp.fragments.communityPlatform.MyActivityFragment
 import com.example.moodmonitoringapp.fragments.goals.ActiveGoalsFragment
 import com.example.moodmonitoringapp.fragments.goals.CompletedGoalsFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val completedGoalsFragment = CompletedGoalsFragment()   //Testing purpose, need to remove
     private val profileFragment = ProfileFragment()
     private val communityFragment = CommunityFragment()
+    private val myActivityFragment = MyActivityFragment()           //Testing purpose, need to remove
 
     // FloatingActionButton for all the FABs
     private lateinit var addFab: FloatingActionButton
@@ -104,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         // The Toast will be shown only when they are visible and only when user clicks on them
         communityFab.setOnClickListener {
             replaceFragment(communityFragment)
+            //replaceFragment(myActivityFragment)    //Testing purpose, need to remove
         }
 
 

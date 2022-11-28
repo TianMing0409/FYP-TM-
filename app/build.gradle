@@ -57,6 +57,7 @@ dependencies {
     //Card view
     implementation("androidx.cardview:cardview:1.0.0")
 
+    //Tablayout design
 
     //Original
     implementation 'androidx.core:core-ktx:1.7.0'

@@ -5,31 +5,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.moodmonitoringapp.fragments.goals.ActiveGoalsFragment
 import com.example.moodmonitoringapp.fragments.goals.CompletedGoalsFragment
 
-
-//class ViewPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-//
-//    var fragmentList : ArrayList<Fragment> = ArrayList()
-//    var fragmentTitle : ArrayList<String> = ArrayList()
-//
-//    override fun getCount(): Int {
-//        return fragmentList.size
-//    }
-//
-//    override fun getItem(position: Int): Fragment {
-//        return fragmentList[position]
-//    }
-//
-//    override fun getPageTitle(position: Int): CharSequence? {
-//        return fragmentTitle[position]
-//    }
-//
-//    fun addFragment(fragment: Fragment, title: String){
-//        fragmentList.add(fragment)
-//        fragmentTitle.add(title)
-//    }
-//
-//}
-
 class DashboardPagerAdapter(
     fragmentActivity: FragmentActivity,
 ) : FragmentStateAdapter(fragmentActivity) {
@@ -37,29 +12,95 @@ class DashboardPagerAdapter(
     override fun getItemCount() = 2
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> ActiveGoalsFragment.newInstance()
-            else -> CompletedGoalsFragment.newInstance()
+        when (position) {
+            0 -> return ActiveGoalsFragment()
+            1 -> return CompletedGoalsFragment()
         }
+        return ActiveGoalsFragment()
     }
 }
 
-
-//    class ViewPagerAdapter(
-//        fragment: Fragment,
-//    ) : FragmentStateAdapter(fragment) {
-//
+//class DashboardPagerAdapter(fm: FragmentManager,lifecycle: Lifecycle) : FragmentStateAdapter(fm,lifecycle) {
 //        override fun getItemCount(): Int {
-//            return 2
-//        }
+//        return 2
+//    }
 //
-//        override fun createFragment(position: Int): Fragment {
-//            var fragment: Fragment? = null
-//            when (position) {
-//                0 -> fragment = GoalsFragment()
-//                1 -> fragment = CompletedGoalsFragment()
-//            }
-//            return fragment as Fragment
+//    override fun createFragment(position: Int): Fragment {
+//        when(position){
+//            0 -> return ActiveGoalsFragment()
+//            1 -> return CompletedGoalsFragment()
+//            else -> return ActiveGoalsFragment()
 //        }
 //    }
+////    override fun getCount(): Int {
+////        return 2
+////    }
+////
+////    override fun getItem(position: Int): Fragment {
+////        when(position){
+////            0 -> return ActiveGoalsFragment()
+////            1 -> return CompletedGoalsFragment()
+////            else -> return ActiveGoalsFragment()
+////        }
+////    }
+//
+//
+//}
+
+//class DashboardPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+////        override fun getItemCount(): Int {
+////        return 2
+////    }
+////
+////    override fun createFragment(position: Int): Fragment {
+////        when(position){
+////            0 -> return ActiveGoalsFragment()
+////            1 -> return CompletedGoalsFragment()
+////            else -> return ActiveGoalsFragment()
+////        }
+////    }
+//
+//    override fun getCount(): Int {
+//        return 2
+//    }
+//
+//    override fun getItem(position: Int): Fragment {
+//        when(position){
+//            0 -> return ActiveGoalsFragment()
+//            1 -> return CompletedGoalsFragment()
+//            else -> return ActiveGoalsFragment()
+//        }
+//    }
+////    override fun getCount(): Int {
+////        return 2
+////    }
+////
+////    override fun getItem(position: Int): Fragment {
+////        when(position){
+////            0 -> return ActiveGoalsFragment()
+////            1 -> return CompletedGoalsFragment()
+////            else -> return ActiveGoalsFragment()
+////        }
+////    }
+//
+//
+//}
+
+
+//Working pure dashboard without content (active,completed),
+//class DashboardPagerAdapter(
+//    fragmentActivity: FragmentActivity,
+//) : FragmentStateAdapter(fragmentActivity) {
+//
+//    override fun getItemCount() = 2
+//
+//    override fun createFragment(position: Int): Fragment {
+//        return when (position) {
+//            0 -> ActiveGoalsFragment.newInstance()
+//            else -> CompletedGoalsFragment.newInstance()
+//        }
+//    }
+//}
+
+
 

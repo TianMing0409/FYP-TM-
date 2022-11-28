@@ -8,21 +8,21 @@
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="10dp">
-    
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="376dp"
+            android:layout_height="118dp">
 
             <TextView
                 android:id="@+id/boxBackground"
-                android:layout_width="371dp"
-                android:layout_height="111dp"
+                android:layout_width="361dp"
+                android:layout_height="106dp"
                 android:background="@drawable/box"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

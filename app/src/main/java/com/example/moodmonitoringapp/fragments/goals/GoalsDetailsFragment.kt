@@ -15,6 +15,7 @@ import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
 import com.example.moodmonitoringapp.databinding.FragmentGoalsDetailsBinding
 import com.example.moodmonitoringapp.fragments.goals.dashboard.Communicator
+import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -100,7 +101,7 @@ class GoalsDetailsFragment : Fragment() {
         db.child("Active").child(userUId)
             .child(goalID).removeValue()
 
-        replaceFragment(ActiveGoalsFragment())     // Need to change replace dashboard fragment
+        replaceFragment(DashBoardFragment())     // Need to change replace dashboard fragment
     }
 
     private fun uploadGoal(goalID : String ,goalName : String ,goalStatus : String, goalTargetDate : String) {

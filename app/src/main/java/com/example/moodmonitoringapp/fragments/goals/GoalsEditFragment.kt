@@ -12,6 +12,7 @@ import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.databinding.FragmentGoalsDetailsBinding
 import com.example.moodmonitoringapp.databinding.FragmentGoalsEditBinding
+import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -101,7 +102,7 @@ class GoalsEditFragment : Fragment() {
                 binding.inputNewDate.text.clear()
                 Toast.makeText(context, "Edit Successfully!", Toast.LENGTH_SHORT).show()
 
-                replaceFragment(ActiveGoalsFragment())   // Need to change replace dashboard fragment
+                replaceFragment(DashBoardFragment())   // Need to change replace dashboard fragment
 
             }.addOnFailureListener{
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
@@ -115,7 +116,7 @@ class GoalsEditFragment : Fragment() {
 
         Toast.makeText(context, "Delete Successfully!", Toast.LENGTH_SHORT).show()
 
-        replaceFragment(ActiveGoalsFragment())     // Need to change replace dashboard fragment
+        replaceFragment(DashBoardFragment())     // Need to change replace dashboard fragment
     }
 
     private fun replaceFragment(fragment: Fragment){

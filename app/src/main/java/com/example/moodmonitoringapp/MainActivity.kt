@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home -> replaceFragment(homeFragment)
                 R.id.stats ->replaceFragment(statsFragment)
-                //R.id.goals -> replaceFragment(dashBoardFragment)   //Currently not working completely, pending future works
-                R.id.goals -> replaceFragment(activeGoalsFragment)   //Testing purpose, need to remove
+                R.id.goals -> replaceFragment(dashBoardFragment)   //Currently not working completely, pending future works
+                //R.id.goals -> replaceFragment(activeGoalsFragment)   //Testing purpose, need to remove
                 //R.id.goals -> replaceFragment(completedGoalsFragment)   //Testing purpose, need to remove
                 R.id.profile -> replaceFragment(profileFragment)
             }

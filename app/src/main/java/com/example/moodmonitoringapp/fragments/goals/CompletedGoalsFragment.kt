@@ -105,10 +105,12 @@ class CompletedGoalsFragment : Fragment(R.layout.fragment_completed_goals), Comm
 
     }
 
-    override fun passData(position: Int, goal_title: String, goal_target_date: String) {
+    override fun passData(position: Int, goalID : String, goal_title: String, goal_status: String, goal_target_date: String) {
         val bundle = Bundle()
         bundle.putInt("input_pos", position)
+        bundle.putString("input_goal_id",goalID)
         bundle.putString("input_goal_title", goal_title)
+        bundle.putString("input_goal_status",goal_status)
         bundle.putString("input_goal_target_date", goal_target_date)
 
         val transaction = this.parentFragmentManager.beginTransaction()

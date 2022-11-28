@@ -41,10 +41,12 @@ class GoalRecyclerAdapter(private val goals: ArrayList<Goals>, private val liste
 
         override fun onClick(v: View?) {
             val position = adapterPosition
+            val itemId = goals[adapterPosition].goalID
             val itemTitle = goals[adapterPosition].goalName
+            val itemStatus = goals[absoluteAdapterPosition].goalStatus
             val itemDate = goals[adapterPosition].goalTargetDate
             if(position!= RecyclerView.NO_POSITION){
-                listener.passData(position,itemTitle,itemDate)
+                listener.passData(position,itemId,itemTitle,itemStatus,itemDate)
             }
         }
 

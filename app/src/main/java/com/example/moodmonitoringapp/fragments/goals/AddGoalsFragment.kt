@@ -12,6 +12,7 @@ import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
 import com.example.moodmonitoringapp.databinding.FragmentAddGoalsBinding
+import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -73,7 +74,7 @@ class AddGoalsFragment : Fragment() {
             uploadGoal(goalName,goalTargetDate)
             Toast.makeText(context, "Submit Successfully!", Toast.LENGTH_SHORT).show()
 
-            replaceFragment(ActiveGoalsFragment())   // Need to change replace dashboard fragment
+            replaceFragment(DashBoardFragment())   // Need to change replace dashboard fragment
         }
     }
 

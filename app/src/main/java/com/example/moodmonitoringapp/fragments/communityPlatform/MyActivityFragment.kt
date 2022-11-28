@@ -6,22 +6,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
+import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCreatePostBinding
 import com.example.moodmonitoringapp.databinding.FragmentMyActivityBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import java.util.ArrayList
 
 class MyActivityFragment : Fragment() {
 
     private lateinit var binding : FragmentMyActivityBinding
 
+    private lateinit var db : DatabaseReference
+    private lateinit var userRecyclerView : RecyclerView
+    private lateinit var userArrayList : ArrayList<Posts>
+    private lateinit var auth : FirebaseAuth
+    private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
+    var tempUId = ""
+
     //Testing purpose variables (Need to modify)
-    private var usernameList = mutableListOf<String>()
-    private var postDateList = mutableListOf<String>()
-    private var postDetailsList = mutableListOf<String>()
-    private var likeCountList = mutableListOf<String>()
-    private var commentCountList = mutableListOf<String>()
-    private var profileImageList = mutableListOf<Int>()
+//    private var usernameList = mutableListOf<String>()
+//    private var postDateList = mutableListOf<String>()
+//    private var postDetailsList = mutableListOf<String>()
+//    private var likeCountList = mutableListOf<String>()
+//    private var commentCountList = mutableListOf<String>()
+//    private var profileImageList = mutableListOf<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,33 +42,68 @@ class MyActivityFragment : Fragment() {
 
         binding = FragmentMyActivityBinding.inflate(inflater,container,false)
 
-        postToList()
+        auth = FirebaseAuth.getInstance()
+        tempUId = auth.uid.toString()
+        //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
+        db = FirebaseDatabase.getInstance().getReference("Posts")
+
+        userRecyclerView = binding.myPostRecyclerView
+        userRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        userArrayList = arrayListOf<Posts>()
+
+        myPostsData()
+
+//        postToList()
 
 
-        binding.myPostRecyclerView.layoutManager = LinearLayoutManager(context)
-        binding.myPostRecyclerView.adapter = PostRecyclerAdapter(usernameList, postDateList, postDetailsList, likeCountList,
-            commentCountList, profileImageList)
+//        binding.myPostRecyclerView.layoutManager = LinearLayoutManager(context)
+//        binding.myPostRecyclerView.adapter = PostRecyclerAdapter(usernameList, postDateList, postDetailsList, likeCountList,
+//            commentCountList, profileImageList)
 
 
         return binding.root
     }
 
-    //Dummy function to test data
-    private fun addToList(username:String, postDate: String, postDetails:String,likeCount:String,commentCount:String,profileImage: Int){
-        usernameList.add(username)
-        postDateList.add(postDate)
-        postDetailsList.add(postDetails)
-        likeCountList.add(likeCount)
-        commentCountList.add(commentCount)
-        profileImageList.add(profileImage)
+    private fun myPostsData(){
+
+        val getData = db                     //Here has problem, need to retrieve specific post
+
+        getData.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if(snapshot.exists()){
+                    for(postSnapshot in snapshot.children){
+                        val posts = postSnapshot.getValue(Posts::class.java)
+                        userArrayList.add(posts!!)
+                    }
+                    userRecyclerView.adapter = PostRecyclerAdapter(userArrayList)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
-    //Dummy function to test data
-    private fun postToList(){
-        for(i in 1..15){
-            addToList("Username $i","Date $i","Post Details $i","Like Count $i",
-                "Comment Count $i", R.drawable.profile_icon)
-        }
-    }
+//    //Dummy function to test data
+//    private fun addToList(username:String, postDate: String, postDetails:String,likeCount:String,commentCount:String,profileImage: Int){
+//        usernameList.add(username)
+//        postDateList.add(postDate)
+//        postDetailsList.add(postDetails)
+//        likeCountList.add(likeCount)
+//        commentCountList.add(commentCount)
+//        profileImageList.add(profileImage)
+//    }
+//
+//    //Dummy function to test data
+//    private fun postToList(){
+//        for(i in 1..15){
+//            addToList("Username $i","Date $i","Post Details $i","Like Count $i",
+//                "Comment Count $i", R.drawable.profile_icon)
+//        }
+//    }
 
 }

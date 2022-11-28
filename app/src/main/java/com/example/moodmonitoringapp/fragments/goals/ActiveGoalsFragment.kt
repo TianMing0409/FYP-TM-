@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.adapter.GoalRecyclerAdapter
 import com.example.moodmonitoringapp.data.Goals
+import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
 import com.example.moodmonitoringapp.fragments.communityPlatform.CommunityFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.Communicator
@@ -32,9 +33,9 @@ class ActiveGoalsFragment : Fragment(R.layout.fragment_active_goals), Communicat
     //private val binding by viewBinding(FragmentActiveGoalsBinding::bind)
 
     //Testing purpose variables (Need to modify)
-    private var titleList = mutableListOf<String>()
-    private var dateList = mutableListOf<String>()
-    private var imageList = mutableListOf<Int>()
+//    private var titleList = mutableListOf<String>()
+//    private var dateList = mutableListOf<String>()
+//    private var imageList = mutableListOf<Int>()
 
 
     companion object {

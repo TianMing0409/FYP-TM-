@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.databinding.FragmentDashboardBinding
@@ -62,9 +61,9 @@ class DashBoardFragment : Fragment(R.layout.fragment_dashboard) {
     return view
     }
 
-    private class TabConfiguration: TabLayoutMediator.TabConfigurationStrategy {
+    class TabConfiguration: TabLayoutMediator.TabConfigurationStrategy {
         override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
-            val tabNames = listOf("Active", "Completed")
+            val tabNames = listOf("Community", "My Activity")
             tab.setText(tabNames[position])
         }
     }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.moodmonitoringapp.databinding.ActivityMainBinding
 import com.example.moodmonitoringapp.fragments.communityPlatform.CommunityFragment
 import com.example.moodmonitoringapp.fragments.communityPlatform.MyActivityFragment
+import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.CommunityDashboardFragment
 import com.example.moodmonitoringapp.fragments.goals.ActiveGoalsFragment
 import com.example.moodmonitoringapp.fragments.goals.CompletedGoalsFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
@@ -27,7 +28,8 @@ class MainActivity : AppCompatActivity() {
     private val activeGoalsFragment = ActiveGoalsFragment()         //Testing purpose, need to remove
     private val completedGoalsFragment = CompletedGoalsFragment()   //Testing purpose, need to remove
     private val profileFragment = ProfileFragment()
-    private val communityFragment = CommunityFragment()
+    //private val communityFragment = CommunityFragment()              //Testing purpose,need to remove
+    private val communityDashboardFragment = CommunityDashboardFragment()
     private val myActivityFragment = MyActivityFragment()           //Testing purpose, need to remove
 
     // FloatingActionButton for all the FABs
@@ -105,8 +107,9 @@ class MainActivity : AppCompatActivity() {
         // below is the sample action to handle add person FAB. Here it shows simple Toast msg.
         // The Toast will be shown only when they are visible and only when user clicks on them
         communityFab.setOnClickListener {
-            replaceFragment(communityFragment)
+            //replaceFragment(communityFragment)     //Testing purpose, need to remove
             //replaceFragment(myActivityFragment)    //Testing purpose, need to remove
+            replaceFragment(communityDashboardFragment)
         }
 
 

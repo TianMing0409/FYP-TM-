@@ -5,6 +5,6 @@ data class Posts(
     var postUsername:String="",
     var postDate:String ="",
     var postDetails:String="",
-    var likeCount: String="",
-    var commentCount: String=""
+    var likeCount: Int=0,
+    var commentCount: Int=0
 )

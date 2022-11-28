@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/goal_image"
+                android:id="@+id/goal_image_CG"
                 android:layout_width="48dp"
                 android:layout_height="75dp"
                 android:layout_marginTop="16dp"
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Target:"
+                android:text="Target Date:"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/goal_title"
@@ -55,13 +55,14 @@
 
 
             <TextView
-                android:id="@+id/shcedule_date"
+                android:id="@+id/target_date"
                 android:layout_width="146dp"
                 android:layout_height="27dp"
                 android:layout_marginStart="12dp"
                 android:text="Schedule_date"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/shcedule_date_title"
                 app:layout_constraintStart_toEndOf="@+id/shcedule_date_title"
                 app:layout_constraintTop_toTopOf="@+id/shcedule_date_title"
@@ -73,9 +74,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
-                android:text="Goals Tilte"
+                android:text="Active Goals Tilte"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "664999455027",
+    "firebase_url": "https://mood-monitoring-app-2da85-default-rtdb.firebaseio.com",
     "project_id": "mood-monitoring-app-2da85",
     "storage_bucket": "mood-monitoring-app-2da85.appspot.com"
   },

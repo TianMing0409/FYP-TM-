@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/activeGoalsFragment">
+
+    <fragment
+        android:id="@+id/activeGoalsFragment"
+        android:name="com.example.moodmonitoringapp.fragments.goals.ActiveGoalsFragment"
+        android:label="fragment_active_goals"
+        tools:layout="@layout/fragment_active_goals" >
+        <action
+            android:id="@+id/action_activeGoalsFragment_to_goalsDetailsFragment2"
+            app:destination="@id/goalsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalsDetailsFragment"
+        android:name="com.example.moodmonitoringapp.fragments.goals.GoalsDetailsFragment"
+        android:label="fragment_goals_details"
+        tools:layout="@layout/fragment_goals_details" >
+        <argument
+            android:name="goal_title"
+            app:argType="string" />
+        <argument
+            android:name="goal_target_date"
+            app:argType="string" />
+    </fragment>
+</navigation>

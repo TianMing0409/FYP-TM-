@@ -79,7 +79,6 @@ class GoalsEditFragment : Fragment() {
         goalStatus = inputGoalStatus
         goalTargetDate = binding.inputNewDate.text.toString().trim()
 
-
         if(goalName.isEmpty()){
             Toast.makeText(context, "Enter goal...", Toast.LENGTH_SHORT).show()
         }

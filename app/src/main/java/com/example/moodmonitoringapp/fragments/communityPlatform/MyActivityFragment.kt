@@ -12,11 +12,12 @@ import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCreatePostBinding
 import com.example.moodmonitoringapp.databinding.FragmentMyActivityBinding
+import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.PassCommData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.util.ArrayList
 
-class MyActivityFragment : Fragment() {
+class MyActivityFragment : Fragment(), PassCommData {
 
     private lateinit var binding : FragmentMyActivityBinding
 
@@ -77,7 +78,7 @@ class MyActivityFragment : Fragment() {
                         val posts = postSnapshot.getValue(Posts::class.java)
                         userArrayList.add(posts!!)
                     }
-                    userRecyclerView.adapter = PostRecyclerAdapter(userArrayList)
+                    userRecyclerView.adapter = PostRecyclerAdapter(userArrayList,this@MyActivityFragment)
                 }
             }
 
@@ -86,6 +87,20 @@ class MyActivityFragment : Fragment() {
             }
 
         })
+    }
+
+    override fun passCommData(position: Int, postID: String, postUsername: String, postDate: String, postDetails: String,
+                              likeCount: Int, commentCount: Int)
+    {
+        val bundle = Bundle()
+        bundle.putInt("input_pos", position)
+        bundle.putString("input_post_id",postID)
+        bundle.putString("input_post_username", postUsername)
+        bundle.putString("input_post_date",postDate)
+        bundle.putString("input_post_details", postDetails)
+        bundle.putInt("input_like_count",likeCount)
+        bundle.putInt("input_comment_count",commentCount)
+
     }
 
 //    //Dummy function to test data

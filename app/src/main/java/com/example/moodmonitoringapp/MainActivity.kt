@@ -14,6 +14,7 @@ import com.example.moodmonitoringapp.fragments.goals.CompletedGoalsFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
 import com.example.moodmonitoringapp.fragments.home.HomeFragment
 import com.example.moodmonitoringapp.fragments.profile.ProfileFragment
+import com.example.moodmonitoringapp.fragments.recommendation.RecommendationFragment
 import com.example.moodmonitoringapp.fragments.stats.StatsFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -28,9 +29,10 @@ class MainActivity : AppCompatActivity() {
     private val activeGoalsFragment = ActiveGoalsFragment()         //Testing purpose, need to remove
     private val completedGoalsFragment = CompletedGoalsFragment()   //Testing purpose, need to remove
     private val profileFragment = ProfileFragment()
-    //private val communityFragment = CommunityFragment()              //Testing purpose,need to remove
+    private val communityFragment = CommunityFragment()              //Testing purpose,need to remove
     private val communityDashboardFragment = CommunityDashboardFragment()
     private val myActivityFragment = MyActivityFragment()           //Testing purpose, need to remove
+    private val recommendationFragment = RecommendationFragment()    //Testing purpose, need to remove
 
     // FloatingActionButton for all the FABs
     private lateinit var addFab: FloatingActionButton
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener{
             when(it.itemId){
                 R.id.home -> replaceFragment(homeFragment)
+                //R.id.home -> replaceFragment(recommendationFragment)        //Testing purpose
                 R.id.stats ->replaceFragment(statsFragment)
                 R.id.goals -> replaceFragment(dashBoardFragment)   //Currently not working completely, pending future works
                 //R.id.goals -> replaceFragment(activeGoalsFragment)   //Testing purpose, need to remove
@@ -120,6 +123,7 @@ class MainActivity : AppCompatActivity() {
 
             val fragmentTransaction  = supportFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_container,fragment)
+            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
     }

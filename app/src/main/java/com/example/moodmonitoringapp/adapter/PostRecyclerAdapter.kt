@@ -1,9 +1,11 @@
 package com.example.moodmonitoringapp.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
@@ -15,23 +17,26 @@ import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.fragments.communityPlatform.CommunityFragment
+import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.PassCommData
 import com.example.moodmonitoringapp.fragments.goals.GoalsDetailsFragment
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.example.moodmonitoringapp.fragments.goals.dashboard.Communicator
+import com.google.firebase.database.*
 import org.w3c.dom.Text
 
-class PostRecyclerAdapter (private val posts: ArrayList<Posts>) :
+class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val listener: PassCommData) :
     RecyclerView.Adapter<PostRecyclerAdapter.ViewHolder>(){
 
-    private lateinit var db : DatabaseReference
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) , View.OnClickListener{
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        var like: Int = 0
 
         val username: TextView = itemView.findViewById(R.id.userName)
         val postDate : TextView = itemView.findViewById(R.id.postDate)
         val postDetails : TextView = itemView.findViewById(R.id.postDetails)
         val likeCount: TextView = itemView.findViewById(R.id.loveCount)
+        val likeIcon : ImageView = itemView.findViewById(R.id.loveIcon)
         val commentCount : TextView = itemView.findViewById(R.id.commentCount)
+        val commentIcon : ImageView = itemView.findViewById(R.id.commentIcon)
         private val dotSetting : ImageView = itemView.findViewById(R.id.dotSetting)
 
         init {
@@ -46,10 +51,36 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>) :
                 popupMenus(it)
             }
 
-        }
-        private fun popupMenus(v:View){
+            likeIcon.setOnClickListener(){
+                //Fact function
+                like++
+                likeCount.text = like.toString()
 
-            db = FirebaseDatabase.getInstance().getReference("Posts")
+                Toast.makeText(itemView.context, "Liked", Toast.LENGTH_SHORT).show()
+            }
+
+            commentIcon.setOnClickListener(){
+
+                //Fact function
+                Toast.makeText(itemView.context, "Commented", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            val itemId = posts[adapterPosition].postID
+            val itemtUsername = posts[adapterPosition].postUsername
+            val itemDate = posts[adapterPosition].postDate
+            val itemDetails = posts[adapterPosition].postDetails
+            val itemLikeCount = posts[adapterPosition].likeCount
+            val itemCommentCount = posts[adapterPosition].commentCount
+            if(position!= RecyclerView.NO_POSITION){
+                listener.passCommData(position,itemId,itemtUsername,itemDate,itemDetails,itemLikeCount,itemCommentCount)
+            }
+        }
+
+        private fun popupMenus(v:View){
 
             val popupMenus = PopupMenu(itemView.context,v)
             popupMenus.inflate(R.menu.post_menu)
@@ -60,6 +91,23 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>) :
                         true
                     }
                     R.id.deletePost ->{
+//                        db.addValueEventListener(object : ValueEventListener {
+//                            override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                                if(snapshot.exists()){
+//                                    for(postSnapshot in snapshot.children){
+//                                        val postId = postSnapshot.child("postID").value
+//                                        deletePost(postId.toString())
+//                                    }
+//
+//                                }
+//                            }
+//
+//                            override fun onCancelled(error: DatabaseError) {
+//
+//                            }
+//
+//                        })
                         //deletePost(postID)
                         Toast.makeText(itemView.context,"Delete Post",Toast.LENGTH_SHORT).show()
                         true
@@ -96,12 +144,12 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>) :
         return posts.size
     }
 
-//    private fun deletePost(postID: String) {
-//
+    private fun deletePost(postID: String) {
+
 //        db.child(postID).removeValue()
-//
-//        //replaceFragment(CommunityFragment())     // Need to change replace dashboard fragment
-//    }
+
+        //replaceFragment(CommunityFragment())     // Need to change replace dashboard fragment
+    }
 
 //    private fun replaceFragment(fragment: Fragment){
 //        if(fragment!=null ){

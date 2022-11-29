@@ -13,6 +13,7 @@ import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCommunityBinding
 import com.example.moodmonitoringapp.databinding.FragmentCreatePostBinding
+import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.CommunityDashboardFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -71,7 +72,7 @@ class CreatePostFragment : Fragment() {
             uploadPost(postDetails,username)
             Toast.makeText(context, "Share Successfully!", Toast.LENGTH_SHORT).show()
 
-            replaceFragment(CommunityFragment())   // Need to change replace community dashboard fragment
+            replaceFragment(CommunityDashboardFragment())   // Need to change replace community dashboard fragment
         }
     }
     private fun uploadPost(postDetails : String,username : String) {

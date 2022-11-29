@@ -16,14 +16,17 @@ import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCommunityBinding
+import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.CommunityDashboardPagerAdapter
+import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.PassCommData
 import com.example.moodmonitoringapp.fragments.goals.ActiveGoalsFragment
 import com.example.moodmonitoringapp.fragments.goals.GoalsDetailsFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.util.ArrayList
 
-class CommunityFragment : Fragment(R.layout.fragment_community) {
+class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
 
     private lateinit var binding : FragmentCommunityBinding
 
@@ -92,7 +95,7 @@ class CommunityFragment : Fragment(R.layout.fragment_community) {
                         val posts = postSnapshot.getValue(Posts::class.java)
                         userArrayList.add(posts!!)
                     }
-                    userRecyclerView.adapter = PostRecyclerAdapter(userArrayList)
+                    userRecyclerView.adapter = PostRecyclerAdapter(userArrayList,this@CommunityFragment)
                 }
             }
 
@@ -103,32 +106,19 @@ class CommunityFragment : Fragment(R.layout.fragment_community) {
         })
     }
 
-//    private fun deletePost(postID: String) {
-//
-//        db.child(postID).removeValue()
-//
-//        Toast.makeText(context, "Delete Successfully!", Toast.LENGTH_SHORT).show()
-//
-//        replaceFragment(CommunityFragment())     // Need to change replace dashboard fragment
-//    }
+    override fun passCommData(position: Int, postID: String, postUsername: String, postDate: String, postDetails: String,
+        likeCount: Int, commentCount: Int)
+    {
+        val bundle = Bundle()
+        bundle.putInt("input_pos", position)
+        bundle.putString("input_post_id",postID)
+        bundle.putString("input_post_username", postUsername)
+        bundle.putString("input_post_date",postDate)
+        bundle.putString("input_post_details", postDetails)
+        bundle.putInt("input_like_count",likeCount)
+        bundle.putInt("input_comment_count",commentCount)
 
-//    //Dummy function to test data
-//    private fun addToList(username:String, postDate: String, postDetails:String,likeCount:String,commentCount:String,profileImage: Int){
-//        usernameList.add(username)
-//        postDateList.add(postDate)
-//        postDetailsList.add(postDetails)
-//        likeCountList.add(likeCount)
-//        commentCountList.add(commentCount)
-//        profileImageList.add(profileImage)
-//    }
-//
-//    //Dummy function to test data
-//    private fun postToList(){
-//        for(i in 1..15){
-//            addToList("Username $i","Date $i","Post Details $i","Like Count $i",
-//                "Comment Count $i", R.drawable.profile_icon)
-//        }
-//    }
+    }
 
 
 

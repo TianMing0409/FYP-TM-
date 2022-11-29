@@ -109,19 +109,4 @@ class ActiveGoalsFragment : Fragment(R.layout.fragment_active_goals), Communicat
         transaction.commit()
     }
 
-
-//    //Dummy function to test data
-//    private fun addToList(title:String, date: String,image: Int){
-//        titleList.add(title)
-//        dateList.add(date)
-//        imageList.add(image)
-//    }
-//
-//    //Dummy function to test data
-//    private fun postToList(){
-//        for(i in 1..25){
-//            addToList("Active Goal Title $i","Date $i",R.drawable.keyboard_arrow_right_icon)
-//        }
-//    }
-
 }

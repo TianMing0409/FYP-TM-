@@ -13,7 +13,8 @@ import com.example.moodmonitoringapp.fragments.goals.GoalsDetailsFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.Communicator
 import com.google.firebase.database.ValueEventListener
 
-class GoalRecyclerAdapter(private val goals: ArrayList<Goals>, private val listener: Communicator) : RecyclerView.Adapter<GoalRecyclerAdapter.ViewHolder>() {
+class GoalRecyclerAdapter(private val goals: ArrayList<Goals>, private val listener: Communicator) :
+    RecyclerView.Adapter<GoalRecyclerAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) , View.OnClickListener{

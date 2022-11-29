@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.text.set
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
@@ -28,6 +29,8 @@ class AddGoalsFragment : Fragment() {
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
 
+    var recomm: String = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +38,17 @@ class AddGoalsFragment : Fragment() {
 
         //val view =inflater.inflate(R.layout.fragment_add_goals,container,false)
         binding = FragmentAddGoalsBinding.inflate(inflater,container,false)
+
+        binding.inputGoal.setText("")   //Original empty goal
+
+        //Fetch data from recommendation
+        recomm = arguments?.getString("recomm_goal").toString()
+        binding.inputGoal.setText(recomm).toString().trim()
+
+        if(recomm == "null"){
+            binding.inputGoal.setText("")
+        }
+
 
         val btnSubmit: Button = binding.submitBtn
 
@@ -99,6 +113,7 @@ class AddGoalsFragment : Fragment() {
 
             val fragmentTransaction  = this.parentFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_container,fragment)
+            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
     }

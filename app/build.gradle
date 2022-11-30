@@ -60,6 +60,7 @@ dependencies {
     //Graph
     //implementation 'com.jjoe64:graphview:4.2.2'
     //implementation 'com.androidplot:androidplot-core:1.5.7'
+    //implementation 'com.github.philJay:MPAndroidChart:v3.1.0'
 
     //Original
     implementation 'androidx.core:core-ktx:1.7.0'

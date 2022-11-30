@@ -28,7 +28,7 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) , View.OnClickListener{
 
-        var like: Int = 0
+        var like: Int = 0    //Initial value, not sure need or not after connect to database
 
         val username: TextView = itemView.findViewById(R.id.userName)
         val postDate : TextView = itemView.findViewById(R.id.postDate)
@@ -144,12 +144,12 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         return posts.size
     }
 
-    private fun deletePost(postID: String) {
-
-//        db.child(postID).removeValue()
-
-        //replaceFragment(CommunityFragment())     // Need to change replace dashboard fragment
-    }
+//    private fun deletePost(postID: String) {
+//
+////        db.child(postID).removeValue()
+//
+//        //replaceFragment(CommunityFragment())     // Need to change replace dashboard fragment
+//    }
 
 //    private fun replaceFragment(fragment: Fragment){
 //        if(fragment!=null ){

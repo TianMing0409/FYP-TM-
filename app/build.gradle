@@ -62,6 +62,9 @@ dependencies {
     //implementation 'com.androidplot:androidplot-core:1.5.7'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 
+    //Animation
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
     //Original
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

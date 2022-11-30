@@ -118,6 +118,14 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
         bundle.putInt("input_like_count",likeCount)
         bundle.putInt("input_comment_count",commentCount)
 
+        val transaction = this.parentFragmentManager.beginTransaction()
+        val commentFragment =CommentFragment()
+        commentFragment.arguments = bundle
+
+        transaction.replace(R.id.fragment_container, commentFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+
     }
 
 

@@ -56,14 +56,14 @@ class DashBoardFragment : Fragment(R.layout.fragment_dashboard) {
         viewPager.adapter = adapter
 
         val tabs : TabLayout = view.findViewById(R.id.tabLayout)
-        TabLayoutMediator(tabs,viewPager,TabConfiguration()).attach()
+        TabLayoutMediator(tabs,viewPager,TabConfigurationGoal()).attach()
 
     return view
     }
 
-    class TabConfiguration: TabLayoutMediator.TabConfigurationStrategy {
+    class TabConfigurationGoal: TabLayoutMediator.TabConfigurationStrategy {
         override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
-            val tabNames = listOf("Community", "My Activity")
+            val tabNames = listOf("Active", "Completed")
             tab.setText(tabNames[position])
         }
     }

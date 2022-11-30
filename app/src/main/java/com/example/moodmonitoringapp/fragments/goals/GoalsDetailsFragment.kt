@@ -16,6 +16,7 @@ import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
 import com.example.moodmonitoringapp.databinding.FragmentGoalsDetailsBinding
 import com.example.moodmonitoringapp.fragments.goals.dashboard.Communicator
 import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
+import com.example.moodmonitoringapp.fragments.recommendation.RecommendationFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -70,7 +71,11 @@ class GoalsDetailsFragment : Fragment() {
             uploadGoal(inputGoalId,inputGoalTitle,inputGoalStatus,inputGoalTargetDate)
             deleteGoal(inputGoalId,inputGoalTitle,inputGoalStatus,inputGoalTargetDate)
 
-            Toast.makeText(context, "Congratulations!", Toast.LENGTH_SHORT).show()
+            val congratDialog = CongratulationFragment()
+
+            congratDialog.show((activity as AppCompatActivity).supportFragmentManager, "showCongratPopUp")
+
+            //Toast.makeText(context, "Congratulations!", Toast.LENGTH_SHORT).show()
         }
 
         btnEdit.setOnClickListener(){ v:View ->
@@ -123,6 +128,7 @@ class GoalsDetailsFragment : Fragment() {
 
             val fragmentTransaction  = this.parentFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_container,fragment)
+            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
     }

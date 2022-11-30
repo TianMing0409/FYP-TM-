@@ -16,6 +16,7 @@ import com.example.moodmonitoringapp.data.Moods
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
 import com.example.moodmonitoringapp.databinding.FragmentStatsBinding
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.auth.FirebaseAuth
@@ -62,6 +63,12 @@ class StatsFragment : Fragment() {
 
         getPostsData()
 
+        setBarChartValues()
+
+        binding.chgGraphBtn.setOnClickListener(){
+            setLineChartValues()
+        }
+
 //        val domainLabels = arrayOf<Number>(1,2,3,6,7,8,9,10,13,14)
 //        val series1Number = arrayOf<Number>(1,4,8,12,16,32,26,29,10,13)
 //
@@ -99,7 +106,6 @@ class StatsFragment : Fragment() {
 //        barDataSet.valueTextColor = Color.BLACK
 //        barDataSet.valueTextSize = 15f
 
-        setBarChartValues()
 
 
 
@@ -163,8 +169,9 @@ class StatsFragment : Fragment() {
         binding.moodBarChart.data = data
         binding.moodBarChart.setBackgroundColor(resources.getColor(R.color.white))
 
+    }
 
-
+    fun setLineChartValues(){
 
 
     }

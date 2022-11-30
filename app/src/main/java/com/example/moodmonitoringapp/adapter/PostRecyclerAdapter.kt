@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Posts
+import com.example.moodmonitoringapp.fragments.communityPlatform.CommentFragment
 import com.example.moodmonitoringapp.fragments.communityPlatform.CommunityFragment
+import com.example.moodmonitoringapp.fragments.communityPlatform.CreatePostFragment
 import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.PassCommData
 import com.example.moodmonitoringapp.fragments.goals.GoalsDetailsFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.Communicator
@@ -59,10 +61,13 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
                 Toast.makeText(itemView.context, "Liked", Toast.LENGTH_SHORT).show()
             }
 
-            commentIcon.setOnClickListener(){
+            commentIcon.setOnClickListener(){v:View ->
+                val activity=v!!.context as AppCompatActivity
+                val fragmentComment = CommentFragment()
 
+                activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragmentComment ).addToBackStack(null).commit()
                 //Fact function
-                Toast.makeText(itemView.context, "Commented", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(itemView.context, "Commented", Toast.LENGTH_SHORT).show()
             }
 
         }

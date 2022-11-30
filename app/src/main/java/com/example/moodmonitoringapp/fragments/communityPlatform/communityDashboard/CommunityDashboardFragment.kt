@@ -26,9 +26,16 @@ class CommunityDashboardFragment : Fragment() {
         viewPager.adapter = adapter
 
         val tabs : TabLayout = view.findViewById(R.id.tabLayoutComm)
-        TabLayoutMediator(tabs,viewPager, DashBoardFragment.TabConfiguration()).attach()
+        TabLayoutMediator(tabs,viewPager, CommunityDashboardFragment.TabConfigurationComm()).attach()
 
         return view
+    }
+
+    class TabConfigurationComm: TabLayoutMediator.TabConfigurationStrategy {
+        override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+            val tabNames = listOf("Community", "My Activity")
+            tab.setText(tabNames[position])
+        }
     }
 
 }

@@ -16,12 +16,15 @@ import com.example.moodmonitoringapp.data.Moods
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
 import com.example.moodmonitoringapp.databinding.FragmentStatsBinding
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
 import java.util.*
+import kotlin.collections.ArrayList
 
 class StatsFragment : Fragment() {
 
@@ -34,6 +37,10 @@ class StatsFragment : Fragment() {
     var tempUId = ""
 
     //lateinit var lineGraphView: GraphView
+//    lateinit var barList : ArrayList<BarEntry>
+//
+//    lateinit var barDataSet : BarDataSet
+//    lateinit var barData : BarData
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,7 +84,22 @@ class StatsFragment : Fragment() {
 //
 //        }
 
+//        barList = ArrayList()
+//        barList.add(BarEntry(1f,500f))
+//        barList.add(BarEntry(2f,100f))
+//        barList.add(BarEntry(3f,300f))
+//        barList.add(BarEntry(4f,500f))
+//        barList.add(BarEntry(5f,800f))
+//        barList.add(BarEntry(6f,200f))
+//        barList.add(BarEntry(7f,900f))
+//        barDataSet = BarDataSet(barList,"Mood")
+//        barData = BarData(barDataSet)
+//        binding.moodBarChart.data = barData
+//        barDataSet.setColors(ColorTemplate.JOYFUL_COLORS,250)
+//        barDataSet.valueTextColor = Color.BLACK
+//        barDataSet.valueTextSize = 15f
 
+        setBarChartValues()
 
 
 
@@ -105,6 +127,46 @@ class StatsFragment : Fragment() {
             }
 
         })
+    }
+
+    fun setBarChartValues(){
+
+        //x axis values
+        val xValues = ArrayList<String>()
+        xValues.add("Monday")
+        xValues.add("Tuesday")
+        xValues.add("Wednesday")
+        xValues.add("Thursday")
+        xValues.add("Friday")
+        xValues.add("Saturday")
+        xValues.add("Sunday")
+
+        //y axis values or bar data
+
+        //bar entries
+        val barentries = ArrayList<BarEntry>()
+
+        barentries.add(BarEntry(1.0f,0))
+        barentries.add(BarEntry(2.0f,1))
+        barentries.add(BarEntry(3.0f,2))
+        barentries.add(BarEntry(4.0f,3))
+        barentries.add(BarEntry(5.0f,4))
+        barentries.add(BarEntry(6.0f,5))
+        barentries.add(BarEntry(7.0f,6))
+
+        //bardata set
+        val bardataset = BarDataSet(barentries,"Mood")
+
+        //make a bar data
+        val data  = BarData(xValues,bardataset)
+
+        binding.moodBarChart.data = data
+        binding.moodBarChart.setBackgroundColor(resources.getColor(R.color.white))
+
+
+
+
+
     }
 
 

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/mypostBackground"
+                android:layout_width="401dp"
+                android:layout_height="375dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/white_box_with_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/MyuserName"
+                android:layout_width="245dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="Username"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/MypostDate"
+                android:layout_width="230dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:text="Post Date"
+                android:textColor="#8C8C8C"
+                app:layout_constraintEnd_toEndOf="@+id/MyuserName"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/MyuserName"
+                app:layout_constraintTop_toBottomOf="@+id/MyuserName" />
+
+            <TextView
+                android:id="@+id/MypostDetails"
+                android:layout_width="379dp"
+                android:layout_height="91dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Post Details"
+                android:textAlignment="viewStart"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/MypostDate" />
+
+            <ImageView
+                android:id="@+id/MycommentIcon"
+                android:layout_width="33dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintBottom_toBottomOf="@+id/mypostBackground"
+                app:layout_constraintStart_toStartOf="@+id/mypostBackground"
+                app:srcCompat="@drawable/comment_icon" />
+
+            <TextView
+                android:id="@+id/MycommentCount"
+                android:layout_width="136dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="Comment Count"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="@+id/MycommentIcon"
+                app:layout_constraintStart_toEndOf="@+id/MycommentIcon"
+                app:layout_constraintTop_toTopOf="@+id/MycommentIcon"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/MypostImage"
+                android:layout_width="143dp"
+                android:layout_height="141dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/mypostBackground"
+                app:layout_constraintTop_toBottomOf="@+id/MypostDetails"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/MybookmarkIcon"
+                android:layout_width="37dp"
+                android:layout_height="68dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/mypostBackground"
+                app:layout_constraintTop_toTopOf="@+id/mypostBackground"
+                app:srcCompat="@drawable/bookmark_border_24" />
+
+            <ImageView
+                android:id="@+id/horizontalDotSetting"
+                android:layout_width="34dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/mypostBackground"
+                app:layout_constraintEnd_toEndOf="@id/mypostBackground"
+                app:srcCompat="@drawable/more_horiz_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

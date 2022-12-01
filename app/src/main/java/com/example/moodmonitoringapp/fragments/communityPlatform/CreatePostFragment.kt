@@ -78,6 +78,7 @@ class CreatePostFragment : Fragment() {
     private var likeCount= 0
     private var commentCount = 0
     private var dt = ""
+    private var imageUrl = ""
 
     private fun validateData(){
 
@@ -88,7 +89,15 @@ class CreatePostFragment : Fragment() {
         }
         else{
             //uploadPost(postDetails,username)
-            uploadPost(postDetails,username)
+//            if(imageUrl.isEmpty()){
+//                binding.uploadPhoto.setImageURI(null)
+//            }
+            if(imageUri == null){
+                uploadPostWithoutImage(postDetails,username)
+            }else{
+                uploadPost(postDetails,username)
+            }
+
             Toast.makeText(context, "Share Successfully!", Toast.LENGTH_SHORT).show()
             replaceFragment(CommunityDashboardFragment())   // Need to change replace community dashboard fragment
         }
@@ -144,6 +153,26 @@ class CreatePostFragment : Fragment() {
             .addOnFailureListener{ e ->
                 Toast.makeText(context,"Failed to upload ${e.message}",Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun uploadPostWithoutImage(postDetails : String, username: String){
+        val c: Calendar = Calendar.getInstance()
+        val sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        dt = sdf.format(c.time);
+
+        val postID = "P" + (0..9000).random()
+        val postDate = dt
+        val likeCount = 0
+        val commentCount = 0
+        val imageUrl = ""
+
+        val post = Posts(postID,username ,postDate, postDetails,likeCount,commentCount,imageUrl)
+
+        db.child(postID).setValue(post).addOnSuccessListener {
+            binding.inputPost.text.clear()
+        }.addOnFailureListener{
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
     }
 
     //Select an image

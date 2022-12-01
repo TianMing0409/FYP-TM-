@@ -8,4 +8,5 @@ interface PassCommData {
                      postDetails: String,
                      likeCount: Int,
                      commentCount:Int)
+
 }

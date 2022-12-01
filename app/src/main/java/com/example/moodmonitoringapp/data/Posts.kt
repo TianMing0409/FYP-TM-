@@ -5,7 +5,7 @@ data class Posts(
     var postUsername:String="",
     var postDate:String ="",
     var postDetails:String="",
-    var likeCount: Int=0,
+    var likeCount: Int=0,          // Need to remove this
     var commentCount: Int=0,
     var imageUrl : String = ""
 )

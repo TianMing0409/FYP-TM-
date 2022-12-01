@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
-            tools:listitem="@layout/post_view" />
+            tools:listitem="@layout/public_post_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

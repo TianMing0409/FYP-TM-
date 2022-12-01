@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.text.set
+import androidx.core.view.get
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
@@ -18,7 +19,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.util.ArrayList
+import java.util.*
 
 class AddGoalsFragment : Fragment() {
 
@@ -49,6 +50,14 @@ class AddGoalsFragment : Fragment() {
             binding.inputGoal.setText("")
         }
 
+        val picker = binding.datePicker
+        val today = Calendar.getInstance()
+        picker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
+                view, year, month, day ->
+            val month = month + 1
+        }
+
+
 
         val btnSubmit: Button = binding.submitBtn
 
@@ -68,20 +77,23 @@ class AddGoalsFragment : Fragment() {
 
 //    private var goalID=""
     private var goalName=""
+    private var day = 0
+    private var month = 0
+    private var year = 0
     private var goalTargetDate = ""
 //    private var goalStatus = ""
 
     private fun validateData(){
 //        goalID = "G" + (0..3000).random()
         goalName = binding.inputGoal.text.toString().trim()
-        goalTargetDate = binding.inputDate.text.toString().trim()
+        day = binding.datePicker.dayOfMonth
+        month = binding.datePicker.month +1
+        year = binding.datePicker.year
+        goalTargetDate = "$day-$month-$year"
 //        goalStatus = "Active"
 
         if(goalName.isEmpty()){
             Toast.makeText(context, "Enter goal...", Toast.LENGTH_SHORT).show()
-        }
-        else if(goalTargetDate.isEmpty()){
-            Toast.makeText(context,"Enter target date...",Toast.LENGTH_SHORT).show()
         }
         else{
             //Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()
@@ -101,7 +113,7 @@ class AddGoalsFragment : Fragment() {
         db.child("Active").child(userUId)
             .child(goalID).setValue(goal).addOnSuccessListener {
                 binding.inputGoal.text.clear()
-                binding.inputDate.text.clear()
+                //binding.inputDate.text.clear()
 
             }.addOnFailureListener{
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()

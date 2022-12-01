@@ -23,6 +23,7 @@ import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashbo
 import com.example.moodmonitoringapp.fragments.goals.GoalsDetailsFragment
 import com.example.moodmonitoringapp.fragments.goals.dashboard.Communicator
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 
 class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val listener: PassCommData) :
@@ -39,6 +40,7 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         val likeIcon : ImageView = itemView.findViewById(R.id.loveIcon)
         val commentCount : TextView = itemView.findViewById(R.id.commentCount)
         val commentIcon : ImageView = itemView.findViewById(R.id.commentIcon)
+        var postImage:ImageView = itemView.findViewById(R.id.postImage)
         private val dotSetting : ImageView = itemView.findViewById(R.id.dotSetting)
 
         init {
@@ -142,6 +144,7 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         holder.postDetails.text = currentItem.postDetails
         holder.likeCount.text = currentItem.likeCount.toString()
         holder.commentCount.text = currentItem.commentCount.toString()
+        Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
 
     }
 

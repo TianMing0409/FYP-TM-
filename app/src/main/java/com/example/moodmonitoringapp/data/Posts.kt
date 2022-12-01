@@ -6,5 +6,6 @@ data class Posts(
     var postDate:String ="",
     var postDetails:String="",
     var likeCount: Int=0,
-    var commentCount: Int=0
+    var commentCount: Int=0,
+    var imageUrl : String = ""
 )

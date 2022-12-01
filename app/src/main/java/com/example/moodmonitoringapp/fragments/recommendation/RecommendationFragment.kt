@@ -1,5 +1,7 @@
 package com.example.moodmonitoringapp.fragments.recommendation
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -90,6 +92,13 @@ class RecommendationFragment : DialogFragment() {
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        dialog?.window?.setLayout(1000,1100)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
 

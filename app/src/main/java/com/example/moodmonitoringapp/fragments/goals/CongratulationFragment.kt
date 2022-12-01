@@ -1,7 +1,9 @@
 package com.example.moodmonitoringapp.fragments.goals
 
 import android.content.res.Resources
+import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,7 +36,7 @@ class CongratulationFragment : DialogFragment() {
         binding = FragmentCongratulationBinding.inflate(inflater,container,false)
 
         binding.congratulationAnimation.playAnimation()
-        binding.congratGreet.playAnimation()
+        binding.congratulationGreet.playAnimation()
 
         binding.okCongratBtn.setOnClickListener(){
             dismiss()
@@ -48,7 +50,8 @@ class CongratulationFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
 
-        dialog?.window?.setLayout(1000,1100)
+        dialog?.window?.setLayout(900,1050)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
 }

@@ -2,36 +2,35 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".fragments.goals.CongratulationFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="401dp"
-        android:layout_height="715dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
         <View
             android:id="@+id/congratView"
-            android:layout_width="352dp"
-            android:layout_height="455dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="87dp"
             android:layout_marginBottom="150dp"
-            android:background="@drawable/white_box_with_border"
+            android:background="@drawable/congrat_box"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.367" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/congratulationAnimation"
-            android:layout_width="286dp"
-            android:layout_height="205dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="231dp"
+            android:layout_height="190dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="@+id/congratView"
-            app:layout_constraintHorizontal_bias="0.484"
             app:layout_constraintStart_toStartOf="@+id/congratView"
             app:layout_constraintTop_toTopOf="@+id/congratView"
             app:lottie_autoPlay="true"
@@ -39,28 +38,28 @@
             app:lottie_rawRes="@raw/congratulation" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/congratGreet"
-            android:layout_width="331dp"
-            android:layout_height="93dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="@+id/congratulationAnimation"
-            app:layout_constraintHorizontal_bias="0.603"
-            app:layout_constraintStart_toStartOf="@+id/congratulationAnimation"
-            app:layout_constraintTop_toBottomOf="@+id/congratulationAnimation"
+            android:id="@+id/congratulationGreet"
+            android:layout_width="374dp"
+            android:layout_height="190dp"
+            android:layout_marginTop="152dp"
+            app:layout_constraintEnd_toEndOf="@+id/congratView"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="@+id/congratView"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
+            app:lottie_loop="true"
             app:lottie_rawRes="@raw/greetingscongratulations" />
 
         <Button
             android:id="@+id/okCongratBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="316dp"
             android:text="OK"
-            app:layout_constraintEnd_toEndOf="@+id/congratGreet"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="@+id/congratGreet"
-            app:layout_constraintTop_toBottomOf="@+id/congratGreet" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/congratView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

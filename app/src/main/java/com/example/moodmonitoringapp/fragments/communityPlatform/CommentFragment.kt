@@ -17,7 +17,10 @@ import com.example.moodmonitoringapp.databinding.FragmentCommentBinding
 import com.example.moodmonitoringapp.databinding.FragmentCommunityBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.util.ArrayList
+import com.google.firebase.database.ktx.getValue
+import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CommentFragment : Fragment() {
 
@@ -35,6 +38,11 @@ class CommentFragment : Fragment() {
     var inputPostUsername: String = ""
     var inputPostDate: String = ""
     var inputPostContent: String = ""
+    var inputPostImage : String = ""
+    var inputPostCommentCount : Int = 0
+
+    private var commentDetails = ""
+    private var dt = ""
 
 
     override fun onCreateView(
@@ -48,7 +56,7 @@ class CommentFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         tempUId = auth.uid.toString()
         //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
-        db = FirebaseDatabase.getInstance().getReference("Comments")
+        db = FirebaseDatabase.getInstance().getReference("Posts")
 
         //fetch data
         inputPos = arguments?.getInt("input_pos")
@@ -56,10 +64,18 @@ class CommentFragment : Fragment() {
         inputPostUsername = arguments?.getString("input_post_username").toString()
         inputPostDate = arguments?.getString("input_post_date").toString()
         inputPostContent = arguments?.getString("input_post_details").toString()
+        inputPostImage = arguments?.getString("input_post_image").toString()
+        inputPostCommentCount = arguments?.getInt("input_comment_count")!!.toInt()
 
         binding.postUsername?.text = inputPostUsername
         binding.postDate?.text = inputPostDate
         binding.postContent?.text = inputPostContent
+        if(inputPostImage == ""){
+            binding.postImg.setImageBitmap(null)
+        }else{
+            Picasso.get().load(inputPostImage).into(binding.postImg)
+        }
+
 
 
         userRecyclerView = binding.commentRecyclerView
@@ -67,28 +83,35 @@ class CommentFragment : Fragment() {
 
         userArrayList = arrayListOf<Comments>()
 
-        getCommentsData()
+        getCommentsData(inputPostId)
 
         binding.commentBtn.setOnClickListener(){
-            Toast.makeText(context, "Commented!", Toast.LENGTH_SHORT).show()
-        }
 
+            commentDetails = binding.inputComment.text.toString().trim()
+            addComment(inputPostId,commentDetails)
+            updateCommentCount(inputPostId,inputPostCommentCount)
+            Toast.makeText(context, "Comment Successfully!", Toast.LENGTH_SHORT).show()
+
+        }
 
         return binding.root
 
     }
 
-    private fun getCommentsData(){
+    private fun getCommentsData(postId : String){
 
-        val getData = db
+        val getData = db.child(postId).child("Comments")
 
         getData.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if(snapshot.exists()){
+                    userArrayList.clear()
                     for(commentSnapshot in snapshot.children){
                         val comments = commentSnapshot.getValue(Comments::class.java)
                         userArrayList.add(comments!!)
+//                        val postId = commentSnapshot.child("postId").value
+//                        userArrayList.add(postId)
                     }
                     userRecyclerView.adapter = CommentAdapter(userArrayList)
                 }
@@ -99,6 +122,32 @@ class CommentFragment : Fragment() {
             }
 
         })
+    }
+
+    private fun  updateCommentCount(postId : String, commentCount : Int){
+        db.child(postId).child("commentCount").setValue(commentCount+1).addOnSuccessListener {
+            binding.inputComment.text.clear()
+        }.addOnFailureListener{
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun addComment(postId : String, commentDetails: String){
+        val commentID = "C" + (0..10000).random()
+
+        val c: Calendar = Calendar.getInstance()
+        val sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        dt = sdf.format(c.time);
+        val commentDate = dt
+        val commentUsername = "Hardcoded commenter 1"                 //Need to get the username from user in real case
+
+
+        val comments = Comments(commentID, commentUsername, commentDate, commentDetails, postId)
+        db.child(postId).child("Comments").child(commentID).setValue(comments).addOnSuccessListener {
+            binding.inputComment.text.clear()
+        }.addOnFailureListener{
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

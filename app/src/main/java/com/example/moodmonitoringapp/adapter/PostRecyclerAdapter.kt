@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
+import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.fragments.communityPlatform.CommentFragment
 import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.PassCommData
@@ -18,6 +19,8 @@ import com.squareup.picasso.Picasso
 
 class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val listener: PassCommData) :
     RecyclerView.Adapter<PostRecyclerAdapter.ViewHolder>(){
+
+    private lateinit var db : DatabaseReference
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
@@ -46,7 +49,14 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
 
             bookmarkIcon.setOnClickListener(){
                 //Fact function
-
+                val itemId = posts[adapterPosition].postID
+                val itemtUsername = posts[adapterPosition].postUsername
+                val itemDate = posts[adapterPosition].postDate
+                val itemDetails = posts[adapterPosition].postDetails
+                val itemCommentCount = posts[adapterPosition].commentCount
+                val itemImage = posts[absoluteAdapterPosition].imageUrl
+                val itemUserID = posts[absoluteAdapterPosition].postUserID
+                bookmark(itemId,itemtUsername,itemDate, itemDetails,itemCommentCount,itemImage,itemUserID)
                 Toast.makeText(itemView.context, "Bookmarked", Toast.LENGTH_SHORT).show()
             }
         }
@@ -54,14 +64,14 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         override fun onClick(v: View?) {
             commentIcon.setOnClickListener() {
 
-
                 val position = adapterPosition
                 val itemId = posts[adapterPosition].postID
                 val itemtUsername = posts[adapterPosition].postUsername
                 val itemDate = posts[adapterPosition].postDate
                 val itemDetails = posts[adapterPosition].postDetails
-                val itemLikeCount = posts[adapterPosition].likeCount
                 val itemCommentCount = posts[adapterPosition].commentCount
+                val itemImage = posts[absoluteAdapterPosition].imageUrl
+                val itemUserID = posts[absoluteAdapterPosition].postUserID
                 if (position != RecyclerView.NO_POSITION) {
                     listener.passCommData(
                         position,
@@ -69,8 +79,9 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
                         itemtUsername,
                         itemDate,
                         itemDetails,
-                        itemLikeCount,
-                        itemCommentCount
+                        itemCommentCount,
+                        itemImage,
+                        itemUserID
                     )
                 }
             }
@@ -110,7 +121,8 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         holder.username.text = currentItem.postUsername
         holder.postDate.text = currentItem.postDate
         holder.postDetails.text = currentItem.postDetails
-        holder.commentCount.text = currentItem.commentCount.toString()
+//        holder.commentCount.text = currentItem.commentCount.toString()
+        holder.commentCount.setText(currentItem.commentCount.toString()+" comments")
 //        Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
         if(currentItem.imageUrl.toString() == ""){
             holder.postImage.setImageBitmap(null)
@@ -119,27 +131,30 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         }
 
 
-
     }
 
     override fun getItemCount(): Int {
         return posts.size
     }
 
-//    private fun deletePost(postID: String) {
-//
-////        db.child(postID).removeValue()
-//
-//        //replaceFragment(CommunityFragment())     // Need to change replace dashboard fragment
-//    }
+    private fun bookmark(postId : String,postUsername : String,postDate: String, postDetails : String,
+                         commentCount : Int, imageUrl : String, postUserID : String){
 
-//    private fun replaceFragment(fragment: Fragment){
-//        if(fragment!=null ){
+        db = FirebaseDatabase.getInstance().getReference("Bookmarks")
+
+        val bookmarkID = "B" + (0..9000).random()
+
+        val bookmark = Posts(postId, postUsername,postDate, postDetails,commentCount,imageUrl,postUserID)
+
+
+//        db.child(userUId)
+//            .child(goalID).setValue(goal).addOnSuccessListener {
+//                binding.inputGoal.text.clear()
+//                //binding.inputDate.text.clear()
 //
-//            val fragmentTransaction  = this.parentFragmentManager.beginTransaction()
-//            fragmentTransaction.replace(R.id.fragment_container,fragment)
-//            fragmentTransaction.commit()
-//        }
-//    }
+//            }.addOnFailureListener{
+//
+//            }
+    }
 
 }

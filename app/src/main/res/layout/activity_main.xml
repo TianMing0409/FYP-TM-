@@ -28,7 +28,6 @@
         <!-- Make sure that you are constraining this Text to
              the add Alarm FAB button -->
 
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
@@ -39,7 +38,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/menu" />
+            app:menu="@menu/menu"
+            android:layout_gravity="bottom"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/community_fab"

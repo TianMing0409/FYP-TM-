@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
+import com.example.moodmonitoringapp.data.Comments
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCommunityBinding
@@ -93,9 +94,9 @@ class CreatePostFragment : Fragment() {
 //                binding.uploadPhoto.setImageURI(null)
 //            }
             if(imageUri == null){
-                uploadPostWithoutImage(postDetails,username)
+                uploadPostWithoutImage(postDetails,username,userUId)
             }else{
-                uploadPost(postDetails,username)
+                uploadPost(postDetails,username,userUId)
             }
 
             Toast.makeText(context, "Share Successfully!", Toast.LENGTH_SHORT).show()
@@ -103,9 +104,9 @@ class CreatePostFragment : Fragment() {
         }
     }
 
-    //Upload to real time database
+    //Upload to real time database with photo
     private fun uploadPostIntoDb(postID: String, postUsername: String ,postDate:String, postDetails : String, likeCount: Int,
-                           commentCount: Int, imageUrl : String) {
+                           commentCount: Int, imageUrl : String,userID : String) {
 
 //        val c: Calendar = Calendar.getInstance()
 //        val sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -116,7 +117,7 @@ class CreatePostFragment : Fragment() {
 //        val likeCount = 0
 //        val commentCount = 0
 
-        val post = Posts(postID,postUsername ,postDate, postDetails,likeCount,commentCount,imageUrl)
+        val post = Posts(postID,postUsername ,postDate, postDetails,commentCount,imageUrl,userID)
 
         db.child(postID).setValue(post).addOnSuccessListener {
                 binding.inputPost.text.clear()
@@ -126,7 +127,7 @@ class CreatePostFragment : Fragment() {
     }
 
     //Upload post image to firebase storage
-    private fun uploadPost(postDetails : String,username : String) {
+    private fun uploadPost(postDetails : String,username : String, userID : String) {
 
         val c: Calendar = Calendar.getInstance()
         val sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -146,7 +147,7 @@ class CreatePostFragment : Fragment() {
                 val uriTask: Task<Uri> = taskSnapshot.storage.downloadUrl
                 while (!uriTask.isSuccessful);
                 val uploadedPostImageUrl = "${uriTask.result}"
-                uploadPostIntoDb(postID,username,postDate,postDetails,likeCount, commentCount ,uploadedPostImageUrl)   //Upload to real time database
+                uploadPostIntoDb(postID,username,postDate,postDetails,likeCount, commentCount ,uploadedPostImageUrl,userID)   //Upload to real time database
                 //uploadCampaignInfoToDb(uploadedCampaignUrl, postID.toString())
                 //Toast.makeText(context,"Successful",Toast.LENGTH_SHORT).show()
             }
@@ -155,7 +156,7 @@ class CreatePostFragment : Fragment() {
             }
     }
 
-    private fun uploadPostWithoutImage(postDetails : String, username: String){
+    private fun uploadPostWithoutImage(postDetails : String, username: String, userID : String){
         val c: Calendar = Calendar.getInstance()
         val sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         dt = sdf.format(c.time);
@@ -166,7 +167,7 @@ class CreatePostFragment : Fragment() {
         val commentCount = 0
         val imageUrl = ""
 
-        val post = Posts(postID,username ,postDate, postDetails,likeCount,commentCount,imageUrl)
+        val post = Posts(postID,username ,postDate, postDetails,commentCount,imageUrl,userID)
 
         db.child(postID).setValue(post).addOnSuccessListener {
             binding.inputPost.text.clear()

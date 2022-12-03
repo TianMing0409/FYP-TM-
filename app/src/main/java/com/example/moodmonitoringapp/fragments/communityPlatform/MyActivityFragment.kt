@@ -1,5 +1,6 @@
 package com.example.moodmonitoringapp.fragments.communityPlatform
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
+import com.example.moodmonitoringapp.adapter.MyActivityRecyclerAdapter
 import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCreatePostBinding
@@ -68,29 +70,36 @@ class MyActivityFragment : Fragment(), PassCommData {
 
     private fun myPostsData(){
 
-        val getData = db                     //Here has problem, need to retrieve specific post
+        val getData = db
 
         getData.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                if(snapshot.exists()){
-                    for(postSnapshot in snapshot.children){
+                if (snapshot.exists()) {
+                    userArrayList.clear()
+                    for (postSnapshot in snapshot.children) {
                         val posts = postSnapshot.getValue(Posts::class.java)
-                        userArrayList.add(posts!!)
+                        if(posts!!.postUserID == userUId){
+                            userArrayList.add(posts!!)
+                        }
+
+
                     }
-                    userRecyclerView.adapter = PostRecyclerAdapter(userArrayList,this@MyActivityFragment)
+                        userRecyclerView.adapter =
+                            MyActivityRecyclerAdapter(userArrayList, this@MyActivityFragment)
+                    }
                 }
-            }
 
-            override fun onCancelled(error: DatabaseError) {
+                override fun onCancelled(error: DatabaseError) {
 
-            }
+                }
 
-        })
+            })
+
     }
 
-    override fun passCommData(position: Int, postID: String, postUsername: String, postDate: String, postDetails: String,
-                              likeCount: Int, commentCount: Int)
+    override fun passCommData(position: Int, postID: String, postUsername: String, postDate: String, postDetails: String
+                              , commentCount: Int, postImage : String,postUserID : String)
     {
         val bundle = Bundle()
         bundle.putInt("input_pos", position)
@@ -98,8 +107,17 @@ class MyActivityFragment : Fragment(), PassCommData {
         bundle.putString("input_post_username", postUsername)
         bundle.putString("input_post_date",postDate)
         bundle.putString("input_post_details", postDetails)
-        bundle.putInt("input_like_count",likeCount)
         bundle.putInt("input_comment_count",commentCount)
+        bundle.putString("input_post_image",postImage)
+        bundle.putString("input_post_userID",postUserID)
+
+        val transaction = this.parentFragmentManager.beginTransaction()
+        val commentFragment =CommentFragment()
+        commentFragment.arguments = bundle
+
+        transaction.replace(R.id.fragment_container, commentFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
 
     }
 

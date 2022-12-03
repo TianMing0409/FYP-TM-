@@ -6,7 +6,8 @@ interface PassCommData {
                      postUsername: String,
                      postDate: String ,
                      postDetails: String,
-                     likeCount: Int,
-                     commentCount:Int)
+                     commentCount:Int,
+                     imageUrl: String,
+                     postUserID : String)
 
 }

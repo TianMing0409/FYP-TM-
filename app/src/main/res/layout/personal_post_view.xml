@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/MyuserName"
+                android:id="@+id/myUsername"
                 android:layout_width="245dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="16dp"
@@ -40,19 +40,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/MypostDate"
+                android:id="@+id/myPostDate"
                 android:layout_width="230dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="8dp"
                 android:text="Post Date"
                 android:textColor="#8C8C8C"
-                app:layout_constraintEnd_toEndOf="@+id/MyuserName"
+                app:layout_constraintEnd_toEndOf="@+id/myUsername"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/MyuserName"
-                app:layout_constraintTop_toBottomOf="@+id/MyuserName" />
+                app:layout_constraintStart_toStartOf="@+id/myUsername"
+                app:layout_constraintTop_toBottomOf="@+id/myUsername" />
 
             <TextView
-                android:id="@+id/MypostDetails"
+                android:id="@+id/myPostDetails"
                 android:layout_width="379dp"
                 android:layout_height="91dp"
                 android:layout_marginStart="16dp"
@@ -63,10 +63,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/MypostDate" />
+                app:layout_constraintTop_toBottomOf="@+id/myPostDate" />
 
             <ImageView
-                android:id="@+id/MycommentIcon"
+                android:id="@+id/myCommentIcon"
                 android:layout_width="33dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="12dp"
@@ -76,30 +76,30 @@
                 app:srcCompat="@drawable/comment_icon" />
 
             <TextView
-                android:id="@+id/MycommentCount"
+                android:id="@+id/myCommentCount"
                 android:layout_width="136dp"
                 android:layout_height="26dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="4dp"
                 android:text="Comment Count"
                 android:textColor="#000000"
-                app:layout_constraintBottom_toBottomOf="@+id/MycommentIcon"
-                app:layout_constraintStart_toEndOf="@+id/MycommentIcon"
-                app:layout_constraintTop_toTopOf="@+id/MycommentIcon"
+                app:layout_constraintBottom_toBottomOf="@+id/myCommentIcon"
+                app:layout_constraintStart_toEndOf="@+id/myCommentIcon"
+                app:layout_constraintTop_toTopOf="@+id/myCommentIcon"
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
-                android:id="@+id/MypostImage"
+                android:id="@+id/myPostImage"
                 android:layout_width="143dp"
                 android:layout_height="141dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="@+id/mypostBackground"
-                app:layout_constraintTop_toBottomOf="@+id/MypostDetails"
+                app:layout_constraintTop_toBottomOf="@+id/myPostDetails"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <ImageView
-                android:id="@+id/MybookmarkIcon"
+                android:id="@+id/myBookmarkIcon"
                 android:layout_width="37dp"
                 android:layout_height="68dp"
                 android:layout_marginTop="4dp"

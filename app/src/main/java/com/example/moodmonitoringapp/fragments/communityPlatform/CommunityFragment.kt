@@ -34,7 +34,7 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
     private lateinit var userRecyclerView : RecyclerView
     private lateinit var userArrayList : ArrayList<Posts>
     private lateinit var auth : FirebaseAuth
-    private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
+    private var userUId = "dwsZDErsUGRoNyD9UAvkyYTCSyd2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
 
     companion object {
@@ -66,7 +66,6 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
 
         getPostsData()
 
-
 //        binding.postRecyclerView.layoutManager = LinearLayoutManager(context)
 //        binding.postRecyclerView.adapter = PostRecyclerAdapter(usernameList, postDateList, postDetailsList, likeCountList,
 //            commentCountList, profileImageList)
@@ -91,12 +90,14 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if(snapshot.exists()){
+                    userArrayList.clear()
                     for(postSnapshot in snapshot.children){
                         val posts = postSnapshot.getValue(Posts::class.java)
                         userArrayList.add(posts!!)
                     }
                     userRecyclerView.adapter = PostRecyclerAdapter(userArrayList,this@CommunityFragment)
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -106,8 +107,8 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
         })
     }
 
-    override fun passCommData(position: Int, postID: String, postUsername: String, postDate: String, postDetails: String,
-        likeCount: Int, commentCount: Int)
+    override fun passCommData(position: Int, postID: String, postUsername: String, postDate: String, postDetails: String
+                              , commentCount: Int, imageUrl : String, postUserID : String)
     {
         val bundle = Bundle()
         bundle.putInt("input_pos", position)
@@ -115,8 +116,9 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
         bundle.putString("input_post_username", postUsername)
         bundle.putString("input_post_date",postDate)
         bundle.putString("input_post_details", postDetails)
-        bundle.putInt("input_like_count",likeCount)
         bundle.putInt("input_comment_count",commentCount)
+        bundle.putString("input_post_image",imageUrl)
+        bundle.putString("input_post_userID",postUserID)
 
         val transaction = this.parentFragmentManager.beginTransaction()
         val commentFragment =CommentFragment()

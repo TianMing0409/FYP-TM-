@@ -17,12 +17,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="672dp">
+                android:layout_height="760dp">
 
                 <TextView
                     android:id="@+id/textView9"
-                    android:layout_width="384dp"
-                    android:layout_height="150dp"
+                    android:layout_width="382dp"
+                    android:layout_height="237dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
@@ -135,6 +135,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/inputComment"
                     app:layout_constraintVertical_bias="0.055" />
+
+                <ImageView
+                    android:id="@+id/postImg"
+                    android:layout_width="93dp"
+                    android:layout_height="85dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintStart_toStartOf="@+id/textView9"
+                    app:layout_constraintTop_toBottomOf="@+id/postContent"
+                    tools:src="@tools:sample/avatars" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

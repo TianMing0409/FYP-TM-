@@ -27,8 +27,8 @@ class MoodRecyclerAdapter(private val moods: ArrayList<Moods>) :
 
     override fun onBindViewHolder(holder: MoodRecyclerAdapter.ViewHolder, position: Int) {
         val currentItem = moods[position]
-        holder.mood.text = currentItem.moodRecord
-        holder.moodDate.text = currentItem.dateRecord
+//        holder.mood.text = currentItem.moodRecord
+//        holder.moodDate.text = currentItem.dateRecord
 
     }
 

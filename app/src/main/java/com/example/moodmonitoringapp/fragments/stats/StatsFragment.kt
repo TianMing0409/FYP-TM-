@@ -37,12 +37,6 @@ class StatsFragment : Fragment() {
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
 
-    //lateinit var lineGraphView: GraphView
-//    lateinit var barList : ArrayList<BarEntry>
-//
-//    lateinit var barDataSet : BarDataSet
-//    lateinit var barData : BarData
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,123 +50,61 @@ class StatsFragment : Fragment() {
         //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
         db = FirebaseDatabase.getInstance().getReference("Moods")
 
-        userRecyclerView = binding.moodRecyclerView
-        userRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        userArrayList = arrayListOf<Moods>()
-
-        getPostsData()
-
-        setBarChartValues()
-
-        binding.chgGraphBtn.setOnClickListener(){
-            setLineChartValues()
-        }
-
-//        val domainLabels = arrayOf<Number>(1,2,3,6,7,8,9,10,13,14)
-//        val series1Number = arrayOf<Number>(1,4,8,12,16,32,26,29,10,13)
-//
-//        val series1 : XYSeries = SimpleXYSeries(Arrays.asList(* series1Number),SimpleXYSeries.ArrayFormat.Y_VALS_ONLY
-//            ,"Seris1")
-//
-//        val series1Format = LineAndPointFormatter(Color.BLUE ,Color.BLACK,null,null)
-//
-//        binding.lineGraph.addSeries(series1,series1Format)
-//
-//        binding.lineGraph.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = object : Format(){
-//            override fun format(obj: Any?, toAppendTo: StringBuffer?, pos: FieldPosition?): StringBuffer {
-//                val i = Math.round((obj as Number).toFloat())
-//                return toAppendTo!!.append(domainLabels[i])
-//            }
-//
-//            override fun parseObject(source: String?, pos: ParsePosition?): Any? {
-//                return null
-//            }
-//
-//        }
-
-//        barList = ArrayList()
-//        barList.add(BarEntry(1f,500f))
-//        barList.add(BarEntry(2f,100f))
-//        barList.add(BarEntry(3f,300f))
-//        barList.add(BarEntry(4f,500f))
-//        barList.add(BarEntry(5f,800f))
-//        barList.add(BarEntry(6f,200f))
-//        barList.add(BarEntry(7f,900f))
-//        barDataSet = BarDataSet(barList,"Mood")
-//        barData = BarData(barDataSet)
-//        binding.moodBarChart.data = barData
-//        barDataSet.setColors(ColorTemplate.JOYFUL_COLORS,250)
-//        barDataSet.valueTextColor = Color.BLACK
-//        barDataSet.valueTextSize = 15f
-
-
+        setPieChart()
 
 
         return binding.root
     }
 
-    private fun getPostsData(){
+    private fun setPieChart() {
 
-        val getData = db.child(userUId)
+        //X values
+        val xvalues = ArrayList<String>()
+        xvalues.add("Very Good")
+        xvalues.add("Good")
+        xvalues.add("Normal")
+        xvalues.add("Sad")
+        xvalues.add("Very Sad")
 
-        getData.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        //Y values
+        val yvalues = ArrayList<Float>()
+        yvalues.add(22.45f)
+        yvalues.add(45.0f)
+        yvalues.add(100.90f)
+        yvalues.add(37.15f)
+        yvalues.add(78.25f)
 
-                if(snapshot.exists()){
-                    for(moodSnapshot in snapshot.children){
-                        val moods = moodSnapshot.getValue(Moods::class.java)
-                        userArrayList.add(moods!!)
-                    }
-                    userRecyclerView.adapter = MoodRecyclerAdapter(userArrayList)
-                }
-            }
+        val piechartentry = ArrayList<Entry>()
 
-            override fun onCancelled(error: DatabaseError) {
+        for((i, item) in yvalues.withIndex()){
+            piechartentry.add(Entry(item,i))
+        }
 
-            }
 
-        })
-    }
+        //Colors
+        val colors = ArrayList<Int>()
+        colors.add(Color.CYAN)
+        colors.add(Color.GRAY)
+        colors.add(Color.YELLOW)
+        colors.add(Color.BLUE)
+        colors.add(Color.MAGENTA)
 
-    fun setBarChartValues(){
 
-        //x axis values
-        val xValues = ArrayList<String>()
-        xValues.add("Monday")
-        xValues.add("Tuesday")
-        xValues.add("Wednesday")
-        xValues.add("Thursday")
-        xValues.add("Friday")
-        xValues.add("Saturday")
-        xValues.add("Sunday")
+        //fill the chart
+        val piedataset = PieDataSet(piechartentry,"Mood")
 
-        //y axis values or bar data
+//        piedataset.color = resources.getColor(R.color.teal_200)
+        piedataset.colors = colors
 
-        //bar entries
-        val barentries = ArrayList<BarEntry>()
+        piedataset.sliceSpace = 2f
 
-        barentries.add(BarEntry(1.0f,0))
-        barentries.add(BarEntry(2.0f,1))
-        barentries.add(BarEntry(3.0f,2))
-        barentries.add(BarEntry(4.0f,3))
-        barentries.add(BarEntry(5.0f,4))
-        barentries.add(BarEntry(6.0f,5))
-        barentries.add(BarEntry(7.0f,6))
+        val data = PieData(xvalues,piedataset)
+        binding.pieChart.data = data
 
-        //bardata set
-        val bardataset = BarDataSet(barentries,"Mood")
+        binding.pieChart.holeRadius = 3f
+        binding.pieChart.setBackgroundColor(resources.getColor(R.color.white))
 
-        //make a bar data
-        val data  = BarData(xValues,bardataset)
-
-        binding.moodBarChart.data = data
-        binding.moodBarChart.setBackgroundColor(resources.getColor(R.color.white))
-
-    }
-
-    fun setLineChartValues(){
-
+        binding.pieChart.setDescription("Mood records")
 
     }
 

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'com.chaquo.python'
 }
 
 android {
@@ -16,6 +17,20 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+        python {
+            version "3.8"
+            buildPython "C://Users/User/anaconda3/python.exe"
+        }
+
+        sourceSets {
+            main {
+                python.srcDir "src/main/python"
+            }
+        }
+
     }
 
     buildTypes {
@@ -58,8 +73,6 @@ dependencies {
     implementation("androidx.cardview:cardview:1.0.0")
 
     //Graph
-    //implementation 'com.jjoe64:graphview:4.2.2'
-    //implementation 'com.androidplot:androidplot-core:1.5.7'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 
     //Animation

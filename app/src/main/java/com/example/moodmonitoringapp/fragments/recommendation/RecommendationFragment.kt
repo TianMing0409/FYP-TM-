@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chaquo.python.PyObject
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCommunityBinding
@@ -55,6 +58,15 @@ class RecommendationFragment : DialogFragment() {
 
 
         userArrayList = arrayListOf<Posts>()
+
+        if(! Python.isStarted()){
+            Python.start(AndroidPlatform(requireContext()))
+        }
+
+//        var py  = Python.getInstance()
+//        PyObject pyobj = py.getModule("Mood Recommendation Module")
+
+
 
         val recommendation = binding.recommendation           //Get the recommendation provided
 

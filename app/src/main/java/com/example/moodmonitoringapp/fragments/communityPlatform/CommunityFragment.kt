@@ -34,7 +34,7 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
     private lateinit var userRecyclerView : RecyclerView
     private lateinit var userArrayList : ArrayList<Posts>
     private lateinit var auth : FirebaseAuth
-    private var userUId = "dwsZDErsUGRoNyD9UAvkyYTCSyd2"         // Hardcoded user ID, need to clear it when real work
+    private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
 
     companion object {

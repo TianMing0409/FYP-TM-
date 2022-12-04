@@ -10,10 +10,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
+import com.example.moodmonitoringapp.data.Bookmarks
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.fragments.communityPlatform.CommentFragment
 import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.PassCommData
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
@@ -21,6 +23,12 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
     RecyclerView.Adapter<PostRecyclerAdapter.ViewHolder>(){
 
     private lateinit var db : DatabaseReference
+    private lateinit var auth : FirebaseAuth
+    private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
+    var tempUId = ""
+    private var isBookmark = false
+
+
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
@@ -31,34 +39,9 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         val commentCount : TextView = itemView.findViewById(R.id.commentCount)
         val commentIcon : ImageView = itemView.findViewById(R.id.commentIcon)
         var postImage:ImageView = itemView.findViewById(R.id.postImage)
-//        private val dotSetting : ImageView = itemView.findViewById(R.id.dotSetting)
-
 
         init {
             itemView.setOnClickListener(this)
-            //v: View ->
-//                val position: Int = adapterPosition
-//                Toast.makeText(itemView.context, "You clicked on item# ${position+1}", Toast.LENGTH_SHORT).show()
-//                val activity=v!!.context as AppCompatActivity
-//                val fragmentDetails = GoalsDetailsFragment()
-//                activity.supportFragmentManager.beginTransaction().replace(R.id.fragment_container,fragmentDetails).addToBackStack(null).commit()
-
-//            dotSetting.setOnClickListener(){
-//                popupMenus(it)
-//            }
-
-            bookmarkIcon.setOnClickListener(){
-                //Fact function
-                val itemId = posts[adapterPosition].postID
-                val itemtUsername = posts[adapterPosition].postUsername
-                val itemDate = posts[adapterPosition].postDate
-                val itemDetails = posts[adapterPosition].postDetails
-                val itemCommentCount = posts[adapterPosition].commentCount
-                val itemImage = posts[absoluteAdapterPosition].imageUrl
-                val itemUserID = posts[absoluteAdapterPosition].postUserID
-                bookmark(itemId,itemtUsername,itemDate, itemDetails,itemCommentCount,itemImage,itemUserID)
-                Toast.makeText(itemView.context, "Bookmarked", Toast.LENGTH_SHORT).show()
-            }
         }
 
         override fun onClick(v: View?) {
@@ -86,28 +69,6 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
                 }
             }
         }
-
-//        private fun popupMenus(v:View){
-//
-//            val popupMenus = PopupMenu(itemView.context,v)
-//            popupMenus.inflate(R.menu.post_menu)
-//            popupMenus.setOnMenuItemClickListener {
-//                when(it.itemId){
-//                    R.id.deletePost ->{
-//
-//                        Toast.makeText(itemView.context,"Delete Post",Toast.LENGTH_SHORT).show()
-//                        true
-//                    }
-//                    else -> true
-//                }
-//            }
-//            popupMenus.show()
-//            val popup = PopupMenu::class.java.getDeclaredField("mPopup")
-//            popup.isAccessible = true
-//            val menu = popup.get(popupMenus)
-//            menu.javaClass.getDeclaredMethod("setForceShowIcon",Boolean::class.java).invoke(menu,true)
-//
-//        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -121,15 +82,45 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         holder.username.text = currentItem.postUsername
         holder.postDate.text = currentItem.postDate
         holder.postDetails.text = currentItem.postDetails
-//        holder.commentCount.text = currentItem.commentCount.toString()
         holder.commentCount.setText(currentItem.commentCount.toString()+" comments")
-//        Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
+
         if(currentItem.imageUrl.toString() == ""){
             holder.postImage.setImageBitmap(null)
         }else{
             Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
         }
 
+        checkIsBookmark(currentItem.postID,holder.bookmarkIcon)  //Bind bookmark icon
+
+        holder.bookmarkIcon.setOnClickListener(){
+            if(holder.bookmarkIcon.tag.equals("No Bookmark")){
+
+                //Add bookmark
+                db = FirebaseDatabase.getInstance().getReference("Bookmarks")
+
+                val bookmarkId = "B" + (0..9000).random()
+                val bookmark = Bookmarks(bookmarkId,currentItem.postID, currentItem.postUsername,currentItem.postDate,
+                    currentItem.postDetails,currentItem.commentCount,currentItem.imageUrl,currentItem.postUserID)
+
+                db.child(userUId).child(currentItem.postID).setValue(bookmark).addOnSuccessListener {
+                    Toast.makeText(holder.itemView.context, "Added to bookmark!", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener{
+
+                }
+            }else{
+
+                //Remove Bookmark
+                db = FirebaseDatabase.getInstance().getReference("Bookmarks")
+
+                db.child(userUId)
+                    .child(currentItem.postID).removeValue().addOnSuccessListener {
+
+                        Toast.makeText(holder.itemView.context, "Removed from bookmark!", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener{
+
+                    }
+            }
+        }
 
     }
 
@@ -137,24 +128,26 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         return posts.size
     }
 
-    private fun bookmark(postId : String,postUsername : String,postDate: String, postDetails : String,
-                         commentCount : Int, imageUrl : String, postUserID : String){
-
+    private fun checkIsBookmark(postId : String, bookmarkIcon : ImageView){
         db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
-        val bookmarkID = "B" + (0..9000).random()
+        db.child(userUId).child(postId).addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    isBookmark = snapshot.exists()
+                    if(isBookmark){
+                        bookmarkIcon.setImageResource(R.drawable.bookmarked_24)
+                        bookmarkIcon.setTag("Bookmarked")
+                    }else{
+                        bookmarkIcon.setImageResource(R.drawable.bookmark_border_24)
+                        bookmarkIcon.setTag("No Bookmark")
+                    }
+                }
 
-        val bookmark = Posts(postId, postUsername,postDate, postDetails,commentCount,imageUrl,postUserID)
+                override fun onCancelled(error: DatabaseError){
 
+                }
 
-//        db.child(userUId)
-//            .child(goalID).setValue(goal).addOnSuccessListener {
-//                binding.inputGoal.text.clear()
-//                //binding.inputDate.text.clear()
-//
-//            }.addOnFailureListener{
-//
-//            }
+            })
     }
 
 }

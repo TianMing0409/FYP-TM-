@@ -27,6 +27,7 @@ class CommentFragment : Fragment() {
     private lateinit var binding : FragmentCommentBinding
 
     private lateinit var db : DatabaseReference
+    private lateinit var db2 : DatabaseReference
     private lateinit var userRecyclerView : RecyclerView
     private lateinit var userArrayList : ArrayList<Comments>
     private lateinit var auth : FirebaseAuth
@@ -130,6 +131,15 @@ class CommentFragment : Fragment() {
         }.addOnFailureListener{
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
+
+        //Update bookmark comment count
+        db2 = FirebaseDatabase.getInstance().getReference("Bookmarks")
+        db2.child(userUId).child(postId).child("commentCount").setValue(commentCount+1).addOnSuccessListener {
+            binding.inputComment.text.clear()
+        }.addOnFailureListener{
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun addComment(postId : String, commentDetails: String){

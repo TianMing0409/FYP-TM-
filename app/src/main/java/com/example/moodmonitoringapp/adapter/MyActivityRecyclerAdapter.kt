@@ -9,16 +9,21 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
+import com.example.moodmonitoringapp.data.Bookmarks
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.PassCommData
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
 class MyActivityRecyclerAdapter (private val posts: ArrayList<Posts>, private val listener: PassCommData) :
     RecyclerView.Adapter<MyActivityRecyclerAdapter.ViewHolder>(){
 
     private lateinit var db : DatabaseReference
+    private lateinit var auth : FirebaseAuth
+    private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2 "         // Hardcoded user ID, need to clear it when real work
+    var tempUId = ""
+    private var isBookmark = false
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -116,6 +121,38 @@ class MyActivityRecyclerAdapter (private val posts: ArrayList<Posts>, private va
             Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
         }
 
+        checkIsBookmark(currentItem.postID,holder.bookmarkIcon)  //Bind bookmark icon
+
+        holder.bookmarkIcon.setOnClickListener(){
+            if(holder.bookmarkIcon.tag.equals("No Bookmark")){
+
+                //Add bookmark
+                db = FirebaseDatabase.getInstance().getReference("Bookmarks")
+
+                val bookmarkId = "B" + (0..9000).random()
+                val bookmark = Bookmarks(bookmarkId,currentItem.postID, currentItem.postUsername,currentItem.postDate,
+                    currentItem.postDetails,currentItem.commentCount,currentItem.imageUrl,currentItem.postUserID)
+
+                db.child(userUId).child(currentItem.postID).setValue(bookmark).addOnSuccessListener {
+                    Toast.makeText(holder.itemView.context, "Added to bookmark!", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener{
+
+                }
+            }else{
+
+                //Remove Bookmark
+                db = FirebaseDatabase.getInstance().getReference("Bookmarks")
+
+                db.child(userUId)
+                    .child(currentItem.postID).removeValue().addOnSuccessListener {
+
+                        Toast.makeText(holder.itemView.context, "Removed from bookmark!", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener{
+
+                    }
+            }
+        }
+
 
     }
 
@@ -128,6 +165,28 @@ class MyActivityRecyclerAdapter (private val posts: ArrayList<Posts>, private va
 
         db.child(postId).removeValue()
 
+    }
+
+    private fun checkIsBookmark(postId : String, bookmarkIcon : ImageView){
+        db = FirebaseDatabase.getInstance().getReference("Bookmarks")
+
+        db.child(userUId).child(postId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                isBookmark = snapshot.exists()
+                if(isBookmark){
+                    bookmarkIcon.setImageResource(R.drawable.bookmarked_24)
+                    bookmarkIcon.setTag("Bookmarked")
+                }else{
+                    bookmarkIcon.setImageResource(R.drawable.bookmark_border_24)
+                    bookmarkIcon.setTag("No Bookmark")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError){
+
+            }
+
+        })
     }
 
 

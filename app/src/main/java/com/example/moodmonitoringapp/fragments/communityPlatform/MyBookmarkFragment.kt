@@ -12,12 +12,13 @@ import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentMyActivityBinding
 import com.example.moodmonitoringapp.databinding.FragmentMyBookmarkBinding
+import com.example.moodmonitoringapp.fragments.communityPlatform.communityDashboard.PassCommData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.util.ArrayList
 
 
-class MyBookmarkFragment : Fragment() {
+class MyBookmarkFragment : Fragment(), PassCommData {
 
     private lateinit var binding : FragmentMyBookmarkBinding
 
@@ -25,7 +26,7 @@ class MyBookmarkFragment : Fragment() {
     private lateinit var userRecyclerView : RecyclerView
     private lateinit var userArrayList : ArrayList<Posts>
     private lateinit var auth : FirebaseAuth
-    private var userUId = "dwsZDErsUGRoNyD9UAvkyYTCSyd2"         // Hardcoded user ID, need to clear it when real work
+    private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
 
     override fun onCreateView(
@@ -39,42 +40,65 @@ class MyBookmarkFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         tempUId = auth.uid.toString()
         //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
-        db = FirebaseDatabase.getInstance().getReference("Posts")
+        db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
         userRecyclerView = binding.bookmarkRecyclerView
         userRecyclerView.layoutManager = LinearLayoutManager(context)
 
         userArrayList = arrayListOf<Posts>()
 
-        //getPostsData()
+        getMyBookmarkData()
 
 
         return binding.root
     }
 
-//    private fun getPostsData(){
-//
-//        val getData = db
-//
-//        getData.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//
-//                if(snapshot.exists()){
-//                    userArrayList.clear()
-//                    for(postSnapshot in snapshot.children){
-//                        val posts = postSnapshot.getValue(Posts::class.java)
-//                        userArrayList.add(posts!!)
-//                    }
-//                    userRecyclerView.adapter = PostRecyclerAdapter(userArrayList,this@MyBookmarkFragment)
-//                }
-//
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//
-//            }
-//
-//        })
-//    }
+    private fun getMyBookmarkData(){
+
+        val getData = db.child(userUId)
+
+        getData.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if(snapshot.exists()){
+                    userArrayList.clear()
+                    for(postSnapshot in snapshot.children){
+                        val posts = postSnapshot.getValue(Posts::class.java)
+                        userArrayList.add(posts!!)
+                    }
+                    userRecyclerView.adapter = PostRecyclerAdapter(userArrayList,this@MyBookmarkFragment)
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
+    override fun passCommData(position: Int, postID: String, postUsername: String, postDate: String, postDetails: String
+                              , commentCount: Int, imageUrl : String, postUserID : String)
+    {
+        val bundle = Bundle()
+        bundle.putInt("input_pos", position)
+        bundle.putString("input_post_id",postID)
+        bundle.putString("input_post_username", postUsername)
+        bundle.putString("input_post_date",postDate)
+        bundle.putString("input_post_details", postDetails)
+        bundle.putInt("input_comment_count",commentCount)
+        bundle.putString("input_post_image",imageUrl)
+        bundle.putString("input_post_userID",postUserID)
+
+        val transaction = this.parentFragmentManager.beginTransaction()
+        val commentFragment =CommentFragment()
+        commentFragment.arguments = bundle
+
+        transaction.replace(R.id.fragment_container, commentFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+
+    }
 
 }

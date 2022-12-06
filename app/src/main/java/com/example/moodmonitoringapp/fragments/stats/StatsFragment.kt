@@ -48,7 +48,7 @@ class StatsFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         tempUId = auth.uid.toString()
         //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
-        db = FirebaseDatabase.getInstance().getReference("Moods")
+        db = FirebaseDatabase.getInstance().getReference("Stats")
 
         setPieChart()
 
@@ -58,53 +58,134 @@ class StatsFragment : Fragment() {
 
     private fun setPieChart() {
 
-        //X values
-        val xvalues = ArrayList<String>()
-        xvalues.add("Very Good")
-        xvalues.add("Good")
-        xvalues.add("Normal")
-        xvalues.add("Sad")
-        xvalues.add("Very Sad")
+        db.child(userUId).child("TotalMoods").get().addOnSuccessListener {
+            val verySad = it.child("verySad").value
+            val sad = it.child("sad").value
+            val normal = it.child("normal").value
+            val happy = it.child("happy").value
+            val veryHappy = it.child("veryHappy").value
 
-        //Y values
-        val yvalues = ArrayList<Float>()
-        yvalues.add(22.45f)
-        yvalues.add(45.0f)
-        yvalues.add(100.90f)
-        yvalues.add(37.15f)
-        yvalues.add(78.25f)
+            val total = verySad.toString().toInt() + sad.toString().toInt() + normal.toString().toInt() +
+                    happy.toString().toInt() + veryHappy.toString().toInt()
 
-        val piechartentry = ArrayList<Entry>()
+            binding.countVs.text = verySad.toString()
+            binding.countS.text = sad.toString()
+            binding.countN.text = normal.toString()
+            binding.countG.text = happy.toString()
+            binding.countVg.text = veryHappy.toString()
+            binding.inputTotal.text = total.toString()
 
-        for((i, item) in yvalues.withIndex()){
-            piechartentry.add(Entry(item,i))
-        }
+            val percentageVs = Math.round((verySad.toString().toDouble()/total)*100)/100.0
+            binding.percentageVs.setText(percentageVs.toString() + "%")
+            val percentageS = Math.round((sad.toString().toDouble()/total)*100)/100.0
+            binding.percentageS.setText(percentageS.toString() + "%")
+            val percentageN = Math.round((normal.toString().toDouble()/total)*100)/100.0
+            binding.percentageN.setText(percentageN.toString() + "%")
+            val percentageG = Math.round((happy.toString().toDouble()/total)*100)/100.0
+            binding.percentageG.setText(percentageG.toString() + "%")
+            val percentageVg = Math.round((veryHappy.toString().toDouble()/total)*100)/100.0
+            binding.percentageVg.setText(percentageVg.toString() + "%")
+
+            //X values
+            val xvalues = ArrayList<String>()
+            xvalues.add("Very Good")
+            xvalues.add("Good")
+            xvalues.add("Normal")
+            xvalues.add("Sad")
+            xvalues.add("Very Sad")
+
+            //Y values
+            val yvalues = ArrayList<Int>()
+            yvalues.add(veryHappy.toString().toInt())
+            yvalues.add(happy.toString().toInt())
+            yvalues.add(normal.toString().toInt())
+            yvalues.add(sad.toString().toInt())
+            yvalues.add(verySad.toString().toInt())
 
 
-        //Colors
-        val colors = ArrayList<Int>()
-        colors.add(Color.CYAN)
-        colors.add(Color.GRAY)
-        colors.add(Color.YELLOW)
-        colors.add(Color.BLUE)
-        colors.add(Color.MAGENTA)
+
+            val piechartentry = ArrayList<Entry>()
+
+            for((i, item) in yvalues.withIndex()){
+                piechartentry.add(Entry(item.toFloat(),i))
+            }
 
 
-        //fill the chart
-        val piedataset = PieDataSet(piechartentry,"Mood")
+            //Colors
+            val colors = ArrayList<Int>()
+            colors.add(Color.CYAN)
+            colors.add(Color.GRAY)
+            colors.add(Color.YELLOW)
+            colors.add(Color.BLUE)
+            colors.add(Color.MAGENTA)
+
+
+            //fill the chart
+            val piedataset = PieDataSet(piechartentry,"Mood")
 
 //        piedataset.color = resources.getColor(R.color.teal_200)
-        piedataset.colors = colors
+            piedataset.colors = colors
 
-        piedataset.sliceSpace = 2f
+            piedataset.sliceSpace = 2f
 
-        val data = PieData(xvalues,piedataset)
-        binding.pieChart.data = data
+            val data = PieData(xvalues,piedataset)
+            binding.pieChart.data = data
 
-        binding.pieChart.holeRadius = 3f
-        binding.pieChart.setBackgroundColor(resources.getColor(R.color.white))
+            binding.pieChart.holeRadius = 3f
+            binding.pieChart.setBackgroundColor(resources.getColor(R.color.white))
 
-        binding.pieChart.setDescription("Mood records")
+            binding.pieChart.setDescription("Mood records")
+
+
+        }
+
+//        //X values
+//        val xvalues = ArrayList<String>()
+//        xvalues.add("Very Good")
+//        xvalues.add("Good")
+//        xvalues.add("Normal")
+//        xvalues.add("Sad")
+//        xvalues.add("Very Sad")
+//
+//        //Y values
+//        val yvalues = ArrayList<Int>()
+//        yvalues.add(1)
+//        yvalues.add(2)
+//        yvalues.add(1)
+//        yvalues.add(1)
+//        yvalues.add(3)
+//
+//        val piechartentry = ArrayList<Entry>()
+//
+//        for((i, item) in yvalues.withIndex()){
+//            piechartentry.add(Entry(item.toFloat(),i))
+//        }
+//
+//
+//        //Colors
+//        val colors = ArrayList<Int>()
+//        colors.add(Color.CYAN)
+//        colors.add(Color.GRAY)
+//        colors.add(Color.YELLOW)
+//        colors.add(Color.BLUE)
+//        colors.add(Color.MAGENTA)
+//
+//
+//        //fill the chart
+//        val piedataset = PieDataSet(piechartentry,"Mood")
+//
+////        piedataset.color = resources.getColor(R.color.teal_200)
+//        piedataset.colors = colors
+//
+//        piedataset.sliceSpace = 2f
+//
+//        val data = PieData(xvalues,piedataset)
+//        binding.pieChart.data = data
+//
+//        binding.pieChart.holeRadius = 3f
+//        binding.pieChart.setBackgroundColor(resources.getColor(R.color.white))
+//
+//        binding.pieChart.setDescription("Mood records")
 
     }
 

@@ -139,54 +139,6 @@ class StatsFragment : Fragment() {
 
         }
 
-//        //X values
-//        val xvalues = ArrayList<String>()
-//        xvalues.add("Very Good")
-//        xvalues.add("Good")
-//        xvalues.add("Normal")
-//        xvalues.add("Sad")
-//        xvalues.add("Very Sad")
-//
-//        //Y values
-//        val yvalues = ArrayList<Int>()
-//        yvalues.add(1)
-//        yvalues.add(2)
-//        yvalues.add(1)
-//        yvalues.add(1)
-//        yvalues.add(3)
-//
-//        val piechartentry = ArrayList<Entry>()
-//
-//        for((i, item) in yvalues.withIndex()){
-//            piechartentry.add(Entry(item.toFloat(),i))
-//        }
-//
-//
-//        //Colors
-//        val colors = ArrayList<Int>()
-//        colors.add(Color.CYAN)
-//        colors.add(Color.GRAY)
-//        colors.add(Color.YELLOW)
-//        colors.add(Color.BLUE)
-//        colors.add(Color.MAGENTA)
-//
-//
-//        //fill the chart
-//        val piedataset = PieDataSet(piechartentry,"Mood")
-//
-////        piedataset.color = resources.getColor(R.color.teal_200)
-//        piedataset.colors = colors
-//
-//        piedataset.sliceSpace = 2f
-//
-//        val data = PieData(xvalues,piedataset)
-//        binding.pieChart.data = data
-//
-//        binding.pieChart.holeRadius = 3f
-//        binding.pieChart.setBackgroundColor(resources.getColor(R.color.white))
-//
-//        binding.pieChart.setDescription("Mood records")
-
     }
 
 

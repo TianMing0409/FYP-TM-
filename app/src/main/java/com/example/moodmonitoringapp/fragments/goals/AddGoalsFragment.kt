@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddGoalsFragment : Fragment() {
@@ -31,6 +32,9 @@ class AddGoalsFragment : Fragment() {
     var tempUId = ""
 
     var recomm: String = ""
+    var recomm_day: Int? = null
+    var recomm_month: Int? = null
+    var recomm_year: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +48,12 @@ class AddGoalsFragment : Fragment() {
 
         //Fetch data from recommendation
         recomm = arguments?.getString("recomm_goal").toString()
+        recomm_day = arguments?.getInt("recomm_day")
+        recomm_month = arguments?.getInt("recomm_month")
+        recomm_year = arguments?.getInt("recomm_year")
+
         binding.inputGoal.setText(recomm).toString().trim()
+
 
         if(recomm == "null"){
             binding.inputGoal.setText("")
@@ -52,10 +61,20 @@ class AddGoalsFragment : Fragment() {
 
         val picker = binding.datePicker
         val today = Calendar.getInstance()
+
         picker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
                 view, year, month, day ->
             val month = month + 1
         }
+
+        if(recomm_day != null && recomm_month != null && recomm_year != null){
+
+            picker.init(recomm_year!!.toInt(),recomm_month!!.toInt(),recomm_day!!.toInt()) {
+                    view, year, month, day ->
+                val month = month + 1
+            }
+        }
+
 
 
 

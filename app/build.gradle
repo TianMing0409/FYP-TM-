@@ -27,7 +27,7 @@ android {
         }
 
         python{
-            buildPython "C:/Users/User/AppData/Local/Programs/Python/Python38-32/python.exe"
+            buildPython "C:/Users/User/AppData/Local/Programs/Python/Python38/python.exe"
         }
 
         ndk{
@@ -38,6 +38,11 @@ android {
             pip{
                 install "pandas"
                 install "numpy"
+                install "sklearn"
+                install "scikit-learn"
+                install "knn"
+                install "datetime"
+                install "faker"
             }
             pyc{
                 src false

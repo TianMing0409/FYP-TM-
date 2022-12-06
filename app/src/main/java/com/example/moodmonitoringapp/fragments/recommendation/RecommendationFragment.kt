@@ -115,10 +115,37 @@ class RecommendationFragment : DialogFragment() {
     private fun getMoodRecommendation(userMood : String): String{
 
         val python : Python = Python.getInstance()
+
         val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
-        return pythonFile.callAttr("hellopy",userMood).toString()
-//        return "Hi"
+        return pythonFile.callAttr("get_results",userMood).toString()
     }
+
+
+
+    private fun getRecommDay(): String{
+
+        val python : Python = Python.getInstance()
+
+        val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
+        return pythonFile.callAttr("recomm_day").toString()
+    }
+
+    private fun getRecommMonth(): String{
+
+        val python : Python = Python.getInstance()
+
+        val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
+        return pythonFile.callAttr("recomm_month").toString()
+    }
+
+    private fun getRecommYear(): String{
+
+        val python : Python = Python.getInstance()
+
+        val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
+        return pythonFile.callAttr("recomm_year").toString()
+    }
+
 
     private fun getMoodData() {
 
@@ -128,13 +155,20 @@ class RecommendationFragment : DialogFragment() {
             val mood = it.child("mood").value.toString()
             binding.inputMood.setText(mood)
             binding.recommendation.text = getMoodRecommendation(mood)
+//            binding.inputRecommDate.text = getRecommendationDate()
 
             //Add recommendation as goal (Direct to Add goal page)
             binding.addRecommBtn.setOnClickListener(){
                 val recomm = getMoodRecommendation(mood)
+                val recomm_day = getRecommDay().toInt()
+                val recomm_month = getRecommMonth().toInt()
+                val recomm_year = getRecommYear().toInt()
 
                 val bundle = Bundle()
                 bundle.putString("recomm_goal",recomm)
+                bundle.putInt("recomm_day",recomm_day)
+                bundle.putInt("recomm_month",recomm_month)
+                bundle.putInt("recomm_year",recomm_year)
 
                 val transaction = this.parentFragmentManager.beginTransaction()
                 val addGoalsFragment = AddGoalsFragment()

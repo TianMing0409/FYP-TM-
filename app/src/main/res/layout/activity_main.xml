@@ -46,11 +46,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="55dp"
+            app:backgroundTint="#FF894A"
             app:fabSize="normal"
             app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
             app:layout_constraintEnd_toEndOf="@+id/bottom_navigation"
             app:layout_constraintStart_toStartOf="@+id/bottom_navigation"
-            app:srcCompat="@drawable/community_platform" />
+            app:srcCompat="@drawable/community_platform"
+            app:shapeAppearanceOverlay="@style/fab_3_rounded" />
 
         <TextView
             android:id="@+id/community_text"
@@ -85,10 +87,12 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/add_icon"
+        app:backgroundTint="#FF894A"
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="top|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/fab_3_rounded" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -26,10 +26,33 @@
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
-                android:layout_width="413dp"
+                android:layout_width="match_parent"
                 android:layout_height="265dp">
 
             </com.github.mikephil.charting.charts.PieChart>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="265dp">
+
+            </com.github.mikephil.charting.charts.LineChart>
+
+
+            <Button
+                android:id="@+id/pieChartBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="130dp"
+                android:layout_marginTop="20dp"
+                android:text="Pie Chart" />
+
+            <Button
+                android:id="@+id/lineChartBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="127dp"
+                android:text="Line Chart" />
 
             <TableLayout
                 android:id="@+id/tableLayout"
@@ -37,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center|center_horizontal">
 
                 <TableRow

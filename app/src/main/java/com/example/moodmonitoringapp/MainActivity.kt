@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private val homeFragment = HomeFragment()
     private val statsFragment = StatsFragment()
-    private val dashBoardFragment = DashBoardFragment()    //Currently not working, pending future works
+    private val dashBoardFragment = DashBoardFragment()    // Working
     private val activeGoalsFragment = ActiveGoalsFragment()         //Testing purpose, need to remove
     private val completedGoalsFragment = CompletedGoalsFragment()   //Testing purpose, need to remove
     private val profileFragment = ProfileFragment()

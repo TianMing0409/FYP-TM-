@@ -10,11 +10,11 @@
         android:id="@+id/fabAddGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#f57d3d"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="#0EC7FF"
         android:clickable="true"
-        android:src="@drawable/add_icon"
+        android:src="@drawable/goal_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

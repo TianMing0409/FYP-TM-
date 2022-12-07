@@ -26,6 +26,7 @@ class GoalsDetailsFragment : Fragment() {
     private lateinit var binding : FragmentGoalsDetailsBinding
 
     private lateinit var db : DatabaseReference
+    private lateinit var db2 : DatabaseReference
     private lateinit var auth : FirebaseAuth
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
@@ -35,6 +36,7 @@ class GoalsDetailsFragment : Fragment() {
     var inputGoalTitle: String = ""
     var inputGoalStatus: String = ""
     var inputGoalTargetDate: String = ""
+    var completedGoalCount : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +50,7 @@ class GoalsDetailsFragment : Fragment() {
         tempUId = auth.uid.toString()
         //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
         db = FirebaseDatabase.getInstance().getReference("Goals")
+        db2 = FirebaseDatabase.getInstance().getReference("Stats")
 
         val btnComplete: Button = binding.completeBtn
         val btnEdit : Button = binding.editBtn
@@ -74,6 +77,14 @@ class GoalsDetailsFragment : Fragment() {
             val congratDialog = CongratulationFragment()
 
             congratDialog.show((activity as AppCompatActivity).supportFragmentManager, "showCongratPopUp")
+
+            db2.child(userUId).child("GoalCompleted").get().addOnSuccessListener {
+                val goalCompletedCount = it.value.toString().toInt()
+                updateCompletedGoalCount(goalCompletedCount)
+            }
+
+//            db2.child(userUId).child("GoalCompleted").setValue(completedGoalCount+1)
+
 
             //Toast.makeText(context, "Congratulations!", Toast.LENGTH_SHORT).show()
         }
@@ -121,6 +132,10 @@ class GoalsDetailsFragment : Fragment() {
             }.addOnFailureListener{
                 Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun updateCompletedGoalCount(goalCompletedCount : Int){
+        db2.child(userUId).child("GoalCompleted").setValue(goalCompletedCount+1)
     }
 
     private fun replaceFragment(fragment: Fragment){

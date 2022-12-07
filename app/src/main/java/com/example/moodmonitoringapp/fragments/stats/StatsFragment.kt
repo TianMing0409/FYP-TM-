@@ -41,8 +41,6 @@ class StatsFragment : Fragment() {
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
 
-    private var isLineChart = false
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,18 +54,29 @@ class StatsFragment : Fragment() {
         //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
         db = FirebaseDatabase.getInstance().getReference("Stats")
 
-        binding.lineChart.isGone = true
+//        binding.lineChart.isGone = true
+        binding.barChart.isGone = true
 
         setPieChart()
 
         binding.pieChartBtn.setOnClickListener(){
+//            binding.textView28.setText("Total Mood Couts")
+            binding.textView28.setText("Total Mood Count - Pie Chart")
             setPieChart()
         }
 
-        binding.lineChartBtn.setOnClickListener(){
-            setLineChart()
+        binding.barChartBtn.setOnClickListener(){
+//            binding.textView28.setText("Mood Frequency")
+            //setLineChart()
+            binding.textView28.setText("Total Mood Count - Bar Chart")
+            setBarChart()
         }
 
+        db.child(userUId).child("GoalCompleted").get().addOnSuccessListener {
+            val goalCompletedCount = it.value
+
+            binding.inputCompletedGoalCount.setText("" + goalCompletedCount.toString() )
+        }
 
 
         return binding.root
@@ -75,8 +84,10 @@ class StatsFragment : Fragment() {
 
     private fun setPieChart() {
 
-        binding.lineChart.isGone = true
+//        binding.lineChart.isGone = true
+        binding.barChart.isGone =  true
         binding.pieChart.isGone = false
+
 
         db.child(userUId).child("TotalMoods").get().addOnSuccessListener {
             val verySad = it.child("verySad").value
@@ -151,44 +162,92 @@ class StatsFragment : Fragment() {
             val data = PieData(xvalues,piedataset)
             binding.pieChart.data = data
 
-            binding.pieChart.holeRadius = 3f
+            binding.pieChart.holeRadius = 1f
             binding.pieChart.setBackgroundColor(resources.getColor(R.color.white))
 
-            binding.pieChart.setDescription("Mood records")
+//            binding.pieChart.setDescription("Mood records")
 
 //            binding.pieChart.isGone = false
         }
 
     }
 
-    private fun setLineChart(){
+//    private fun setLineChart(){
+//        binding.pieChart.isGone = true
+//        binding.lineChart.isGone = false
+//
+//        db.child(userUId).child("TotalMoods").get().addOnSuccessListener {
+//            val verySad = it.child("verySad").value
+//            val sad = it.child("sad").value
+//            val normal = it.child("normal").value
+//            val happy = it.child("happy").value
+//            val veryHappy = it.child("veryHappy").value
+//
+//
+//            val xvalue = ArrayList<String>()
+//            xvalue.add("Very Happy")
+//            xvalue.add("Happy")
+//            xvalue.add("Normal")
+//            xvalue.add("Sad")
+//            xvalue.add("Very Sad")
+//
+//            val yvalues = ArrayList<Int>()
+//            yvalues.add(veryHappy.toString().toInt())
+//            yvalues.add(happy.toString().toInt())
+//            yvalues.add(normal.toString().toInt())
+//            yvalues.add(sad.toString().toInt())
+//            yvalues.add(verySad.toString().toInt())
+//
+//            val linechartentry = ArrayList<Entry>()
+//
+//            for ((i, item) in yvalues.withIndex()) {
+//                linechartentry.add(Entry(item.toFloat(), i))
+//            }
+//
+//            val linedataset = LineDataSet(linechartentry, "Mood Condition")
+//            linedataset.color = resources.getColor(R.color.black)
+//
+//            val data = LineData(xvalue, linedataset)
+//            binding.lineChart.data = data
+//
+//        }
+//    }
+
+    private fun setBarChart(){
+
         binding.pieChart.isGone = true
-        binding.lineChart.isGone = false
+        binding.barChart.isGone =  false
+//        binding.lineChart.isGone = true
 
-        val xvalue = ArrayList<String>()
-        xvalue.add("Monday")
-        xvalue.add("Tuesday")
-        xvalue.add("Wednesday")
-        xvalue.add("Thursday")
-        xvalue.add("Friday")
-        xvalue.add("Saturday")
-        xvalue.add("Sunday")
 
-        val lineentry = ArrayList<Entry>()
-        lineentry.add(Entry(10f,0))
-        lineentry.add(Entry(20f,1))
-        lineentry.add(Entry(30f,2))
-        lineentry.add(Entry(40f,3))
-        lineentry.add(Entry(50f,4))
-        lineentry.add(Entry(60f,5))
-        lineentry.add(Entry(70f,6))
+        db.child(userUId).child("TotalMoods").get().addOnSuccessListener {
+            val verySad = it.child("verySad").value
+            val sad = it.child("sad").value
+            val normal = it.child("normal").value
+            val happy = it.child("happy").value
+            val veryHappy = it.child("veryHappy").value
 
-        val linedataset = LineDataSet(lineentry,"Mood Condition")
-        linedataset.color = resources.getColor(R.color.black)
+            val xvalues = ArrayList<String>()
+            xvalues.add("Very Happy")
+            xvalues.add("Happy")
+            xvalues.add("Normal")
+            xvalues.add("Sad")
+            xvalues.add("Very Sad")
 
-        val data = LineData(xvalue,linedataset)
-        binding.lineChart.data = data
+            val barentries = ArrayList<BarEntry>()
+            barentries.add(BarEntry(veryHappy.toString().toFloat(),0))
+            barentries.add(BarEntry(happy.toString().toFloat(),1))
+            barentries.add(BarEntry(normal.toString().toFloat(),2))
+            barentries.add(BarEntry(sad.toString().toFloat(),3))
+            barentries.add(BarEntry(verySad.toString().toFloat(),4))
 
+            val barDataset = BarDataSet(barentries,"Mood Condition")
+            barDataset.setColors(ColorTemplate.JOYFUL_COLORS,255)
+            val data = BarData(xvalues,barDataset)
+
+            binding.barChart.data = data
+
+        }
     }
 
 }

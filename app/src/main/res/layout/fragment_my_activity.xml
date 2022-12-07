@@ -25,8 +25,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myPostRecyclerView"
-            android:layout_width="408dp"
-            android:layout_height="422dp"
+            android:layout_width="409dp"
+            android:layout_height="476dp"
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

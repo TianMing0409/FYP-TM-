@@ -3,6 +3,7 @@ from os.path import dirname,join
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import MinMaxScaler
+import random
 
 filename = join(dirname(__file__),"song_data.csv")
 
@@ -31,6 +32,9 @@ from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors = 5)
 model=knn.fit(x_train,y_train)
 
+# import lightgbm as ltb
+# model=ltb.LGBMClassifier().fit(x_train,y_train)
+
 
 model.score(x_train,y_train)
 
@@ -39,48 +43,101 @@ model.score(x_test,y_test)
 df=cluster.apply(lambda x: x.sort_values(["song_popularity"],ascending=False))
 df.reset_index(level=0, inplace=True)
 
-def get_results(emotion):
+isMusic = False
+
+def recomm_music(emotion):
+    isMusic = True
     NUM_RECOMMEND=1
     happy_set=[]
     sad_set=[]
-    if emotion == 'Very Sad':
+    if emotion == 'very sad':
         # happy_set.append(df[df['kmeans']==0]['song_title'].head(NUM_RECOMMEND))
         # return happy_set
         return "Listen Music : " + df[df['kmeans']==0]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
-    elif emotion == 'Sad':
+    elif emotion == 'sad':
         return "Listen Music : " + df[df['kmeans']==1]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
-    elif emotion == 'Normal':
+    elif emotion == 'normal':
         return "Listen Music : " + df[df['kmeans']==2]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
-    elif emotion == 'Happy':
+    elif emotion == 'happy':
         return "Listen Music : " + df[df['kmeans']==3]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
-    elif emotion == 'Very Happy':
+    elif emotion == 'very happy':
         return "Listen Music : " + df[df['kmeans']==4]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
+
+########################################################################################################
+from bs4 import BeautifulSoup as SOUP
+import re
+import requests as HTTP
+
+def recomm_movie(emotion):
+
+    url = ""
+    if (emotion == "sad"):
+        url = 'http://www.imdb.com/search/title?genres=drama&title_type=feature&sort=moviemeter, asc'
+    elif(emotion == "disgust"):
+        url = 'http://www.imdb.com/search/title?genres=musical&title_type=feature&sort=moviemeter, asc'
+    elif(emotion == "anger"):
+        url = 'http://www.imdb.com/search/title?genres=family&title_type=feature&sort=moviemeter, asc'
+    elif(emotion == "anticipation"):
+        url = 'http://www.imdb.com/search/title?genres=thriller&title_type=feature&sort=moviemeter, asc'
+    elif(emotion == "fear"):
+        url = 'http://www.imdb.com/search/title?genres=sport&title_type=feature&sort=moviemeter, asc'
+    elif(emotion == "enjoyment"):
+        url = 'http://www.imdb.com/search/title?genres=thriller&title_type=feature&sort=moviemeter, asc'
+    elif(emotion == "trust"):
+        url = 'http://www.imdb.com/search/title?genres=western&title_type=feature&sort=moviemeter, asc'
+    elif(emotion == "surprise"):
+        url = 'http://www.imdb.com/search/title?genres=film_noir&title_type=feature&sort=moviemeter, asc'
+
+    movies = []
+
+    try:
+        if not url:
+            return movies
+        response = HTTP.get(url)
+        data = response.text
+        soup = SOUP(data, "lxml")
+        flags = ["None", "X", "\n"]
+        for movieName in soup.findAll('a', attrs = {"href" : re.compile(r'\/title\/tt+\d*\/')}):
+            movieName = str(movieName.string)
+            if movieName not in flags:
+                movies.append(movieName)
+
+    except Exception as e:
+        print(e)
+
+    result = random.choice(movies)
+
+    return "Go watch movie : " + result
 
 
 ####################################################################################################################
-# from faker import Faker
-#
-# def recommend_date():
-#     fake = Faker()
-#
-#     recomm_time = fake.date_between(start_date='today', end_date='+1M')
-#     return recomm_time.strftime('%d-%m-%Y')
 from faker import Faker
 fake = Faker()
 
-recomm_time = fake.date_between(start_date='today', end_date='+1M')
-# day = recomm_time.strftime('%d')
-# month = recomm_time.strftime('%m')
-# year = recomm_time.strftime('%Y')
+recomm_MusicTime = fake.date_between(start_date='today', end_date='+7d')
 
-def recomm_day():
-    day = recomm_time.strftime('%d')
+def recommMusic_day():
+    day = recomm_MusicTime.strftime('%d')
     return day
 
-def recomm_month():
-    month = recomm_time.strftime('%m')
+def recommMusic_month():
+    month = recomm_MusicTime.strftime('%m')
     return month
 
-def recomm_year():
-    year = recomm_time.strftime('%Y')
+def recommMusic_year():
+    year = recomm_MusicTime.strftime('%Y')
+    return year
+
+recomm_MovieTime = fake.date_between(start_date='today', end_date='+1M')
+
+def recommMovie_day():
+    day = recomm_MovieTime.strftime('%d')
+    return day
+
+def recommMovie_month():
+    month = recomm_MovieTime.strftime('%m')
+    return month
+
+def recommMovie_year():
+    year = recomm_MovieTime.strftime('%Y')
     return year

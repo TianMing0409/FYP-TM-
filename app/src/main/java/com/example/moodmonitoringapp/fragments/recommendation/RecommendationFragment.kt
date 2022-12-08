@@ -112,38 +112,70 @@ class RecommendationFragment : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
-    private fun getMoodRecommendation(userMood : String): String{
+    private fun getRecommMusic(userMood : String): String{
 
         val python : Python = Python.getInstance()
 
         val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
-        return pythonFile.callAttr("get_results",userMood).toString()
+
+        return pythonFile.callAttr("recomm_music",userMood).toString()
     }
 
-
-
-    private fun getRecommDay(): String{
+    private fun getRecommMusicDay(): String{
 
         val python : Python = Python.getInstance()
 
         val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
-        return pythonFile.callAttr("recomm_day").toString()
+        return pythonFile.callAttr("recommMusic_day").toString()
     }
 
-    private fun getRecommMonth(): String{
+    private fun getRecommMusicMonth(): String{
 
         val python : Python = Python.getInstance()
 
         val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
-        return pythonFile.callAttr("recomm_month").toString()
+        return pythonFile.callAttr("recommMusic_month").toString()
     }
 
-    private fun getRecommYear(): String{
+    private fun getRecommMusicYear(): String{
 
         val python : Python = Python.getInstance()
 
         val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
-        return pythonFile.callAttr("recomm_year").toString()
+        return pythonFile.callAttr("recommMusic_year").toString()
+    }
+
+    private fun getRecommMovie(userMood : String): String{
+
+        val python : Python = Python.getInstance()
+
+        val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
+//        return pythonFile.callAttr("get_results",userMood).toString()
+        return pythonFile.callAttr("recomm_movie",userMood).toString()
+    }
+
+    private fun getRecommMovieDay(): String{
+
+        val python : Python = Python.getInstance()
+
+        val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
+        return pythonFile.callAttr("recommMovie_day").toString()
+    }
+
+    private fun getRecommMovieMonth(): String{
+
+        val python : Python = Python.getInstance()
+
+        val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
+        return pythonFile.callAttr("recommMovie_month").toString()
+    }
+
+    private fun getRecommMovieYear(): String{
+
+        val python : Python = Python.getInstance()
+
+        val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
+        return pythonFile.callAttr("recommMovie_year").toString()
     }
 
 
@@ -154,21 +186,23 @@ class RecommendationFragment : DialogFragment() {
         getData.child(userUId).get().addOnSuccessListener {
             val mood = it.child("mood").value.toString()
             binding.inputMood.setText(mood)
-            binding.recommendation.text = getMoodRecommendation(mood)
+            binding.recommendationMusic.text = getRecommMusic(mood)
+            binding.recommendationMovie.text = getRecommMovie(mood)
+
 //            binding.inputRecommDate.text = getRecommendationDate()
 
-            //Add recommendation as goal (Direct to Add goal page)
-            binding.addRecommBtn.setOnClickListener(){
-                val recomm = getMoodRecommendation(mood)
-                val recomm_day = getRecommDay().toInt()
-                val recomm_month = getRecommMonth().toInt()
-                val recomm_year = getRecommYear().toInt()
+            //Add music recommendation as goal (Direct to Add goal page)
+            binding.addRecommMusicBtn.setOnClickListener(){
+                val recommMusic = getRecommMusic(mood)
+                val recommMusic_day = getRecommMusicDay().toInt()
+                val recommMusic_month = getRecommMusicMonth().toInt() - 1  //Minus 1 month to get proper month
+                val recommMusic_year = getRecommMusicYear().toInt()
 
                 val bundle = Bundle()
-                bundle.putString("recomm_goal",recomm)
-                bundle.putInt("recomm_day",recomm_day)
-                bundle.putInt("recomm_month",recomm_month)
-                bundle.putInt("recomm_year",recomm_year)
+                bundle.putString("recomm_goal",recommMusic)
+                bundle.putInt("recomm_day",recommMusic_day)
+                bundle.putInt("recomm_month",recommMusic_month)
+                bundle.putInt("recomm_year",recommMusic_year)
 
                 val transaction = this.parentFragmentManager.beginTransaction()
                 val addGoalsFragment = AddGoalsFragment()
@@ -180,6 +214,33 @@ class RecommendationFragment : DialogFragment() {
                 transaction.commit()
 
             }
+
+            //Add movie recommendation as goal (Direct to Add goal page)
+            binding.addRecommMovieBtn.setOnClickListener(){
+                val recommMovie = getRecommMovie(mood)
+                val recommMovie_day = getRecommMovieDay().toInt()
+                val recommMovie_month = getRecommMovieMonth().toInt() - 1   //Minus 1 month to get proper month
+                val recommMovie_year = getRecommMovieYear().toInt()
+
+                val bundle = Bundle()
+                bundle.putString("recomm_goal",recommMovie)
+                bundle.putInt("recomm_day",recommMovie_day)
+                bundle.putInt("recomm_month",recommMovie_month)
+                bundle.putInt("recomm_year",recommMovie_year)
+
+                val transaction = this.parentFragmentManager.beginTransaction()
+                val addGoalsFragment = AddGoalsFragment()
+                addGoalsFragment.arguments = bundle
+
+                dismiss()      // Close the dialog fragment
+                transaction.replace(R.id.fragment_container, addGoalsFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+
+            }
+
+
+
         }
     }
 

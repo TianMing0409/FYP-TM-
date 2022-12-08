@@ -43,6 +43,10 @@ android {
                 install "knn"
                 install "datetime"
                 install "faker"
+                install "BeautifulSoup4"
+                install "requests"
+                install "lightgbm"
+                install "lxml"
             }
             pyc{
                 src false

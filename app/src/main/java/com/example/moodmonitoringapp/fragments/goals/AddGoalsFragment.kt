@@ -65,11 +65,11 @@ class AddGoalsFragment : Fragment() {
 
         //For calender mode date picker to retrieve recommendation date
         if(recomm_day != null && recomm_month != null && recomm_year != null){
-            val dat = (recomm_day.toString() + "-" + recomm_month.toString() + "-" + recomm_year.toString())
-            binding.inputDate.text = dat
+//            val dat = (recomm_day.toString() + "-" + recomm_month.toString() + "-" + recomm_year.toString())
+//            binding.inputDate.text = dat
 
             val year = recomm_year!!.toInt()
-            val month = recomm_month!!.toInt()
+            val month = recomm_month!!.toInt() - 1
             val day = recomm_day!!.toInt()
 
             // on below line we are creating a

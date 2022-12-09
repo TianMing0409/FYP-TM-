@@ -8,6 +8,8 @@ import random
 filename = join(dirname(__file__),"song_data.csv")
 
 data = pd.read_csv(filename)
+
+data.drop_duplicates(inplace=True,subset=['song_name'])
 name=data['song_name']
 
 col_features = ['danceability', 'energy', 'audio_valence', 'loudness']
@@ -46,22 +48,19 @@ df.reset_index(level=0, inplace=True)
 isMusic = False
 
 def recomm_music(emotion):
-    isMusic = True
-    NUM_RECOMMEND=1
-    happy_set=[]
-    sad_set=[]
+    NUM_RECOMMEND=20
     if emotion == 'very sad':
         # happy_set.append(df[df['kmeans']==0]['song_title'].head(NUM_RECOMMEND))
         # return happy_set
-        return "Listen Music : " + df[df['kmeans']==0]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
+        return "Listen Music : " + df[df['kmeans']==0]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
     elif emotion == 'sad':
-        return "Listen Music : " + df[df['kmeans']==1]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
+        return "Listen Music : " + df[df['kmeans']==1]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
     elif emotion == 'normal':
-        return "Listen Music : " + df[df['kmeans']==2]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
+        return "Listen Music : " + df[df['kmeans']==2]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
     elif emotion == 'happy':
-        return "Listen Music : " + df[df['kmeans']==3]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
+        return "Listen Music : " + df[df['kmeans']==3]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
     elif emotion == 'very happy':
-        return "Listen Music : " + df[df['kmeans']==4]['song_name'].head(NUM_RECOMMEND).to_string(index = False)
+        return "Listen Music : " + df[df['kmeans']==4]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
 
 ########################################################################################################
 from bs4 import BeautifulSoup as SOUP
@@ -107,7 +106,7 @@ def recomm_movie(emotion):
 
     result = random.choice(movies)
 
-    return "Go watch movie : " + result
+    return "Watch movie : " + result
 
 
 ####################################################################################################################

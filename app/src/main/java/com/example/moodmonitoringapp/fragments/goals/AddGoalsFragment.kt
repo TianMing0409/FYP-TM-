@@ -63,6 +63,40 @@ class AddGoalsFragment : Fragment() {
             binding.inputGoal.setText("")
         }
 
+        //For calender mode date picker to retrieve recommendation date
+        if(recomm_day != null && recomm_month != null && recomm_year != null){
+            val dat = (recomm_day.toString() + "-" + recomm_month.toString() + "-" + recomm_year.toString())
+            binding.inputDate.text = dat
+
+            val year = recomm_year!!.toInt()
+            val month = recomm_month!!.toInt()
+            val day = recomm_day!!.toInt()
+
+            // on below line we are creating a
+            // variable for date picker dialog.
+            val datePickerDialog = DatePickerDialog(
+                // on below line we are passing context.
+                this.requireActivity(),
+                { view, year, monthOfYear, dayOfMonth ->
+                    // on below line we are setting
+                    // date to our edit text.
+                    val dat = (recomm_day.toString() + "-" + recomm_month.toString() + "-" + recomm_year.toString())
+                    binding.inputDate.text = dat
+                },
+                // on below line we are passing year, month
+                // and day for the selected date in our date picker.
+                year,
+                month,
+                day
+            )
+
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+            // at last we are calling show
+            // to display our date picker dialog.
+            datePickerDialog.show()
+        }
+
+        //Spinner Date picker (Original)
 //        val picker = binding.datePicker
 //        val today = Calendar.getInstance()
 //
@@ -81,13 +115,8 @@ class AddGoalsFragment : Fragment() {
 //            }
 //        }
 
-        val datePicker = DatePickerDialog.OnDateSetListener{view,year,month,dayOfMonth ->
-            myCalendar.set(Calendar.YEAR,year)
-            myCalendar.set(Calendar.MONTH,month)
-            myCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth)
-            updateLable(myCalendar)
-        }
 
+        //Calendar mode date picker
         binding.inputDate.setOnClickListener(){
             // on below line we are getting
             // the instance of our calendar.
@@ -120,8 +149,6 @@ class AddGoalsFragment : Fragment() {
             // at last we are calling show
             // to display our date picker dialog.
             datePickerDialog.show()
-
-
         }
 
 
@@ -139,12 +166,6 @@ class AddGoalsFragment : Fragment() {
 
         return binding.root
 
-    }
-
-    private fun updateLable(myCalander : Calendar){
-        val myFormat = "dd-MM-yyyy"
-        val sdf = SimpleDateFormat(myFormat,Locale.UK)
-        binding.inputDate.setText(sdf.format(myCalendar.time))
     }
 
 //    private var goalID=""

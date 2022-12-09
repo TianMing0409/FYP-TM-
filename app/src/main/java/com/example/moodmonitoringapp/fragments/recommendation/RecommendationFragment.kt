@@ -144,7 +144,6 @@ class RecommendationFragment : DialogFragment() {
         val python : Python = Python.getInstance()
 
         val pythonFile : PyObject = python.getModule("MoodRecommendationModule")
-//        return pythonFile.callAttr("get_results",userMood).toString()
         return pythonFile.callAttr("recomm_movie",userMood).toString()
     }
 
@@ -189,7 +188,7 @@ class RecommendationFragment : DialogFragment() {
             binding.addRecommMusicBtn.setOnClickListener(){
                 val recommMusic = binding.recommendationMusic.text.toString()
                 val recommMusic_day = getRecommMusicDay().toInt()
-                val recommMusic_month = getRecommMusicMonth().toInt() - 1  //Minus 1 month to get proper month
+                val recommMusic_month = getRecommMusicMonth().toInt()  //Minus 1 month to get proper month
                 val recommMusic_year = getRecommMusicYear().toInt()
 
                 val bundle = Bundle()
@@ -213,7 +212,7 @@ class RecommendationFragment : DialogFragment() {
             binding.addRecommMovieBtn.setOnClickListener(){
                 val recommMovie = binding.recommendationMovie.text.toString()
                 val recommMovie_day = getRecommMovieDay().toInt()
-                val recommMovie_month = getRecommMovieMonth().toInt() - 1   //Minus 1 month to get proper month
+                val recommMovie_month = getRecommMovieMonth().toInt()    //Minus 1 month to get proper month
                 val recommMovie_year = getRecommMovieYear().toInt()
 
                 val bundle = Bundle()

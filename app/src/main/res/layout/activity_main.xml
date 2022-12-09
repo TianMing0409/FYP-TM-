@@ -34,14 +34,14 @@
             android:layout_height="wrap_content"
             app:itemIconTint="#000000"
             app:itemTextColor="#000000"
-            app:backgroundTint="#00c3ff"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/menu"
-            android:layout_gravity="bottom"
-            app:itemBackground="@drawable/nav_bar"/>
-
+            android:layout_gravity="bottom"/>
+<!--            app:itemBackground="@drawable/nav_bar"/>-->
+<!--        app:backgroundTint="#00c3ff"-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/community_fab"
             android:layout_width="wrap_content"

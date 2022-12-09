@@ -1,5 +1,6 @@
 package com.example.moodmonitoringapp.fragments.goals
 
+import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -36,6 +37,9 @@ class AddGoalsFragment : Fragment() {
     var recomm_month: Int? = null
     var recomm_year: Int? = null
 
+    val myCalendar = Calendar.getInstance()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,23 +63,66 @@ class AddGoalsFragment : Fragment() {
             binding.inputGoal.setText("")
         }
 
-        val picker = binding.datePicker
-        val today = Calendar.getInstance()
+//        val picker = binding.datePicker
+//        val today = Calendar.getInstance()
+//
+//        picker.minDate = System.currentTimeMillis() - 1000
+//
+//        picker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
+//                view, year, month, day ->
+//            val month = month + 1
+//        }
+//
+//        if(recomm_day != null && recomm_month != null && recomm_year != null){
+//
+//            picker.init(recomm_year!!.toInt(),recomm_month!!.toInt(),recomm_day!!.toInt()) {
+//                    view, year, month, day ->
+//                val month = month + 1
+//            }
+//        }
 
-        picker.init(today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)) {
-                view, year, month, day ->
-            val month = month + 1
+        val datePicker = DatePickerDialog.OnDateSetListener{view,year,month,dayOfMonth ->
+            myCalendar.set(Calendar.YEAR,year)
+            myCalendar.set(Calendar.MONTH,month)
+            myCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+            updateLable(myCalendar)
         }
 
-        if(recomm_day != null && recomm_month != null && recomm_year != null){
+        binding.inputDate.setOnClickListener(){
+            // on below line we are getting
+            // the instance of our calendar.
+            val c = Calendar.getInstance()
 
-            picker.init(recomm_year!!.toInt(),recomm_month!!.toInt(),recomm_day!!.toInt()) {
-                    view, year, month, day ->
-                val month = month + 1
-            }
+            // on below line we are getting
+            // our day, month and year.
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            // on below line we are creating a
+            // variable for date picker dialog.
+            val datePickerDialog = DatePickerDialog(
+                // on below line we are passing context.
+                this.requireActivity(),
+                { view, year, monthOfYear, dayOfMonth ->
+                    // on below line we are setting
+                    // date to our edit text.
+                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    binding.inputDate.text = dat
+                },
+                // on below line we are passing year, month
+                // and day for the selected date in our date picker.
+                year,
+                month,
+                day
+            )
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+            // at last we are calling show
+            // to display our date picker dialog.
+            datePickerDialog.show()
+
+
         }
-
-
 
 
         val btnSubmit: Button = binding.submitBtn
@@ -94,22 +141,29 @@ class AddGoalsFragment : Fragment() {
 
     }
 
+    private fun updateLable(myCalander : Calendar){
+        val myFormat = "dd-MM-yyyy"
+        val sdf = SimpleDateFormat(myFormat,Locale.UK)
+        binding.inputDate.setText(sdf.format(myCalendar.time))
+    }
+
 //    private var goalID=""
     private var goalName=""
-    private var day = 0
-    private var month = 0
-    private var year = 0
+//    private var day = 0
+//    private var month = 0
+//    private var year = 0
     private var goalTargetDate = ""
 //    private var goalStatus = ""
 
     private fun validateData(){
 //        goalID = "G" + (0..3000).random()
         goalName = binding.inputGoal.text.toString().trim()
-        day = binding.datePicker.dayOfMonth
-        month = binding.datePicker.month +1
-        year = binding.datePicker.year
-        goalTargetDate = "$day-$month-$year"
+//        day = .binding.datePicker.dayOfMonth
+//        month = binding.datePicker.month +1
+//        year = binding.datePicker.year
+//        goalTargetDate = "$day-$month-$year"
 //        goalStatus = "Active"
+        goalTargetDate = binding.inputDate.text.toString()
 
         if(goalName.isEmpty()){
             Toast.makeText(context, "Enter goal...", Toast.LENGTH_SHORT).show()

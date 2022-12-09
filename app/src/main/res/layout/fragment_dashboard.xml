@@ -8,15 +8,19 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddGoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="63dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="40dp"
         android:backgroundTint="#ffaa00"
         android:clickable="true"
         android:src="@drawable/goal_add_24"
+        app:backgroundTint="#000000"
+        app:borderWidth="2dp"
+        app:fabCustomSize="61dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="31dp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

@@ -53,13 +53,29 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener{
             when(it.itemId){
-                R.id.home -> replaceFragment(homeFragment)
+                R.id.home -> {
+                    replaceFragment(homeFragment)
+//                    communityFab.visibility = View.GONE
+//                    communityText.visibility = View.GONE
+                }
                 //R.id.home -> replaceFragment(recommendationFragment)        //Testing purpose
-                R.id.stats ->replaceFragment(statsFragment)
-                R.id.goals -> replaceFragment(dashBoardFragment)   //Currently not working completely, pending future works
+                R.id.stats ->{
+                    replaceFragment(statsFragment)
+//                    communityFab.visibility = View.GONE
+//                    communityText.visibility = View.GONE
+                }
+                R.id.goals -> {
+                    replaceFragment(dashBoardFragment)
+//                    communityFab.visibility = View.GONE
+//                    communityText.visibility = View.GONE
+                }   //Currently not working completely, pending future works
                 //R.id.goals -> replaceFragment(activeGoalsFragment)   //Testing purpose, need to remove
                 //R.id.goals -> replaceFragment(completedGoalsFragment)   //Testing purpose, need to remove
-                R.id.profile -> replaceFragment(profileFragment)
+                R.id.profile -> {
+                    replaceFragment(profileFragment)
+//                    communityFab.visibility = View.GONE
+//                    communityText.visibility = View.GONE
+                }
             }
             true
         }
@@ -112,6 +128,8 @@ class MainActivity : AppCompatActivity() {
         communityFab.setOnClickListener {
             //replaceFragment(communityFragment)     //Testing purpose, need to remove
             //replaceFragment(myActivityFragment)    //Testing purpose, need to remove
+//            communityFab.visibility = View.GONE
+//            communityText.visibility = View.GONE
             replaceFragment(communityDashboardFragment)
         }
 

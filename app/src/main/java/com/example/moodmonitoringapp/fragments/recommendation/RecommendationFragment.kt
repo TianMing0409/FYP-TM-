@@ -41,12 +41,6 @@ class RecommendationFragment : DialogFragment() {
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
 
-    private var goalID=""
-    private var goalName=""
-    private var goalTargetDate = ""
-    private var goalStatus = "Active"
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -193,7 +187,7 @@ class RecommendationFragment : DialogFragment() {
 
             //Add music recommendation as goal (Direct to Add goal page)
             binding.addRecommMusicBtn.setOnClickListener(){
-                val recommMusic = getRecommMusic(mood)
+                val recommMusic = binding.recommendationMusic.text.toString()
                 val recommMusic_day = getRecommMusicDay().toInt()
                 val recommMusic_month = getRecommMusicMonth().toInt() - 1  //Minus 1 month to get proper month
                 val recommMusic_year = getRecommMusicYear().toInt()
@@ -217,7 +211,7 @@ class RecommendationFragment : DialogFragment() {
 
             //Add movie recommendation as goal (Direct to Add goal page)
             binding.addRecommMovieBtn.setOnClickListener(){
-                val recommMovie = getRecommMovie(mood)
+                val recommMovie = binding.recommendationMovie.text.toString()
                 val recommMovie_day = getRecommMovieDay().toInt()
                 val recommMovie_month = getRecommMovieMonth().toInt() - 1   //Minus 1 month to get proper month
                 val recommMovie_year = getRecommMovieYear().toInt()

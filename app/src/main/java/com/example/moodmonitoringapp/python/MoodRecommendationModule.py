@@ -49,7 +49,7 @@ isMusic = False
 
 def recomm_music(emotion):
     NUM_RECOMMEND=20
-    if emotion == 'very sad':
+    if emotion == 'verySad':
         # happy_set.append(df[df['kmeans']==0]['song_title'].head(NUM_RECOMMEND))
         # return happy_set
         return "Listen Music : " + df[df['kmeans']==0]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
@@ -59,10 +59,10 @@ def recomm_music(emotion):
         return "Listen Music : " + df[df['kmeans']==2]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
     elif emotion == 'happy':
         return "Listen Music : " + df[df['kmeans']==3]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
-    elif emotion == 'very happy':
+    elif emotion == 'veryHappy':
         return "Listen Music : " + df[df['kmeans']==4]['song_name'].head(NUM_RECOMMEND).sample().to_string(index = False)
 
-########################################################################################################
+##########################################################################################################################
 from bs4 import BeautifulSoup as SOUP
 import re
 import requests as HTTP
@@ -72,19 +72,13 @@ def recomm_movie(emotion):
     url = ""
     if (emotion == "sad"):
         url = 'http://www.imdb.com/search/title?genres=drama&title_type=feature&sort=moviemeter, asc'
-    elif(emotion == "disgust"):
+    elif(emotion == "verySad"):
         url = 'http://www.imdb.com/search/title?genres=musical&title_type=feature&sort=moviemeter, asc'
-    elif(emotion == "anger"):
-        url = 'http://www.imdb.com/search/title?genres=family&title_type=feature&sort=moviemeter, asc'
-    elif(emotion == "anticipation"):
+    elif(emotion == "normal"):
         url = 'http://www.imdb.com/search/title?genres=thriller&title_type=feature&sort=moviemeter, asc'
-    elif(emotion == "fear"):
-        url = 'http://www.imdb.com/search/title?genres=sport&title_type=feature&sort=moviemeter, asc'
-    elif(emotion == "enjoyment"):
-        url = 'http://www.imdb.com/search/title?genres=thriller&title_type=feature&sort=moviemeter, asc'
-    elif(emotion == "trust"):
+    elif(emotion == "happy"):
         url = 'http://www.imdb.com/search/title?genres=western&title_type=feature&sort=moviemeter, asc'
-    elif(emotion == "surprise"):
+    elif(emotion == "veryHappy"):
         url = 'http://www.imdb.com/search/title?genres=film_noir&title_type=feature&sort=moviemeter, asc'
 
     movies = []
@@ -109,7 +103,7 @@ def recomm_movie(emotion):
     return "Watch movie : " + result
 
 
-####################################################################################################################
+###############################################################################################################################
 from faker import Faker
 fake = Faker()
 

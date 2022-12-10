@@ -3,6 +3,9 @@ package com.example.moodmonitoringapp.fragments.recommendation
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -56,9 +59,30 @@ class RecommendationFragment : DialogFragment() {
 
         userArrayList = arrayListOf<Moods>()
 
-        binding.okBtn.setOnClickListener(){
+        binding.cancelBtn.setOnClickListener(){
             dismiss()
         }
+
+
+        val linkGoaltv = binding.goToGoalLink
+        val content = SpannableString("Click here to set your own goal")
+        content.setSpan(UnderlineSpan(), 0, content.length, 0)
+        linkGoaltv.text = content
+
+        binding.goToGoalLink.setOnClickListener(){
+
+            dismiss()
+            val fragmentTransaction  = this.parentFragmentManager.beginTransaction()
+            val addGoalFragment = AddGoalsFragment()
+
+            fragmentTransaction.replace(R.id.fragment_container,addGoalFragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
+
+
+
+
 
 //        val recommendation = binding.recommendation           //Get the recommendation provided
 
@@ -99,12 +123,12 @@ class RecommendationFragment : DialogFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        dialog?.window?.setLayout(1000,1100)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-    }
+//    override fun onStart() {
+//        super.onStart()
+//
+//        dialog?.window?.setLayout(1000,1100)
+//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//    }
 
     private fun getRecommMusic(userMood : String): String{
 

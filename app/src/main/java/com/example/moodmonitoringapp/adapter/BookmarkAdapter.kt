@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
-class BookmarkAdapter (private val posts: ArrayList<Posts>, private val listener: PassCommData) :
+class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val listener: PassCommData) :
     RecyclerView.Adapter<BookmarkAdapter.ViewHolder>(){
 
     private lateinit var db : DatabaseReference
@@ -44,13 +44,13 @@ class BookmarkAdapter (private val posts: ArrayList<Posts>, private val listener
             commentIcon.setOnClickListener() {
 
                 val position = adapterPosition
-                val itemId = posts[adapterPosition].postID
-                val itemtUsername = posts[adapterPosition].postUsername
-                val itemDate = posts[adapterPosition].postDate
-                val itemDetails = posts[adapterPosition].postDetails
-                val itemCommentCount = posts[adapterPosition].commentCount
-                val itemImage = posts[absoluteAdapterPosition].imageUrl
-                val itemUserID = posts[absoluteAdapterPosition].postUserID
+                val itemId = bookmarks[adapterPosition].postID
+                val itemtUsername = bookmarks[adapterPosition].postUsername
+                val itemDate = bookmarks[adapterPosition].postDate
+                val itemDetails = bookmarks[adapterPosition].postDetails
+                val itemCommentCount = bookmarks[adapterPosition].commentCount
+                val itemImage = bookmarks[adapterPosition].imageUrl
+                val itemUserID = bookmarks[adapterPosition].postUserID
                 if (position != RecyclerView.NO_POSITION) {
                     listener.passCommData(
                         position,
@@ -74,7 +74,7 @@ class BookmarkAdapter (private val posts: ArrayList<Posts>, private val listener
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val currentItem = posts[position]
+        val currentItem = bookmarks[position]
         holder.username.text = currentItem.postUsername
         holder.postDate.text = currentItem.postDate
         holder.postDetails.text = currentItem.postDetails
@@ -99,6 +99,7 @@ class BookmarkAdapter (private val posts: ArrayList<Posts>, private val listener
                     currentItem.postDetails,currentItem.commentCount,currentItem.imageUrl,currentItem.postUserID)
 
                 db.child(userUId).child(currentItem.postID).setValue(bookmark).addOnSuccessListener {
+
                     Toast.makeText(holder.itemView.context, "Added to bookmark!", Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener{
 
@@ -121,7 +122,7 @@ class BookmarkAdapter (private val posts: ArrayList<Posts>, private val listener
     }
 
     override fun getItemCount(): Int {
-        return posts.size
+        return bookmarks.size
     }
 
     private fun checkIsBookmark(postId : String, bookmarkIcon : ImageView){

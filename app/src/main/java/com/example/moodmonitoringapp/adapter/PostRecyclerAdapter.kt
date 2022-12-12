@@ -114,7 +114,6 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
 
                 db.child(userUId)
                     .child(currentItem.postID).removeValue().addOnSuccessListener {
-
                         Toast.makeText(holder.itemView.context, "Removed from bookmark!", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener{
 
@@ -149,5 +148,6 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
 
             })
     }
+
 
 }

@@ -30,14 +30,6 @@ class MyActivityFragment : Fragment(), PassCommData {
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
 
-    //Testing purpose variables (Need to modify)
-//    private var usernameList = mutableListOf<String>()
-//    private var postDateList = mutableListOf<String>()
-//    private var postDetailsList = mutableListOf<String>()
-//    private var likeCountList = mutableListOf<String>()
-//    private var commentCountList = mutableListOf<String>()
-//    private var profileImageList = mutableListOf<Int>()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,19 +74,16 @@ class MyActivityFragment : Fragment(), PassCommData {
                         if(posts!!.postUserID == userUId){
                             userArrayList.add(posts!!)
                         }
-
-
                     }
-                        userRecyclerView.adapter =
-                            MyActivityRecyclerAdapter(userArrayList, this@MyActivityFragment)
-                    }
+                    userRecyclerView.adapter = MyActivityRecyclerAdapter(userArrayList, this@MyActivityFragment)
                 }
+            }
 
-                override fun onCancelled(error: DatabaseError) {
+            override fun onCancelled(error: DatabaseError) {
 
-                }
+            }
 
-            })
+        })
 
     }
 
@@ -120,23 +109,4 @@ class MyActivityFragment : Fragment(), PassCommData {
         transaction.commit()
 
     }
-
-//    //Dummy function to test data
-//    private fun addToList(username:String, postDate: String, postDetails:String,likeCount:String,commentCount:String,profileImage: Int){
-//        usernameList.add(username)
-//        postDateList.add(postDate)
-//        postDetailsList.add(postDetails)
-//        likeCountList.add(likeCount)
-//        commentCountList.add(commentCount)
-//        profileImageList.add(profileImage)
-//    }
-//
-//    //Dummy function to test data
-//    private fun postToList(){
-//        for(i in 1..15){
-//            addToList("Username $i","Date $i","Post Details $i","Like Count $i",
-//                "Comment Count $i", R.drawable.profile_icon)
-//        }
-//    }
-
 }

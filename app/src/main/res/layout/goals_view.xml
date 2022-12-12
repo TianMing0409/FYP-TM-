@@ -2,9 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="10dp">
@@ -12,7 +12,8 @@
     <RelativeLayout
         android:id="@+id/wrapper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#03A9F4"
         android:padding="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,8 +22,8 @@
 
             <TextView
                 android:id="@+id/boxBackground"
-                android:layout_width="361dp"
-                android:layout_height="106dp"
+                android:layout_width="349dp"
+                android:layout_height="116dp"
                 android:background="@drawable/box"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +46,7 @@
                 android:id="@+id/shcedule_date_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:text="Target Date:"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
@@ -70,7 +71,7 @@
 
             <TextView
                 android:id="@+id/goal_title"
-                android:layout_width="260dp"
+                android:layout_width="265dp"
                 android:layout_height="51dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"

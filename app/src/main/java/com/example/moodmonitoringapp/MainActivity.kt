@@ -64,6 +64,9 @@ class MainActivity : AppCompatActivity() {
 //                    communityFab.visibility = View.GONE
 //                    communityText.visibility = View.GONE
                 }
+                R.id.communityPlatform ->{
+                    replaceFragment(communityDashboardFragment)
+                }
                 R.id.goals -> {
                     replaceFragment(dashBoardFragment)
 //                    communityFab.visibility = View.GONE
@@ -80,58 +83,58 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        // Register all the FABs with their IDs This FAB button is the Parent
-        addFab = findViewById(R.id.add_fab)
-
-        // FAB button
-        communityFab = findViewById(R.id.community_fab)
-
-        // Also register the action name text, of all the FABs.
-        communityText = findViewById(R.id.community_text)
-
-        // Now set all the FABs and all the action name texts as GONE
-        communityFab.visibility = View.GONE
-        communityText.visibility = View.GONE
-
-        // make the boolean variable as false, as all the
-        // action name texts and all the sub FABs are invisible
-        isAllFabsVisible = false
-
-        // We will make all the FABs and action name texts
-        // visible only when Parent FAB button is clicked So
-        // we have to handle the Parent FAB button first, by
-        // using setOnClickListener you can see below
-        addFab.setOnClickListener(View.OnClickListener {
-            (if (!isAllFabsVisible!!) {
-                // when isAllFabsVisible becomes true make all
-                // the action name texts and FABs VISIBLE
-                communityFab.show()
-                communityText.visibility = View.VISIBLE
-
-                // make the boolean variable true as we
-                // have set the sub FABs visibility to GONE
-                true
-            } else {
-                // when isAllFabsVisible becomes true make
-                // all the action name texts and FABs GONE.
-                communityFab.hide()
-                communityText.visibility = View.GONE
-
-                // make the boolean variable false as we
-                // have set the sub FABs visibility to GONE
-                false
-            }).also { isAllFabsVisible = it }
-        })
-
-        // below is the sample action to handle add person FAB. Here it shows simple Toast msg.
-        // The Toast will be shown only when they are visible and only when user clicks on them
-        communityFab.setOnClickListener {
-            //replaceFragment(communityFragment)     //Testing purpose, need to remove
-            //replaceFragment(myActivityFragment)    //Testing purpose, need to remove
-//            communityFab.visibility = View.GONE
-//            communityText.visibility = View.GONE
-            replaceFragment(communityDashboardFragment)
-        }
+//        // Register all the FABs with their IDs This FAB button is the Parent
+//        addFab = findViewById(R.id.add_fab)
+//
+//        // FAB button
+//        communityFab = findViewById(R.id.community_fab)
+//
+//        // Also register the action name text, of all the FABs.
+//        communityText = findViewById(R.id.community_text)
+//
+//        // Now set all the FABs and all the action name texts as GONE
+//        communityFab.visibility = View.GONE
+//        communityText.visibility = View.GONE
+//
+//        // make the boolean variable as false, as all the
+//        // action name texts and all the sub FABs are invisible
+//        isAllFabsVisible = false
+//
+//        // We will make all the FABs and action name texts
+//        // visible only when Parent FAB button is clicked So
+//        // we have to handle the Parent FAB button first, by
+//        // using setOnClickListener you can see below
+//        addFab.setOnClickListener(View.OnClickListener {
+//            (if (!isAllFabsVisible!!) {
+//                // when isAllFabsVisible becomes true make all
+//                // the action name texts and FABs VISIBLE
+//                communityFab.show()
+//                communityText.visibility = View.VISIBLE
+//
+//                // make the boolean variable true as we
+//                // have set the sub FABs visibility to GONE
+//                true
+//            } else {
+//                // when isAllFabsVisible becomes true make
+//                // all the action name texts and FABs GONE.
+//                communityFab.hide()
+//                communityText.visibility = View.GONE
+//
+//                // make the boolean variable false as we
+//                // have set the sub FABs visibility to GONE
+//                false
+//            }).also { isAllFabsVisible = it }
+//        })
+//
+//        // below is the sample action to handle add person FAB. Here it shows simple Toast msg.
+//        // The Toast will be shown only when they are visible and only when user clicks on them
+//        communityFab.setOnClickListener {
+//            //replaceFragment(communityFragment)     //Testing purpose, need to remove
+//            //replaceFragment(myActivityFragment)    //Testing purpose, need to remove
+////            communityFab.visibility = View.GONE
+////            communityText.visibility = View.GONE
+//            replaceFragment(communityDashboardFragment)
+//        }
 
 
     }

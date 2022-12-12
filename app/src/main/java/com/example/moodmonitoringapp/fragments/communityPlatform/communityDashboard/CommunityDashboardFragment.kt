@@ -33,7 +33,7 @@ class CommunityDashboardFragment : Fragment() {
 
     class TabConfigurationComm: TabLayoutMediator.TabConfigurationStrategy {
         override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
-            val tabNames = listOf("Community", "My Activity","My Bookmark")
+            val tabNames = listOf("Community", "My Posts","Bookmarks")
             tab.setText(tabNames[position])
         }
     }

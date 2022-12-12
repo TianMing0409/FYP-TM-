@@ -23,13 +23,15 @@
 
         <TextView
             android:id="@+id/recommendationMusic"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="79dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
-            android:autoSizeMaxTextSize="17dp"
-            android:autoSizeMinTextSize="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="24dp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="18sp"
+            android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
+            android:gravity="center_vertical"
             android:text="Recommending..."
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -42,8 +44,8 @@
         <Button
             android:id="@+id/addRecommMusicBtn"
             android:layout_width="102dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="11dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="12dp"
             android:backgroundTint="#40FF7F"
             android:text="Set as goal"
             android:textColor="#000000"
@@ -52,13 +54,14 @@
             app:layout_constraintBottom_toBottomOf="@+id/recommendationMusic"
             app:layout_constraintStart_toEndOf="@+id/recommendationMusic"
             app:layout_constraintTop_toTopOf="@+id/recommendationMusic"
+            app:layout_constraintVertical_bias="0.35"
             app:strokeWidth="2dp" />
 
         <Button
             android:id="@+id/cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="24dp"
             android:text="Cancel"
             app:layout_constraintEnd_toEndOf="@+id/view2"
             app:layout_constraintStart_toStartOf="@+id/view2"
@@ -114,26 +117,29 @@
 
         <TextView
             android:id="@+id/recommendationMovie"
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="79dp"
-            android:layout_marginStart="8dp"
-            android:autoSizeMaxTextSize="17dp"
-            android:autoSizeMinTextSize="16dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="36dp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="18sp"
+            android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
+            android:gravity="center_vertical"
             android:text="Recommending..."
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="#000000"
             android:textSize="18sp"
             android:translationZ="90dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toTopOf="@+id/imageView6" />
+            app:layout_constraintTop_toBottomOf="@+id/recommendationMusic" />
 
         <Button
             android:id="@+id/addRecommMovieBtn"
             android:layout_width="102dp"
             android:layout_height="58dp"
-            android:layout_marginStart="11dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
             android:backgroundTint="#40FF7F"
             android:text="Set as goal"
             android:textColor="#000000"
@@ -142,6 +148,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/recommendationMovie"
             app:layout_constraintStart_toEndOf="@+id/recommendationMovie"
             app:layout_constraintTop_toTopOf="@+id/recommendationMovie"
+            app:layout_constraintVertical_bias="0.823"
             app:strokeWidth="2dp" />
 
         <View
@@ -162,7 +169,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/view2"
             app:layout_constraintStart_toStartOf="@+id/view2"
             app:layout_constraintTop_toBottomOf="@+id/view"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/goToGoalLink"
@@ -174,7 +181,7 @@
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="@+id/view2"
-            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="@+id/textView22"
             app:layout_constraintTop_toBottomOf="@+id/cancelBtn" />
 
@@ -183,18 +190,17 @@
             android:layout_width="66dp"
             android:layout_height="75dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/listen_music_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/recommendationMusic"
             app:layout_constraintStart_toStartOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/recommendationMusic"
-            app:layout_constraintVertical_bias="0.445" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="62dp"
             android:layout_height="78dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="44dp"
             android:src="@drawable/watch_movie_icon"
             app:layout_constraintStart_toStartOf="@+id/view2"
             app:layout_constraintTop_toBottomOf="@+id/listenMusciPic" />

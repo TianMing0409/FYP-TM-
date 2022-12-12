@@ -13,9 +13,9 @@
 
         <TextView
             android:id="@+id/background"
-            android:layout_width="409dp"
-            android:layout_height="105dp"
-            android:background="#ECECEC"
+            android:layout_width="413dp"
+            android:layout_height="106dp"
+            android:background="#FF8946"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -27,8 +27,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Schedule For:"
-            android:textColor="#494949"
+            android:textColor="#373737"
             android:textSize="16sp"
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +71,8 @@
             android:gravity="center"
             android:text="Goal"
             android:textColor="#303030"
-            android:textSize="20sp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/goal"
             app:layout_constraintStart_toStartOf="@+id/goal"
             app:layout_constraintTop_toBottomOf="@+id/background" />
@@ -80,10 +82,15 @@
             android:layout_width="219dp"
             android:layout_height="61dp"
             android:layout_marginTop="52dp"
+            android:backgroundTint="#66FB15"
             android:text="Complete"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/goal" />
+            app:layout_constraintTop_toBottomOf="@+id/goal"
+            app:strokeWidth="1dp" />
 
         <Button
             android:id="@+id/editBtn"
@@ -92,12 +99,28 @@
             android:layout_marginTop="7dp"
             android:layout_marginEnd="28dp"
             android:layout_marginBottom="13dp"
+            android:backgroundTint="#F8C52D"
             android:text="Edit"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/goal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/background"
             app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="411dp"
+            android:layout_height="629dp"
+            android:textColor="#000000"
+            android:translationZ="-90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/lightblue"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

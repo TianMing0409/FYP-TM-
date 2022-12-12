@@ -45,10 +45,6 @@ class MyActivityRecyclerAdapter (private val posts: ArrayList<Posts>, private va
                 popupMenus(it)
             }
 
-            bookmarkIcon.setOnClickListener(){
-                //Fact function
-                Toast.makeText(itemView.context, "Bookmarked", Toast.LENGTH_SHORT).show()
-            }
         }
 
         override fun onClick(v: View?) {

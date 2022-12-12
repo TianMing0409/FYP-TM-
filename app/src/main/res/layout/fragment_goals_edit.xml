@@ -9,7 +9,8 @@
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/lightblue">
 
         <TextView
             android:id="@+id/fixNewGoalTitle"
@@ -57,8 +58,11 @@
             android:id="@+id/saveBtn"
             android:layout_width="171dp"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="60dp"
+            android:backgroundTint="#66FB15"
             android:text="Save"
+            android:textColor="#000000"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputNewDate" />
@@ -68,34 +72,53 @@
             android:layout_width="171dp"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
+            android:backgroundTint="#FB2020"
             android:text="Delete"
-            android:textColor="#FF0000"
+            android:textColor="#000000"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/saveBtn"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/saveBtn"
             app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
 
+        <!--        <EditText-->
+<!--            android:id="@+id/inputNewDate"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="28dp"-->
+<!--            android:ems="10"-->
+<!--            android:inputType="textPersonName"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/calanderIcon"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/calanderIcon"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/calanderIcon"-->
+<!--            app:layout_constraintVertical_bias="0.0" />-->
         <ImageView
             android:id="@+id/calanderIcon"
             android:layout_width="45dp"
             android:layout_height="39dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="48dp"
             android:src="@drawable/calander_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fixScheduleTitle" />
 
-        <EditText
+        <TextView
             android:id="@+id/inputNewDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:ems="10"
-            android:inputType="textPersonName"
+            android:layout_width="213dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/underline_box"
+            android:clickable="true"
+            android:gravity="bottom"
+            android:hint="Select a date here"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textColorHint="#7A7777"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/calanderIcon"
             app:layout_constraintStart_toEndOf="@+id/calanderIcon"
             app:layout_constraintTop_toTopOf="@+id/calanderIcon"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

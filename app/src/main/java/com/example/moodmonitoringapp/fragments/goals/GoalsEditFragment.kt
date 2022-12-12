@@ -1,5 +1,6 @@
 package com.example.moodmonitoringapp.fragments.goals
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.util.*
 
 class GoalsEditFragment : Fragment() {
 
@@ -55,7 +57,42 @@ class GoalsEditFragment : Fragment() {
         inputGoalTargetDate = arguments?.getString("ori_goal_target_date").toString()
 
         binding.inputNewGoal.setText(inputGoalTitle)
-        binding.inputNewDate.setText(inputGoalTargetDate)
+        binding.inputNewDate.text = inputGoalTargetDate
+
+        //Calendar mode date picker
+        binding.inputNewDate.setOnClickListener(){
+            // on below line we are getting
+            // the instance of our calendar.
+            val c = Calendar.getInstance()
+
+            // on below line we are getting
+            // our day, month and year.
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            // on below line we are creating a
+            // variable for date picker dialog.
+            val datePickerDialog = DatePickerDialog(
+                // on below line we are passing context.
+                this.requireActivity(),
+                { view, year, monthOfYear, dayOfMonth ->
+                    // on below line we are setting
+                    // date to our edit text.
+                    val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
+                    binding.inputNewDate.text = dat
+                },
+                // on below line we are passing year, month
+                // and day for the selected date in our date picker.
+                year,
+                month,
+                day
+            )
+            datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+            // at last we are calling show
+            // to display our date picker dialog.
+            datePickerDialog.show()
+        }
 
         btnSave.setOnClickListener(){
             validateData()
@@ -82,9 +119,6 @@ class GoalsEditFragment : Fragment() {
         if(goalName.isEmpty()){
             Toast.makeText(context, "Enter goal...", Toast.LENGTH_SHORT).show()
         }
-        else if(goalTargetDate.isEmpty()){
-            Toast.makeText(context,"Enter target date...",Toast.LENGTH_SHORT).show()
-        }
         else{
             //Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()
             editGoal(goalID,goalName,goalStatus,goalTargetDate)
@@ -98,7 +132,6 @@ class GoalsEditFragment : Fragment() {
         db.child("Active").child(userUId)
             .child(goalID).setValue(goal).addOnSuccessListener {
                 binding.inputNewGoal.text.clear()
-                binding.inputNewDate.text.clear()
                 Toast.makeText(context, "Edit Successfully!", Toast.LENGTH_SHORT).show()
 
                 replaceFragment(DashBoardFragment())   // Need to change replace dashboard fragment

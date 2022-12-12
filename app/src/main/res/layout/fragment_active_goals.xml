@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/frameLayout"
-    tools:context=".fragments.goals.ActiveGoalsFragment">
+    tools:context=".fragments.goals.ActiveGoalsFragment"
+    android:background="#03A9F4">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

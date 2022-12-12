@@ -74,14 +74,17 @@
 
         <Button
             android:id="@+id/submitBtn"
-            android:layout_width="116dp"
-            android:layout_height="50dp"
+            android:layout_width="133dp"
+            android:layout_height="56dp"
             android:layout_marginTop="132dp"
+            android:backgroundTint="#FFC105"
             android:text="Submit"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.467"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputDate" />
+            app:layout_constraintTop_toBottomOf="@+id/inputDate"
+            app:strokeWidth="1dp" />
 
         <TextView
             android:id="@+id/inputDate"
@@ -100,6 +103,16 @@
             app:layout_constraintTop_toTopOf="@+id/imageView"
             app:layout_constraintVertical_bias="0.0"
             android:background="@drawable/underline_box"/>
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="413dp"
+            android:layout_height="732dp"
+            android:background="@drawable/lightblue"
+            android:translationZ="-90dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!--        <DatePicker-->
 <!--            android:id="@+id/datePicker"-->

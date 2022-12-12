@@ -21,6 +21,9 @@ import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
 import com.example.moodmonitoringapp.databinding.FragmentStatsBinding
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.charts.ScatterChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.auth.FirebaseAuth
@@ -72,6 +75,11 @@ class StatsFragment : Fragment() {
             setBarChart()
         }
 
+        binding.scatterChartBtn.setOnClickListener(){
+            binding.textView28.setText("Total Mood Count - Scatter Chart")
+            setScatterChart()
+        }
+
         db.child(userUId).child("GoalCompleted").get().addOnSuccessListener {
             val goalCompletedCount = it.value
 
@@ -86,6 +94,7 @@ class StatsFragment : Fragment() {
 
 //        binding.lineChart.isGone = true
         binding.barChart.isGone =  true
+        binding.scatterChart.isGone = true
         binding.pieChart.isGone = false
 
 
@@ -106,15 +115,15 @@ class StatsFragment : Fragment() {
             binding.countVg.text = veryHappy.toString()
             binding.inputTotal.text = total.toString()
 
-            val percentageVs = Math.round((verySad.toString().toDouble()/total)*100)/100.0
+            val percentageVs = Math.round((verySad.toString().toDouble()/total)*100)
             binding.percentageVs.setText(percentageVs.toString() + "%")
-            val percentageS = Math.round((sad.toString().toDouble()/total)*100)/100.0
+            val percentageS = Math.round((sad.toString().toDouble()/total)*100)
             binding.percentageS.setText(percentageS.toString() + "%")
-            val percentageN = Math.round((normal.toString().toDouble()/total)*100)/100.0
+            val percentageN = Math.round((normal.toString().toDouble()/total)*100)
             binding.percentageN.setText(percentageN.toString() + "%")
-            val percentageG = Math.round((happy.toString().toDouble()/total)*100)/100.0
+            val percentageG = Math.round((happy.toString().toDouble()/total)*100)
             binding.percentageG.setText(percentageG.toString() + "%")
-            val percentageVg = Math.round((veryHappy.toString().toDouble()/total)*100)/100.0
+            val percentageVg = Math.round((veryHappy.toString().toDouble()/total)*100)
             binding.percentageVg.setText(percentageVg.toString() + "%")
 
             //X values
@@ -157,13 +166,21 @@ class StatsFragment : Fragment() {
 //        piedataset.color = resources.getColor(R.color.teal_200)
             piedataset.colors = colors
 
-            piedataset.sliceSpace = 2f
+            piedataset.sliceSpace = 1f
 
             val data = PieData(xvalues,piedataset)
             binding.pieChart.data = data
 
             binding.pieChart.holeRadius = 1f
-            binding.pieChart.setBackgroundColor(resources.getColor(R.color.white))
+            binding.pieChart.setBackgroundColor(resources.getColor(R.color.verylightgrey))
+            piedataset.setDrawValues(false)
+            binding.pieChart.setDrawSliceText(false)
+            binding.pieChart.isDrawHoleEnabled = false
+            binding.pieChart.setDescription("")
+            val legendPieChart : Legend = binding.pieChart.legend
+            legendPieChart.position = Legend.LegendPosition.ABOVE_CHART_CENTER
+
+//            binding.pieChart.setUsePercentValues(true)
 
 //            binding.pieChart.setDescription("Mood records")
 
@@ -216,6 +233,7 @@ class StatsFragment : Fragment() {
     private fun setBarChart(){
 
         binding.pieChart.isGone = true
+        binding.scatterChart.isGone = true
         binding.barChart.isGone =  false
 //        binding.lineChart.isGone = true
 
@@ -245,9 +263,79 @@ class StatsFragment : Fragment() {
             barDataset.setColors(ColorTemplate.JOYFUL_COLORS,255)
             val data = BarData(xvalues,barDataset)
 
+            binding.barChart.setBackgroundColor(resources.getColor(R.color.verylightgrey))
+            binding.barChart.xAxis.setDrawGridLines(false)
+            barDataset.setDrawValues(false)
+            binding.barChart.setDescription("")
+
+            val legendBarChart : Legend = binding.barChart.legend
+            legendBarChart.position = Legend.LegendPosition.ABOVE_CHART_CENTER
+
+            val xaxis : XAxis = binding.barChart.xAxis
+            xaxis.position = XAxis.XAxisPosition.BOTTOM
+
+            binding.barChart.axisLeft.setAxisMinValue(0f)
+            binding.barChart.axisRight.setAxisMinValue(0f)
+
             binding.barChart.data = data
 
         }
+    }
+
+    private fun setScatterChart(){
+
+        binding.pieChart.isGone = true
+        binding.barChart.isGone = true
+        binding.scatterChart.isGone = false
+
+        db.child(userUId).child("TotalMoods").get().addOnSuccessListener {
+            val verySad = it.child("verySad").value
+            val sad = it.child("sad").value
+            val normal = it.child("normal").value
+            val happy = it.child("happy").value
+            val veryHappy = it.child("veryHappy").value
+
+            val scatterEntry = ArrayList<Entry>()
+
+            scatterEntry.add(Entry(veryHappy.toString().toFloat(),0))
+            scatterEntry.add(Entry(happy.toString().toFloat(),1))
+            scatterEntry.add(Entry(normal.toString().toFloat(),2))
+            scatterEntry.add(Entry(sad.toString().toFloat(),3))
+            scatterEntry.add(Entry(verySad.toString().toFloat(),4))
+
+            val xvalues = ArrayList<String>()
+            xvalues.add("Very Happy")
+            xvalues.add("Happy")
+            xvalues.add("Normal")
+            xvalues.add("Sad")
+            xvalues.add("Very Sad")
+
+            val scatterDataSet = ScatterDataSet(scatterEntry,"Moods")
+            scatterDataSet.setColors(ColorTemplate.JOYFUL_COLORS,255)
+            scatterDataSet.scatterShape = ScatterChart.ScatterShape.CIRCLE
+
+            binding.scatterChart.setBackgroundColor(resources.getColor(R.color.verylightgrey))
+
+            binding.scatterChart.xAxis.setDrawGridLines(false)
+            scatterDataSet.setDrawValues(false)
+            binding.scatterChart.setDescription("")
+
+            val legendScatterChart : Legend = binding.scatterChart.legend
+            legendScatterChart.position = Legend.LegendPosition.ABOVE_CHART_CENTER
+
+            val xaxis : XAxis = binding.scatterChart.xAxis
+            xaxis.position = XAxis.XAxisPosition.BOTTOM
+
+            binding.scatterChart.axisLeft.setAxisMinValue(0f)
+            binding.scatterChart.axisRight.setAxisMinValue(0f)
+
+
+            val scatterData = ScatterData(xvalues,scatterDataSet)
+            binding.scatterChart.data = scatterData
+
+
+        }
+
     }
 
 }

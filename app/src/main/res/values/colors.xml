@@ -10,4 +10,7 @@
     <color name="darker_blue">#00c3ff</color>
     <color name="light_blue">#8ae8ff</color>
     <color name = "grey">#c9c9c9</color>
+    <color name = "lightGrey">#e3e3e3</color>
+    <color name = "lightblue">#759aff</color>
+    <color name = "verylightgrey">#f2f2f2</color>
 </resources>

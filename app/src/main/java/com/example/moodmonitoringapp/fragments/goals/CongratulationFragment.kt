@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.databinding.FragmentCongratulationBinding
 import com.example.moodmonitoringapp.databinding.FragmentRecommendationBinding
+import kotlin.random.Random
 
 class CongratulationFragment : DialogFragment() {
 
@@ -26,17 +27,61 @@ class CongratulationFragment : DialogFragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_congratulation, container, false)
 
-        val percentage = 65
-        val percent = percentage.toFloat() / 100
-        val dm = Resources.getSystem().displayMetrics
-        val rect = dm.run { Rect(0, 0, widthPixels, heightPixels) }
-        val percentWidth = rect.width() * percent
-        dialog?.window?.setLayout(percentWidth.toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+//        val percentage = 65
+//        val percent = percentage.toFloat() / 100
+//        val dm = Resources.getSystem().displayMetrics
+//        val rect = dm.run { Rect(0, 0, widthPixels, heightPixels) }
+//        val percentWidth = rect.width() * percent
+//        dialog?.window?.setLayout(percentWidth.toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
 
         binding = FragmentCongratulationBinding.inflate(inflater,container,false)
 
-        binding.congratulationAnimation.playAnimation()
-        binding.congratulationGreet.playAnimation()
+
+        val randomValues = Random.nextInt(0,4)
+        if(randomValues == 0) {
+            binding.goodRabbit.visibility = View.GONE
+            binding.nice.visibility = View.GONE
+            binding.tick.visibility = View.GONE
+            binding.cheering.visibility = View.GONE
+            binding.great.visibility = View.GONE
+            binding.celebrate.visibility = View.GONE
+
+            binding.congratulationAnimation.playAnimation()
+            binding.congratulationGreet.playAnimation()
+
+        }else if(randomValues == 1){
+            binding.congratulationAnimation.visibility = View.GONE
+            binding.congratulationGreet.visibility = View.GONE
+            binding.nice.visibility = View.GONE
+            binding.tick.visibility = View.GONE
+            binding.cheering.visibility = View.GONE
+            binding.great.visibility = View.GONE
+            binding.celebrate.visibility = View.GONE
+
+            binding.goodRabbit.playAnimation()
+
+        }else if(randomValues == 2){
+            binding.goodRabbit.visibility = View.GONE
+            binding.congratulationAnimation.visibility = View.GONE
+            binding.congratulationGreet.visibility = View.GONE
+            binding.cheering.visibility = View.GONE
+            binding.great.visibility = View.GONE
+            binding.celebrate.visibility = View.GONE
+
+            binding.nice.playAnimation()
+            binding.tick.playAnimation()
+
+        }else if(randomValues == 3){
+            binding.goodRabbit.visibility = View.GONE
+            binding.congratulationAnimation.visibility = View.GONE
+            binding.congratulationGreet.visibility = View.GONE
+            binding.nice.visibility = View.GONE
+            binding.tick.visibility = View.GONE
+
+            binding.cheering.playAnimation()
+            binding.great.playAnimation()
+            binding.celebrate.playAnimation()
+        }
 
         binding.okCongratBtn.setOnClickListener(){
             dismiss()

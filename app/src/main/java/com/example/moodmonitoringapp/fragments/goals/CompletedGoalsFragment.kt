@@ -86,6 +86,7 @@ class CompletedGoalsFragment : Fragment(R.layout.fragment_completed_goals), Comm
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if(snapshot.exists()){
+                    userArrayList.clear()
                     for(goalSnapshot in snapshot.children){
                         val goals = goalSnapshot.getValue(Goals::class.java)
                         userArrayList.add(goals!!)

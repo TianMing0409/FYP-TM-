@@ -73,6 +73,7 @@ class GoalsDetailsFragment : Fragment() {
 
             uploadGoal(inputGoalId,inputGoalTitle,inputGoalStatus,inputGoalTargetDate)
             deleteGoal(inputGoalId,inputGoalTitle,inputGoalStatus,inputGoalTargetDate)
+            deleteExpiredGoal(inputGoalId)
 
             val congratDialog = CongratulationFragment()
 
@@ -137,6 +138,14 @@ class GoalsDetailsFragment : Fragment() {
     private fun updateCompletedGoalCount(goalCompletedCount : Int){
         db2.child(userUId).child("GoalCompleted").setValue(goalCompletedCount+1)
     }
+
+    private fun deleteExpiredGoal(goalID : String) {
+
+        db.child("Expired").child(userUId)
+            .child(goalID).removeValue()
+
+    }
+
 
     private fun replaceFragment(fragment: Fragment){
         if(fragment!=null ){

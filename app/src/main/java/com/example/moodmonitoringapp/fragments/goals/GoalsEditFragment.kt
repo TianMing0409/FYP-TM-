@@ -1,6 +1,7 @@
 package com.example.moodmonitoringapp.fragments.goals
 
 import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,14 +10,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.databinding.FragmentGoalsDetailsBinding
 import com.example.moodmonitoringapp.databinding.FragmentGoalsEditBinding
 import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class GoalsEditFragment : Fragment() {
@@ -33,6 +35,7 @@ class GoalsEditFragment : Fragment() {
     var inputGoalTitle: String = ""
     var inputGoalStatus: String = ""
     var inputGoalTargetDate: String = ""
+    private lateinit var userArrayList : ArrayList<Goals>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +61,8 @@ class GoalsEditFragment : Fragment() {
 
         binding.inputNewGoal.setText(inputGoalTitle)
         binding.inputNewDate.text = inputGoalTargetDate
+
+        userArrayList = arrayListOf<Goals>()
 
         //Calendar mode date picker
         binding.inputNewDate.setOnClickListener(){
@@ -121,7 +126,9 @@ class GoalsEditFragment : Fragment() {
         }
         else{
             //Toast.makeText(this,"Successful",Toast.LENGTH_SHORT).show()
+
             editGoal(goalID,goalName,goalStatus,goalTargetDate)
+            checkExpiredGoals(goalTargetDate,goalID)
         }
     }
 
@@ -151,6 +158,60 @@ class GoalsEditFragment : Fragment() {
         replaceFragment(DashBoardFragment())     // Need to change replace dashboard fragment
     }
 
+    private fun checkExpiredGoals(newGoalTargetDate : String,goalID : String){
+
+        val formatter = SimpleDateFormat("dd-MM-yyyy")
+
+        val today = Calendar.getInstance()
+        val year = today.get(Calendar.YEAR)
+        val month = today.get(Calendar.MONTH) + 1
+        val day = today.get(Calendar.DAY_OF_MONTH)
+
+
+        val goalTargetDate = formatter.parse(newGoalTargetDate)
+        val todayDate = formatter.parse("$day-$month-$year")
+        val cmp = goalTargetDate.compareTo(todayDate)
+        if(cmp>0) {
+            deleteExpiredGoal(goalID)
+        }
+
+//        val getData = db.child("Expired").child(userUId)
+//
+//        getData.addValueEventListener(object : ValueEventListener {
+//            @RequiresApi(Build.VERSION_CODES.O)
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//
+//                if(snapshot.exists()){
+//                    userArrayList.clear()
+//                    for(goalSnapshot in snapshot.children){
+//                        val goals = goalSnapshot.getValue(Goals::class.java)
+//                        val goalTargetDate = formatter.parse(newGoalTargetDate)
+//                        val todayDate = formatter.parse("$day-$month-$year")
+//                        val cmp = goalTargetDate.compareTo(todayDate)
+//                        if(cmp>0) {
+//                            deleteExpiredGoal(goalID)
+//                        }
+//                    }
+//                }
+////                    userRecyclerView.adapter = GoalRecyclerAdapter(userArrayList,this@ActiveGoalsFragment)
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//
+//            }
+//
+//
+//        })
+
+    }
+
+    private fun deleteExpiredGoal(goalID : String) {
+
+        db.child("Expired").child(userUId)
+            .child(goalID).removeValue()
+
+    }
+
     private fun replaceFragment(fragment: Fragment){
         if(fragment!=null ){
 
@@ -159,4 +220,6 @@ class GoalsEditFragment : Fragment() {
             fragmentTransaction.commit()
         }
     }
+
+
 }

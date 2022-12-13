@@ -25,13 +25,27 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/myPostRecyclerView"
-            android:layout_width="409dp"
-            android:layout_height="476dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:paddingBottom="65dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
             tools:listitem="@layout/personal_post_view" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="411dp"
+            android:layout_height="61dp"
+            android:background="@drawable/lightbluecloudbg"
+            android:translationZ="-90dp"
+            app:layout_constraintBottom_toTopOf="@+id/myPostRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

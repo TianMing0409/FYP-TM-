@@ -59,6 +59,7 @@ class StatsFragment : Fragment() {
 
 //        binding.lineChart.isGone = true
         binding.barChart.isGone = true
+        binding.scatterChart.isGone = true
 
         setPieChart()
 

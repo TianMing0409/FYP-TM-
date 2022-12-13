@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Bookmarks
@@ -113,6 +114,7 @@ class MyActivityRecyclerAdapter (private val posts: ArrayList<Posts>, private va
 //        Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
         if(currentItem.imageUrl.toString() == ""){
             holder.postImage.setImageBitmap(null)
+            holder.postImage.isGone = true
         }else{
             Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
         }

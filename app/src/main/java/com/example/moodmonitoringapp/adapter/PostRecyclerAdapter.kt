@@ -8,6 +8,7 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Bookmarks
@@ -86,6 +87,7 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
 
         if(currentItem.imageUrl.toString() == ""){
             holder.postImage.setImageBitmap(null)
+            holder.postImage.isGone = true
         }else{
             Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
         }

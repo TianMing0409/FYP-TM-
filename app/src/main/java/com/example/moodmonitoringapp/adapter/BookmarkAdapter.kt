@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.data.Bookmarks
@@ -82,6 +83,7 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
 
         if(currentItem.imageUrl.toString() == ""){
             holder.postImage.setImageBitmap(null)
+            holder.postImage.isGone = true
         }else{
             Picasso.get().load(currentItem.imageUrl).into(holder.postImage)
         }
@@ -112,6 +114,9 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
                 db.child(userUId)
                     .child(currentItem.postID).removeValue().addOnSuccessListener {
 
+                        bookmarks.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position,bookmarks.size)
                         Toast.makeText(holder.itemView.context, "Removed from bookmark!", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener{
 

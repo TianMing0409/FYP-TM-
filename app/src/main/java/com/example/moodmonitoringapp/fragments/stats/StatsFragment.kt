@@ -24,8 +24,6 @@ class StatsFragment : Fragment() {
 
     private lateinit var binding : FragmentStatsBinding
     private lateinit var db : DatabaseReference
-    private lateinit var userRecyclerView : RecyclerView
-    private lateinit var userArrayList : ArrayList<Moods>
     private lateinit var auth : FirebaseAuth
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
@@ -43,26 +41,22 @@ class StatsFragment : Fragment() {
         //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
         db = FirebaseDatabase.getInstance().getReference("Stats")
 
-//        binding.lineChart.isGone = true
-        binding.barChart.isGone = true
-        binding.scatterChart.isGone = true
-
         setPieChart()
 
         binding.pieChartBtn.setOnClickListener(){
-//            binding.textView28.setText("Total Mood Couts")
+
             binding.textView28.setText("Total Mood Count - Pie Chart")
             setPieChart()
         }
 
         binding.barChartBtn.setOnClickListener(){
-//            binding.textView28.setText("Mood Frequency")
-            //setLineChart()
+
             binding.textView28.setText("Total Mood Count - Bar Chart")
             setBarChart()
         }
 
         binding.scatterChartBtn.setOnClickListener(){
+
             binding.textView28.setText("Total Mood Count - Scatter Chart")
             setScatterChart()
         }
@@ -79,11 +73,9 @@ class StatsFragment : Fragment() {
 
     private fun setPieChart() {
 
-//        binding.lineChart.isGone = true
+        binding.pieChart.isGone = false
         binding.barChart.isGone =  true
         binding.scatterChart.isGone = true
-        binding.pieChart.isGone = false
-
 
         db.child(userUId).child("TotalMoods").get().addOnSuccessListener {
             val verySad = it.child("verySad").value
@@ -129,14 +121,11 @@ class StatsFragment : Fragment() {
             yvalues.add(sad.toString().toInt())
             yvalues.add(verySad.toString().toInt())
 
-
-
             val piechartentry = ArrayList<Entry>()
 
             for((i, item) in yvalues.withIndex()){
                 piechartentry.add(Entry(item.toFloat(),i))
             }
-
 
             //Colors
             val colors = ArrayList<Int>()
@@ -145,7 +134,6 @@ class StatsFragment : Fragment() {
             colors.add(Color.YELLOW)
             colors.add(Color.BLUE)
             colors.add(Color.MAGENTA)
-
 
             //fill the chart
             val piedataset = PieDataSet(piechartentry,"Mood")
@@ -167,6 +155,8 @@ class StatsFragment : Fragment() {
             val legendPieChart : Legend = binding.pieChart.legend
             legendPieChart.position = Legend.LegendPosition.ABOVE_CHART_CENTER
 
+            binding.pieChart.invalidate()
+            binding.pieChart.refreshDrawableState()
 //            binding.pieChart.setUsePercentValues(true)
 
 //            binding.pieChart.setDescription("Mood records")
@@ -175,54 +165,11 @@ class StatsFragment : Fragment() {
         }
 
     }
-
-//    private fun setLineChart(){
-//        binding.pieChart.isGone = true
-//        binding.lineChart.isGone = false
-//
-//        db.child(userUId).child("TotalMoods").get().addOnSuccessListener {
-//            val verySad = it.child("verySad").value
-//            val sad = it.child("sad").value
-//            val normal = it.child("normal").value
-//            val happy = it.child("happy").value
-//            val veryHappy = it.child("veryHappy").value
-//
-//
-//            val xvalue = ArrayList<String>()
-//            xvalue.add("Very Happy")
-//            xvalue.add("Happy")
-//            xvalue.add("Normal")
-//            xvalue.add("Sad")
-//            xvalue.add("Very Sad")
-//
-//            val yvalues = ArrayList<Int>()
-//            yvalues.add(veryHappy.toString().toInt())
-//            yvalues.add(happy.toString().toInt())
-//            yvalues.add(normal.toString().toInt())
-//            yvalues.add(sad.toString().toInt())
-//            yvalues.add(verySad.toString().toInt())
-//
-//            val linechartentry = ArrayList<Entry>()
-//
-//            for ((i, item) in yvalues.withIndex()) {
-//                linechartentry.add(Entry(item.toFloat(), i))
-//            }
-//
-//            val linedataset = LineDataSet(linechartentry, "Mood Condition")
-//            linedataset.color = resources.getColor(R.color.black)
-//
-//            val data = LineData(xvalue, linedataset)
-//            binding.lineChart.data = data
-//
-//        }
-//    }
-
     private fun setBarChart(){
 
         binding.pieChart.isGone = true
         binding.scatterChart.isGone = true
         binding.barChart.isGone =  false
-//        binding.lineChart.isGone = true
 
 
         db.child(userUId).child("TotalMoods").get().addOnSuccessListener {
@@ -265,6 +212,9 @@ class StatsFragment : Fragment() {
             binding.barChart.axisRight.setAxisMinValue(0f)
 
             binding.barChart.data = data
+
+            binding.barChart.invalidate()
+            binding.barChart.refreshDrawableState()
 
         }
     }
@@ -319,6 +269,9 @@ class StatsFragment : Fragment() {
 
             val scatterData = ScatterData(xvalues,scatterDataSet)
             binding.scatterChart.data = scatterData
+
+            binding.scatterChart.invalidate()
+            binding.scatterChart.refreshDrawableState()
 
 
         }

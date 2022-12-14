@@ -109,6 +109,7 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
             }else{
                 bookmarks.removeAt(position)
                 notifyItemRemoved(position)
+
                 //Remove Bookmark
                 db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 

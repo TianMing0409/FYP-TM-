@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
+import com.example.moodmonitoringapp.adapter.BookmarkAdapter
 import com.example.moodmonitoringapp.adapter.GoalRecyclerAdapter
 import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
 import com.example.moodmonitoringapp.data.Bookmarks

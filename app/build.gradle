@@ -103,12 +103,6 @@ dependencies {
     //Image
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    //Expandable textview
-//    implementation 'com.ms-square:expandableTextView:0.1.4'
-//    implementation 'com.borjabravo:readmoretextview:2.0.1'
-
-
-
     //Original
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

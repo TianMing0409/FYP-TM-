@@ -28,6 +28,7 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
     private var isBookmark = false
+    private lateinit var bookmarkArrayList : ArrayList<Bookmarks>
 
 
 
@@ -111,13 +112,17 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
                 }
             }else{
 
+//                bookmarkArrayList = arrayListOf<Bookmarks>()
+//                BookmarkAdapter(bookmarkArrayList,listener).notifyDataSetChanged()
 
                 //Remove Bookmark
                 db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
                 db.child(userUId)
                     .child(currentItem.postID).removeValue().addOnSuccessListener {
+
                         Toast.makeText(holder.itemView.context, "Removed from bookmark!", Toast.LENGTH_SHORT).show()
+
                     }.addOnFailureListener{
 
                     }

@@ -18,9 +18,10 @@
             android:layout_height="43dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/font4"
             android:text="Define your new goal"
             android:textColor="#000000"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -47,9 +48,10 @@
             android:layout_height="43dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="28dp"
+            android:fontFamily="@font/font4"
             android:text="Schedule New Time"
             android:textColor="#000000"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputNewGoal" />
@@ -60,12 +62,15 @@
             android:layout_height="50dp"
             android:layout_marginTop="60dp"
             android:backgroundTint="#66FB15"
+            android:fontFamily="monospace"
             android:text="Save"
             android:textColor="#000000"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputNewDate" />
+            app:layout_constraintTop_toBottomOf="@+id/inputNewDate"
+            app:strokeColor="#FAFAFA"
+            app:strokeWidth="3dp" />
 
         <Button
             android:id="@+id/delBtn"
@@ -73,13 +78,15 @@
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="#FB2020"
+            android:fontFamily="monospace"
             android:text="Delete"
             android:textColor="#000000"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/saveBtn"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/saveBtn"
-            app:layout_constraintTop_toBottomOf="@+id/saveBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/saveBtn"
+            app:strokeColor="#000000"
+            app:strokeWidth="3dp" />
 
         <!--        <EditText-->
 <!--            android:id="@+id/inputNewDate"-->
@@ -109,6 +116,7 @@
             android:layout_marginStart="32dp"
             android:background="@drawable/underline_box"
             android:clickable="true"
+            android:fontFamily="sans-serif"
             android:gravity="bottom"
             android:hint="Select a date here"
             android:textAlignment="center"

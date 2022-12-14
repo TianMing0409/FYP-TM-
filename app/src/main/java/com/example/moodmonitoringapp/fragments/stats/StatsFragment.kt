@@ -6,21 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import androidx.core.view.isGone
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
-import com.example.moodmonitoringapp.adapter.MoodRecyclerAdapter
-import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
-import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Moods
-import com.example.moodmonitoringapp.data.Posts
-import com.example.moodmonitoringapp.databinding.FragmentActiveGoalsBinding
 import com.example.moodmonitoringapp.databinding.FragmentStatsBinding
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.charts.ScatterChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -28,10 +18,6 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.text.FieldPosition
-import java.text.Format
-import java.text.ParsePosition
-import java.util.*
 import kotlin.collections.ArrayList
 
 class StatsFragment : Fragment() {

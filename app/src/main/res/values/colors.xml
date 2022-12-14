@@ -13,4 +13,5 @@
     <color name = "lightGrey">#e3e3e3</color>
     <color name = "lightblue">#759aff</color>
     <color name = "verylightgrey">#f2f2f2</color>
+    <color name="whitegrey">#f5f5f5</color>
 </resources>

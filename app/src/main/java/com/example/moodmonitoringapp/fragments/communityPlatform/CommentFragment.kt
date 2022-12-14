@@ -26,6 +26,7 @@ class CommentFragment : Fragment() {
 
     private lateinit var binding : FragmentCommentBinding
 
+
     private lateinit var db : DatabaseReference
     private lateinit var db2 : DatabaseReference
     private lateinit var userRecyclerView : RecyclerView
@@ -68,14 +69,14 @@ class CommentFragment : Fragment() {
         inputPostImage = arguments?.getString("input_post_image").toString()
         inputPostCommentCount = arguments?.getInt("input_comment_count")!!.toInt()
 
-        binding.postUsername?.text = inputPostUsername
-        binding.postDate?.text = inputPostDate
-        binding.postContent?.text = inputPostContent
-        if(inputPostImage == ""){
-            binding.postImg.setImageBitmap(null)
-        }else{
-            Picasso.get().load(inputPostImage).into(binding.postImg)
-        }
+//        binding.postUsername?.text = inputPostUsername
+//        binding.postDate?.text = inputPostDate
+//        binding.postContent?.text = inputPostContent
+//        if(inputPostImage == ""){
+//            binding.postImg.setImageBitmap(null)
+//        }else{
+//            Picasso.get().load(inputPostImage).into(binding.postImg)
+//        }
 
 
 
@@ -86,7 +87,7 @@ class CommentFragment : Fragment() {
 
         getCommentsData(inputPostId)
 
-        binding.commentBtn.setOnClickListener(){
+        binding.post.setOnClickListener(){
 
             commentDetails = binding.inputComment.text.toString().trim()
             addComment(inputPostId,commentDetails)

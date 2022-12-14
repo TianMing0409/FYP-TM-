@@ -107,16 +107,14 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
 
                 }
             }else{
-
+                bookmarks.removeAt(position)
+                notifyItemRemoved(position)
                 //Remove Bookmark
                 db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
                 db.child(userUId)
                     .child(currentItem.postID).removeValue().addOnSuccessListener {
 
-                        bookmarks.removeAt(position)
-                        notifyItemRemoved(position)
-                        notifyItemRangeChanged(position,bookmarks.size)
                         Toast.makeText(holder.itemView.context, "Removed from bookmark!", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener{
 

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.adapter.GoalRecyclerAdapter
 import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
+import com.example.moodmonitoringapp.data.Bookmarks
 import com.example.moodmonitoringapp.data.Goals
 import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCommunityBinding
@@ -24,7 +25,6 @@ import com.example.moodmonitoringapp.fragments.goals.dashboard.DashBoardFragment
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.util.ArrayList
 
 class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
 

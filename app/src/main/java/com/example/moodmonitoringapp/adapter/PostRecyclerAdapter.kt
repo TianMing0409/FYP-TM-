@@ -111,6 +111,7 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
                 }
             }else{
 
+
                 //Remove Bookmark
                 db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
@@ -133,22 +134,22 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
         db.child(userUId).child(postId).addValueEventListener(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    isBookmark = snapshot.exists()
-                    if(isBookmark){
-                        bookmarkIcon.setImageResource(R.drawable.bookmarked_24)
-                        bookmarkIcon.setTag("Bookmarked")
-                    }else{
-                        bookmarkIcon.setImageResource(R.drawable.bookmark_border_24)
-                        bookmarkIcon.setTag("No Bookmark")
-                    }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                isBookmark = snapshot.exists()
+                if(isBookmark){
+                    bookmarkIcon.setImageResource(R.drawable.bookmarked_24)
+                    bookmarkIcon.setTag("Bookmarked")
+                }else{
+                    bookmarkIcon.setImageResource(R.drawable.bookmark_border_24)
+                    bookmarkIcon.setTag("No Bookmark")
                 }
+            }
 
-                override fun onCancelled(error: DatabaseError){
+            override fun onCancelled(error: DatabaseError){
 
-                }
+            }
 
-            })
+        })
     }
 
 

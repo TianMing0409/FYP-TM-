@@ -36,13 +36,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/myBookmarkIcon"
-            android:layout_width="37dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="52dp"
-            android:layout_marginTop="4dp"
-            app:srcCompat="@drawable/bookmark_border_24" />
+<!--        <ImageView-->
+<!--            android:id="@+id/myBookmarkIcon"-->
+<!--            android:layout_width="37dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="52dp"-->
+<!--            android:layout_marginTop="4dp"-->
+<!--            app:srcCompat="@drawable/bookmark_border_24" />-->
     </LinearLayout>
 
     <TextView

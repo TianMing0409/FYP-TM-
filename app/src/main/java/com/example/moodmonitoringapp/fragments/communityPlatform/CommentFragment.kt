@@ -1,24 +1,19 @@
 package com.example.moodmonitoringapp.fragments.communityPlatform
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.adapter.CommentAdapter
-import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
 import com.example.moodmonitoringapp.data.Comments
-import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCommentBinding
-import com.example.moodmonitoringapp.databinding.FragmentCommunityBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
-import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,9 +21,9 @@ class CommentFragment : Fragment() {
 
     private lateinit var binding : FragmentCommentBinding
 
-
     private lateinit var db : DatabaseReference
     private lateinit var db2 : DatabaseReference
+    private lateinit var db3 : DatabaseReference
     private lateinit var userRecyclerView : RecyclerView
     private lateinit var userArrayList : ArrayList<Comments>
     private lateinit var auth : FirebaseAuth
@@ -54,6 +49,22 @@ class CommentFragment : Fragment() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_comment, container, false)
         binding = FragmentCommentBinding.inflate(inflater,container,false)
+
+//        activity?.findViewById<View>(R.id.bottom_navigation)?.isGone = true
+
+//        (TestActivity()).window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) // Maybe will use when combine
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        activity?.window?.decorView?.setOnApplyWindowInsetsListener { view, insets ->
+            val insetsCompat = toWindowInsetsCompat(insets, view)
+            val isImeVisible = insetsCompat.isVisible(WindowInsetsCompat.Type.ime())
+            // below line, do the necessary stuff:
+//            binding.bottom.visibility =  if (isImeVisible) View.GONE else View.VISIBLE
+            activity?.findViewById<View>(R.id.bottom_navigation)?.visibility  = if (isImeVisible) View.GONE else View.VISIBLE
+            view.onApplyWindowInsets(insets)
+        }
+
+
+
 
         auth = FirebaseAuth.getInstance()
         tempUId = auth.uid.toString()
@@ -87,10 +98,18 @@ class CommentFragment : Fragment() {
 
         getCommentsData(inputPostId)
 
+        binding.backBtn.setOnClickListener(){
+             this.parentFragmentManager.popBackStack()
+        }
+
         binding.post.setOnClickListener(){
 
             commentDetails = binding.inputComment.text.toString().trim()
-            addComment(inputPostId,commentDetails)
+            db3 = FirebaseDatabase.getInstance().getReference("Users")
+            db3.child(userUId).get().addOnSuccessListener {
+                val username = it.child("username").value.toString()
+                addComment(inputPostId,commentDetails,username)
+            }
             updateCommentCount(inputPostId,inputPostCommentCount)
             Toast.makeText(context, "Comment Successfully!", Toast.LENGTH_SHORT).show()
 
@@ -99,6 +118,11 @@ class CommentFragment : Fragment() {
         return binding.root
 
     }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        originalMode?.let { activity?.window?.setSoftInputMode(it) }
+//    }
 
     private fun getCommentsData(postId : String){
 
@@ -143,17 +167,15 @@ class CommentFragment : Fragment() {
 
     }
 
-    private fun addComment(postId : String, commentDetails: String){
+    private fun addComment(postId : String, commentDetails: String,commenterUsername : String){
         val commentID = "C" + (0..10000).random()
 
         val c: Calendar = Calendar.getInstance()
         val sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         dt = sdf.format(c.time);
         val commentDate = dt
-        val commentUsername = "Hardcoded commenter 1"                 //Need to get the username from user in real case
 
-
-        val comments = Comments(commentID, commentUsername, commentDate, commentDetails, postId)
+        val comments = Comments(commentID, commenterUsername, commentDate, commentDetails, postId)
         db.child(postId).child("Comments").child(commentID).setValue(comments).addOnSuccessListener {
             binding.inputComment.text.clear()
         }.addOnFailureListener{
@@ -162,3 +184,4 @@ class CommentFragment : Fragment() {
     }
 
 }
+

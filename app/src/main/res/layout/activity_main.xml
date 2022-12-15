@@ -1,62 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottomAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="10dp"
-        app:fabCradleVerticalOffset="0dp">
-
-    </com.google.android.material.bottomappbar.BottomAppBar>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchor="@+id/constraintLayout"
-        app:layout_anchorGravity="center">
+        android:layout_above="@+id/bottom">
 
-        <!-- Action name text for the add alarm button -->
-        <!-- Make sure that you are constraining this Text to
-             the add Alarm FAB button -->
+    </FrameLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:itemIconTint="#000000"
-            app:itemTextColor="#000000"
-            app:labelVisibilityMode="labeled"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/menu"
-            app:itemBackground="@drawable/nav_bar"
-            android:layout_gravity="bottom"/>
-<!--            app:itemBackground="@drawable/nav_bar"/>-->
-<!--        app:backgroundTint="#00c3ff"-->
+            android:layout_alignParentBottom="true">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:itemBackground="@drawable/nav_bar"
+                app:itemIconTint="#000000"
+                app:itemTextColor="#000000"
+                app:labelVisibilityMode="labeled"
+                app:menu="@menu/menu"/>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        </FrameLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
-import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
-import com.example.moodmonitoringapp.data.Moods
 import com.example.moodmonitoringapp.databinding.FragmentStatsBinding
 import com.github.mikephil.charting.charts.ScatterChart
 import com.github.mikephil.charting.components.Legend

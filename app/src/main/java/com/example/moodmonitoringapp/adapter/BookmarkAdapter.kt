@@ -2,6 +2,7 @@ package com.example.moodmonitoringapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -36,6 +37,7 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
         val commentCount : TextView = itemView.findViewById(R.id.commentCount)
         val commentIcon : ImageView = itemView.findViewById(R.id.commentIcon)
         var postImage: ImageView = itemView.findViewById(R.id.postImage)
+
 
         init {
             itemView.setOnClickListener(this)
@@ -81,6 +83,10 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
         holder.postDetails.text = currentItem.postDetails
         holder.commentCount.setText(currentItem.commentCount.toString()+" comments")
 
+//        if(bookmarks.size == 0){
+//            holder.itemView.visibility = GONE
+//        }
+
         if(currentItem.imageUrl.toString() == ""){
             holder.postImage.setImageBitmap(null)
             holder.postImage.isGone = true
@@ -107,22 +113,24 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
 
                 }
             }else{
+
                 bookmarks.removeAt(position)
                 notifyItemRemoved(position)
 
+//                notifyItemRangeChanged(position,bookmarks.size)
                 //Remove Bookmark
                 db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
                 db.child(userUId)
                     .child(currentItem.postID).removeValue().addOnSuccessListener {
 
+                        notifyDataSetChanged()
                         Toast.makeText(holder.itemView.context, "Removed from bookmark!", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener{
 
                     }
             }
         }
-
     }
 
     override fun getItemCount(): Int {

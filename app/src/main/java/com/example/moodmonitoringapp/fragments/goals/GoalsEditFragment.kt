@@ -105,6 +105,7 @@ class GoalsEditFragment : Fragment() {
 
         btnDelete.setOnClickListener(){
             deleteGoal(inputGoalId,inputGoalTitle,inputGoalStatus,inputGoalTargetDate)
+            deleteExpiredGoal(inputGoalId)
         }
 
         return binding.root

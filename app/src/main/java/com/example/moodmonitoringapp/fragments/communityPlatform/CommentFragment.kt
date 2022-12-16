@@ -108,11 +108,14 @@ class CommentFragment : Fragment() {
             db3 = FirebaseDatabase.getInstance().getReference("Users")
             db3.child(userUId).get().addOnSuccessListener {
                 val username = it.child("username").value.toString()
-                addComment(inputPostId,commentDetails,username)
+                if(commentDetails.isEmpty()) {
+                    Toast.makeText(context, "Comment cannot be empty...", Toast.LENGTH_SHORT).show()
+                }else{
+                    addComment(inputPostId, commentDetails, username)
+                    updateCommentCount(inputPostId,inputPostCommentCount)
+                    Toast.makeText(context, "Comment Successfully!", Toast.LENGTH_SHORT).show()
+                }
             }
-            updateCommentCount(inputPostId,inputPostCommentCount)
-            Toast.makeText(context, "Comment Successfully!", Toast.LENGTH_SHORT).show()
-
         }
 
         return binding.root

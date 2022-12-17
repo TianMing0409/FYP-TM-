@@ -32,8 +32,10 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
     private lateinit var binding : FragmentCommunityBinding
 
     private lateinit var db : DatabaseReference
+    private lateinit var db2 : DatabaseReference
     private lateinit var userRecyclerView : RecyclerView
     private lateinit var userArrayList : ArrayList<Posts>
+    private lateinit var bookmarkArrayList : ArrayList<Bookmarks>
     private lateinit var auth : FirebaseAuth
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
@@ -59,11 +61,13 @@ class CommunityFragment : Fragment(R.layout.fragment_community), PassCommData {
         tempUId = auth.uid.toString()
         //userUId = tempUId              //Need to uncomment this in real work, because this is to get that signed in user id
         db = FirebaseDatabase.getInstance().getReference("Posts")
+        db2 = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
         userRecyclerView = binding.postRecyclerView
         userRecyclerView.layoutManager = LinearLayoutManager(context)
 
         userArrayList = arrayListOf<Posts>()
+        bookmarkArrayList = arrayListOf<Bookmarks>()
 
         getPostsData()
 

@@ -36,10 +36,10 @@ class CreatePostFragment : Fragment() {
     private lateinit var binding : FragmentCreatePostBinding
 
     private lateinit var db : DatabaseReference
+    private lateinit var db2: DatabaseReference
     private lateinit var auth : FirebaseAuth
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
-    private var username = "Hardcoded"                      //Hardcoded username, need to clear it when real work
 
     //uri of picked image
     private var imageUri: Uri? = null
@@ -85,22 +85,21 @@ class CreatePostFragment : Fragment() {
 
         postDetails = binding.inputPost.text.toString().trim()
 
-        if(postDetails.isEmpty()){
-            Toast.makeText(context, "Enter post details...", Toast.LENGTH_SHORT).show()
-        }
-        else{
-            //uploadPost(postDetails,username)
-//            if(imageUrl.isEmpty()){
-//                binding.uploadPhoto.setImageURI(null)
-//            }
-            if(imageUri == null){
-                uploadPostWithoutImage(postDetails,username,userUId)
-            }else{
-                uploadPost(postDetails,username,userUId)
-            }
+        db2 = FirebaseDatabase.getInstance().getReference("Users")
+        db2.child(userUId).get().addOnSuccessListener {
+            val username = it.child("username").value.toString()
 
-            Toast.makeText(context, "Share Successfully!", Toast.LENGTH_SHORT).show()
-            replaceFragment(CommunityDashboardFragment())   // Need to change replace community dashboard fragment
+            if (postDetails.isEmpty()) {
+                Toast.makeText(context, "Enter post details...", Toast.LENGTH_SHORT).show()
+            } else {
+                if (imageUri == null) {
+                    uploadPostWithoutImage(postDetails, username, userUId)
+                } else {
+                    uploadPost(postDetails, username, userUId)
+                }
+                Toast.makeText(context, "Share Successfully!", Toast.LENGTH_SHORT).show()
+                replaceFragment(CommunityDashboardFragment())   // Need to change replace community dashboard fragment
+            }
         }
     }
 

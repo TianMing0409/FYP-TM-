@@ -1,7 +1,11 @@
 package com.example.moodmonitoringapp.adapter
 
+import android.content.ContentValues
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -20,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
-class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val listener: PassCommData) :
+class PostRecyclerAdapter (private val posts: ArrayList<Posts>,private val listener: PassCommData) :
     RecyclerView.Adapter<PostRecyclerAdapter.ViewHolder>(){
 
     private lateinit var db : DatabaseReference
@@ -28,8 +32,7 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
     private var isBookmark = false
-//    private lateinit var bookmarks : ArrayList<Bookmarks>
-
+//    private lateinit var bookmarkArrayList : ArrayList<Bookmarks>
 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -47,11 +50,12 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
         }
 
         override fun onClick(v: View?) {
+
             commentIcon.setOnClickListener() {
 
                 val position = adapterPosition
                 val itemId = posts[adapterPosition].postID
-                val itemtUsername = posts[adapterPosition].postUsername
+                val itemUsername = posts[adapterPosition].postUsername
                 val itemDate = posts[adapterPosition].postDate
                 val itemDetails = posts[adapterPosition].postDetails
                 val itemCommentCount = posts[adapterPosition].commentCount
@@ -61,7 +65,7 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
                     listener.passCommData(
                         position,
                         itemId,
-                        itemtUsername,
+                        itemUsername,
                         itemDate,
                         itemDetails,
                         itemCommentCount,
@@ -112,18 +116,12 @@ class PostRecyclerAdapter (private val posts: ArrayList<Posts>, private val list
                 }
             }else{
 
-//                bookmarks= arrayListOf<Bookmarks>()
-//                bookmarks.removeAt(position)
-//                notifyItemRemoved(position)
-//                BookmarkAdapter(bookmarks,listener).notifyItemRemoved(position)
-
                 //Remove Bookmark
                 db = FirebaseDatabase.getInstance().getReference("Bookmarks")
 
                 db.child(userUId)
                     .child(currentItem.postID).removeValue().addOnSuccessListener {
                         Toast.makeText(holder.itemView.context, "Removed from bookmark!", Toast.LENGTH_SHORT).show()
-
                     }.addOnFailureListener{
 
                     }

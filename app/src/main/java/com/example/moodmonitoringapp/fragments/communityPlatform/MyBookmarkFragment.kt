@@ -27,6 +27,7 @@ class MyBookmarkFragment : Fragment(R.layout.fragment_my_bookmark), PassCommData
 
     private lateinit var db : DatabaseReference
     private lateinit var userRecyclerView : RecyclerView
+//    private lateinit var bookmarkArrayList : ArrayList<Bookmarks>
     private lateinit var bookmarkArrayList : ArrayList<Bookmarks>
     private lateinit var auth : FirebaseAuth
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
@@ -69,7 +70,6 @@ class MyBookmarkFragment : Fragment(R.layout.fragment_my_bookmark), PassCommData
                     }
                     userRecyclerView.adapter = BookmarkAdapter(bookmarkArrayList,this@MyBookmarkFragment)
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -78,6 +78,7 @@ class MyBookmarkFragment : Fragment(R.layout.fragment_my_bookmark), PassCommData
 
         })
     }
+
 
     override fun passCommData(position: Int, postID: String, postUsername: String, postDate: String, postDetails: String
                               , commentCount: Int, imageUrl : String, postUserID : String)

@@ -1,7 +1,11 @@
 package com.example.moodmonitoringapp.fragments.communityPlatform
 
+import android.content.ContentValues.TAG
+import android.media.Image
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.core.view.WindowInsetsCompat
@@ -10,7 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moodmonitoringapp.R
 import com.example.moodmonitoringapp.adapter.CommentAdapter
+import com.example.moodmonitoringapp.adapter.PostRecyclerAdapter
+import com.example.moodmonitoringapp.data.Bookmarks
 import com.example.moodmonitoringapp.data.Comments
+import com.example.moodmonitoringapp.data.Posts
 import com.example.moodmonitoringapp.databinding.FragmentCommentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -57,7 +64,6 @@ class CommentFragment : Fragment() {
         activity?.window?.decorView?.setOnApplyWindowInsetsListener { view, insets ->
             val insetsCompat = toWindowInsetsCompat(insets, view)
             val isImeVisible = insetsCompat.isVisible(WindowInsetsCompat.Type.ime())
-            // below line, do the necessary stuff:
 //            binding.bottom.visibility =  if (isImeVisible) View.GONE else View.VISIBLE
             activity?.findViewById<View>(R.id.bottom_navigation)?.visibility  = if (isImeVisible) View.GONE else View.VISIBLE
             view.onApplyWindowInsets(insets)
@@ -79,16 +85,6 @@ class CommentFragment : Fragment() {
         inputPostContent = arguments?.getString("input_post_details").toString()
         inputPostImage = arguments?.getString("input_post_image").toString()
         inputPostCommentCount = arguments?.getInt("input_comment_count")!!.toInt()
-
-//        binding.postUsername?.text = inputPostUsername
-//        binding.postDate?.text = inputPostDate
-//        binding.postContent?.text = inputPostContent
-//        if(inputPostImage == ""){
-//            binding.postImg.setImageBitmap(null)
-//        }else{
-//            Picasso.get().load(inputPostImage).into(binding.postImg)
-//        }
-
 
 
         userRecyclerView = binding.commentRecyclerView
@@ -113,13 +109,12 @@ class CommentFragment : Fragment() {
                 }else{
                     addComment(inputPostId, commentDetails, username)
                     updateCommentCount(inputPostId,inputPostCommentCount)
+                    updateBookmarkCommentCount(inputPostId,inputPostCommentCount)
                     Toast.makeText(context, "Comment Successfully!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
         return binding.root
-
     }
 
 //    override fun onDestroy() {
@@ -139,8 +134,6 @@ class CommentFragment : Fragment() {
                     for(commentSnapshot in snapshot.children){
                         val comments = commentSnapshot.getValue(Comments::class.java)
                         userArrayList.add(comments!!)
-//                        val postId = commentSnapshot.child("postId").value
-//                        userArrayList.add(postId)
                     }
                     userRecyclerView.adapter = CommentAdapter(userArrayList)
                 }
@@ -159,15 +152,22 @@ class CommentFragment : Fragment() {
         }.addOnFailureListener{
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun updateBookmarkCommentCount(postId : String, commentCount : Int){
 
         //Update bookmark comment count
         db2 = FirebaseDatabase.getInstance().getReference("Bookmarks")
-        db2.child(userUId).child(postId).child("commentCount").setValue(commentCount+1).addOnSuccessListener {
-            binding.inputComment.text.clear()
-        }.addOnFailureListener{
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+        db2.child(userUId).child(postId).get().addOnSuccessListener {
+            if(it.child("commentCount").exists()) {
+                db2.child(userUId).child(postId).child("commentCount").setValue(commentCount + 1)
+                    .addOnSuccessListener {
+                        binding.inputComment.text.clear()
+                    }.addOnFailureListener {
+                        Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
-
     }
 
     private fun addComment(postId : String, commentDetails: String,commenterUsername : String){

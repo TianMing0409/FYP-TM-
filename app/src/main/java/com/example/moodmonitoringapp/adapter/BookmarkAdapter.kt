@@ -27,6 +27,7 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
     private var userUId = "eEnewVtfJXfmjAMvkr5ESfJzjUo2"         // Hardcoded user ID, need to clear it when real work
     var tempUId = ""
     private var isBookmark = false
+    private lateinit var db2 : DatabaseReference
 
 
 
@@ -82,7 +83,17 @@ class  BookmarkAdapter (private val bookmarks: ArrayList<Bookmarks>, private val
         holder.username.text = currentItem.postUsername
         holder.postDate.text = currentItem.postDate
         holder.postDetails.text = currentItem.postDetails
-        holder.commentCount.setText(currentItem.commentCount.toString()+" comments")
+        holder.commentCount.setText(currentItem.commentCount.toString() + " comments")
+
+//        //Read bookmark comment count
+//        db2 = FirebaseDatabase.getInstance().getReference("Posts")
+//        db2.child(currentItem.postID).get().addOnSuccessListener {
+//            val commentCount = it.child("commentCount").value.toString()
+//            holder.commentCount.setText(commentCount + " comments")
+//
+//        }.addOnFailureListener{
+//
+//        }
 
 
         if(currentItem.imageUrl.toString() == ""){
